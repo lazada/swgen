@@ -1,0 +1,20 @@
+language: go
+
+go:
+  - 1.6.x
+  - 1.7.x
+  - 1.8.x
+  - tip
+
+before_install:
+  - go get github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/golang/lint/golint
+
+install:
+  - go get -t -v ./...
+
+script:
+  - $HOME/gopath/bin/golint -set_exit_status .
+  - go test -v -cover -race -coverprofile coverage.out
+  - $HOME/gopath/bin/goveralls -coverprofile coverage.out -service travis-ci
