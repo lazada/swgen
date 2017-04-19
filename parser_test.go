@@ -237,13 +237,13 @@ func BenchmarkSetPathItem(b *testing.B) {
 	h := &testHandler{}
 
 	infos := []PathItemInfo{
-		PathItemInfo{
+		{
 			Path:        "/v1/test/handler",
 			Title:       "TestHandler",
 			Description: "This is just a test handler with GET request",
 			Method:      "GET",
 		},
-		PathItemInfo{
+		{
 			Path:        "/v1/test/handler",
 			Title:       "TestHandler",
 			Description: "This is just a test handler with POST reqest",

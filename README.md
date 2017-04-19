@@ -1,5 +1,9 @@
 # Swagger Generator (swgen)
 
+[![Build Status](https://travis-ci.org/lazada/swgen.svg?branch=master)](https://travis-ci.org/lazada/swgen)
+[![Coverage Status](https://coveralls.io/repos/github/lazada/swgen/badge.svg?branch=master)](https://coveralls.io/github/lazada/swgen?branch=master)
+[![GoDoc](https://godoc.org/github.com/lazada/swgen?status.svg)](https://godoc.org/github.com/lazada/swgen)
+
 Swagger Generator is a library which helps to generate [Swagger Specification](http://swagger.io/specification/) in JSON format on-the-fly.
 
 ## Installation
