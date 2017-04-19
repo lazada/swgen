@@ -362,9 +362,11 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	case reflect.String:
 		smObj = g.genSchemaForCommonName("string")
 	case reflect.Array, reflect.Slice:
-		smObj.Type = "array"
-		itemSchema := g.genSchemaForType(fType.Elem())
-		smObj.Items = &itemSchema
+		if (fType.String() != "json.RawMessage") {
+			smObj.Type = "array"
+			itemSchema := g.genSchemaForType(fType.Elem())
+			smObj.Items = &itemSchema
+		}
 	case reflect.Map:
 		smObj.Type = "object"
 		itemSchema := g.genSchemaForType(fType.Elem())
