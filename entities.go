@@ -18,13 +18,13 @@ const (
 // Document represent for a document object of swagger data
 // see http://swagger.io/specification/
 type Document struct {
-	Version     string               `json:"swagger"`     // Specifies the Swagger Specification version being used
-	Info        InfoObj              `json:"info"`        // Provides metadata about the API
-	Host        string               `json:"host"`        // The host (name or ip) serving the API
-	BasePath    string               `json:"basePath"`    // The base path on which the API is served, which is relative to the host
-	Schemes     []string             `json:"schemes"`     // Values MUST be from the list: "http", "https", "ws", "wss"
-	Paths       map[string]PathItem  `json:"paths"`       // The available paths and operations for the API
-	Definitions map[string]SchemaObj `json:"definitions"` // An object to hold data types produced and consumed by operations
+	Version     string               `json:"swagger"`        // Specifies the Swagger Specification version being used
+	Info        InfoObj              `json:"info"`           // Provides metadata about the API
+	Host        string               `json:"host,omitempty"` // The host (name or ip) serving the API
+	BasePath    string               `json:"basePath"`       // The base path on which the API is served, which is relative to the host
+	Schemes     []string             `json:"schemes"`        // Values MUST be from the list: "http", "https", "ws", "wss"
+	Paths       map[string]PathItem  `json:"paths"`          // The available paths and operations for the API
+	Definitions map[string]SchemaObj `json:"definitions"`    // An object to hold data types produced and consumed by operations
 	additionalData
 }
 
