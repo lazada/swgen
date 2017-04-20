@@ -176,6 +176,11 @@ type NullTypes struct {
 	Timestamp NullTimestamp `json:"null_timestamp"`
 }
 
+type Unknown struct {
+	Anything interface{}      `json:"anything"`
+	Whatever *json.RawMessage `json:"whatever"`
+}
+
 var _ IDefinition = definitionExample{}
 
 type definitionExample struct{}
@@ -261,10 +266,17 @@ func TestREST(t *testing.T) {
 	gen.SetPathItem(createPathItemInfo("/V1/primitiveTypes4", "POST", "testPrimitives", "test Primitives", "v1", false), emptyInterface, int64(10), "")
 
 	gen.SetPathItem(createPathItemInfo("/V1/defaeults1", "GET", "default", "test defaults", "v1", false), emptyInterface, emptyInterface, testDefaults{})
+	gen.SetPathItem(createPathItemInfo("/V1/unknown", "POST", "test unknown types", "test unknown types", "v1", false), emptyInterface, Unknown{}, Unknown{})
 
 	bytes, err := gen.GenDocument()
 	if err != nil {
 		t.Fatalf("can not generate document: %s", err.Error())
+	}
+
+	fp, err := os.OpenFile("test_REST_last_run.json", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, os.ModePerm)
+	if err == nil {
+		defer fp.Close()
+		_, err = fp.Write(bytes)
 	}
 
 	//println("\n", string(bytes), "\n", "\n", "\n")

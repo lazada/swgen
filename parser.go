@@ -16,6 +16,8 @@ const (
 	refDefinitionPrefix = "#/definitions/"
 )
 
+var jsonRawMsgType = reflect.TypeOf((*json.RawMessage)(nil)).Elem()
+
 func (g *Generator) addDefinition(name string, def SchemaObj) {
 	g.defMux.Lock()
 	defer g.defMux.Unlock()
@@ -362,9 +364,11 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	case reflect.String:
 		smObj = g.genSchemaForCommonName("string")
 	case reflect.Array, reflect.Slice:
-		smObj.Type = "array"
-		itemSchema := g.genSchemaForType(fType.Elem())
-		smObj.Items = &itemSchema
+		if fType != jsonRawMsgType {
+			smObj.Type = "array"
+			itemSchema := g.genSchemaForType(fType.Elem())
+			smObj.Items = &itemSchema
+		}
 	case reflect.Map:
 		smObj.Type = "object"
 		itemSchema := g.genSchemaForType(fType.Elem())
