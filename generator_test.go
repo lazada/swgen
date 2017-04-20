@@ -177,7 +177,7 @@ type NullTypes struct {
 }
 
 type Unknown struct {
-	Anything interface{} `json:"anything"`
+	Anything interface{}      `json:"anything"`
 	Whatever *json.RawMessage `json:"whatever"`
 }
 
