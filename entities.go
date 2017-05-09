@@ -76,19 +76,19 @@ type PathItem struct {
 func (pi PathItem) HasMethod(method string) bool {
 	switch strings.ToUpper(method) {
 	case "GET":
-		return (pi.Get != nil)
+		return pi.Get != nil
 	case "POST":
-		return (pi.Post != nil)
+		return pi.Post != nil
 	case "PUT":
-		return (pi.Put != nil)
+		return pi.Put != nil
 	case "DELETE":
-		return (pi.Delete != nil)
+		return pi.Delete != nil
 	case "OPTIONS":
-		return (pi.Options != nil)
+		return pi.Options != nil
 	case "HEAD":
-		return (pi.Head != nil)
+		return pi.Head != nil
 	case "PATCH":
-		return (pi.Patch != nil)
+		return pi.Patch != nil
 	}
 
 	return false

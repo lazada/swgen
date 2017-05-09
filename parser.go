@@ -16,7 +16,11 @@ const (
 	refDefinitionPrefix = "#/definitions/"
 )
 
-var jsonRawMsgType = reflect.TypeOf((*json.RawMessage)(nil)).Elem()
+var (
+	typeOfJsonRawMsg      = reflect.TypeOf((*json.RawMessage)(nil)).Elem()
+	typeOfTime            = reflect.TypeOf((*time.Time)(nil)).Elem()
+	typeOfTextUnmarshaler = reflect.TypeOf((*encoding.TextUnmarshaler)(nil)).Elem()
+)
 
 func (g *Generator) addDefinition(name string, def SchemaObj) {
 	g.defMux.Lock()
@@ -214,7 +218,6 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type) map[string]SchemaO
 
 	for i := 0; i < t.NumField(); i = i + 1 {
 		field := t.Field(i)
-		// fieldVal := stcVal.FieldByName(field.Name)
 
 		// we can't access the value of un-exportable field
 		if field.PkgPath != "" {
@@ -344,7 +347,6 @@ func (g *Generator) genSchemaForCommonName(commonName string) SchemaObj {
 }
 
 func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
-
 	for fType.Kind() == reflect.Ptr {
 		fType = fType.Elem()
 	}
@@ -364,7 +366,7 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	case reflect.String:
 		smObj = g.genSchemaForCommonName("string")
 	case reflect.Array, reflect.Slice:
-		if fType != jsonRawMsgType {
+		if fType != typeOfJsonRawMsg {
 			smObj.Type = "array"
 			itemSchema := g.genSchemaForType(fType.Elem())
 			smObj.Items = &itemSchema
@@ -374,15 +376,14 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 		itemSchema := g.genSchemaForType(fType.Elem())
 		smObj.AdditionalProperties = &itemSchema
 	case reflect.Struct:
-		var textUnmarshaler encoding.TextUnmarshaler
-		if fType == reflect.TypeOf(time.Time{}) {
+		switch {
+		case fType == typeOfTime:
 			smObj = g.genSchemaForCommonName("dateTime")
-		} else if reflect.PtrTo(fType).Implements(reflect.TypeOf(&textUnmarshaler).Elem()) {
+		case reflect.PtrTo(fType).Implements(typeOfTextUnmarshaler):
 			smObj.Type = "string"
-		} else {
+		default:
 			name := fType.Name()
 			smObj.Ref = refDefinitionPrefix + name
-
 			if !g.defExists(name) || !g.defInQueue(name) {
 				stcInterface := reflect.Zero(fType).Interface()
 				g.addToDefQueue(name, stcInterface)
