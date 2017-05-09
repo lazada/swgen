@@ -17,7 +17,7 @@ const (
 )
 
 var (
-	typeOfJsonRawMsg      = reflect.TypeOf((*json.RawMessage)(nil)).Elem()
+	typeOfJSONRawMsg      = reflect.TypeOf((*json.RawMessage)(nil)).Elem()
 	typeOfTime            = reflect.TypeOf((*time.Time)(nil)).Elem()
 	typeOfTextUnmarshaler = reflect.TypeOf((*encoding.TextUnmarshaler)(nil)).Elem()
 )
@@ -366,7 +366,7 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	case reflect.String:
 		smObj = g.genSchemaForCommonName("string")
 	case reflect.Array, reflect.Slice:
-		if fType != typeOfJsonRawMsg {
+		if fType != typeOfJSONRawMsg {
 			smObj.Type = "array"
 			itemSchema := g.genSchemaForType(fType.Elem())
 			smObj.Items = &itemSchema
