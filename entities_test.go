@@ -20,12 +20,12 @@ func TestPathItemHasMethod(t *testing.T) {
 
 func assertTrue(v bool, t *testing.T) {
 	if v != true {
-		t.Fatalf("value must return true")
+		t.Fatal("value must return true")
 	}
 }
 
 func assertFalse(v bool, t *testing.T) {
 	if v != false {
-		t.Fatalf("value must return false")
+		t.Fatal("value must return false")
 	}
 }

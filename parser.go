@@ -268,23 +268,14 @@ func (g *Generator) caseDefaultValue(t reflect.Type, defaultValue string) (inter
 	kind := t.Kind()
 
 	switch kind {
-	case reflect.Int:
-	case reflect.Int8:
-	case reflect.Int16:
-	case reflect.Int32:
-	case reflect.Int64:
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		return strconv.ParseInt(defaultValue, 10, 64)
-	case reflect.Uint:
-	case reflect.Uint8:
-	case reflect.Uint16:
-	case reflect.Uint32:
-	case reflect.Uint64:
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		return strconv.ParseUint(defaultValue, 10, 64)
+	case reflect.Float32, reflect.Float64:
+		return strconv.ParseFloat(defaultValue, 64)
 	case reflect.String:
 		return defaultValue, nil
-	case reflect.Float32:
-	case reflect.Float64:
-		return strconv.ParseFloat(defaultValue, 64)
 	case reflect.Bool:
 		return strconv.ParseBool(defaultValue)
 	default:
