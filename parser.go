@@ -279,8 +279,6 @@ func (g *Generator) caseDefaultValue(t reflect.Type, defaultValue string) (inter
 		}
 		return reflect.Indirect(reflect.ValueOf(instance)).Interface(), nil
 	}
-
-	return nil, nil
 }
 
 // ParseDefinition create a DefObj from input object, it should be a pointer to a struct,
