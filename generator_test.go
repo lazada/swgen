@@ -150,12 +150,60 @@ type mixedStructWithEnumer struct {
 type sliceType []testSimpleStruct
 
 type NullFloat64 struct{}
+
+func (NullFloat64) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullFloat64"
+	typeDef = SchemaFromCommonName(CommonNameFloat)
+	return
+}
+
 type NullBool struct{}
+
+func (NullBool) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullBool"
+	typeDef = SchemaFromCommonName(CommonNameBoolean)
+	return
+}
+
 type NullString struct{}
+
+func (NullString) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullString"
+	typeDef = SchemaFromCommonName(CommonNameString)
+	return
+}
+
 type NullInt64 struct{}
+
+func (NullInt64) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullInt64"
+	typeDef = SchemaFromCommonName(CommonNameLong)
+	return
+}
+
 type NullDateTime struct{}
+
+func (NullDateTime) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullDateTime"
+	typeDef = SchemaFromCommonName(CommonNameDateTime)
+	return
+}
+
 type NullDate struct{}
+
+func (NullDate) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullDate"
+	typeDef = SchemaFromCommonName(CommonNameDate)
+	return
+}
+
 type NullTimestamp struct{}
+
+func (NullTimestamp) SwgenDefinition() (typeName string, typeDef SchemaObj, err error) {
+	typeName = "NullTimestamp"
+	typeDef = SchemaFromCommonName(CommonNameLong)
+	return
+}
 
 type testDefaults struct {
 	Field1 int            `json:"field1" default:"25"`

@@ -188,35 +188,6 @@ type SchemaObj struct {
 	TypeName             string               `json:"-"`                              // for internal using, passing typeName
 }
 
-// IParameter allows to return custom parameters
-type IParameter interface {
-	SwgenParameter() (name string, params []ParamObj, err error)
-}
-
-// IDefinition allows to return custom definitions
-type IDefinition interface {
-	SwgenDefinition() (typeName string, typeDef SchemaObj, err error)
-}
-
-type swGenTypeFormat struct {
-	Type   string
-	Format string
-}
-
-var swGenCommonNamesMap = map[string]swGenTypeFormat{
-	"integer":  {"integer", "int32"},
-	"long":     {"integer", "int64"},
-	"float":    {"number", "float"},
-	"double":   {"number", "double"},
-	"string":   {"string", ""},
-	"byte":     {"string", "byte"},
-	"binary":   {"string", "binary"},
-	"boolean":  {"boolean", ""},
-	"date":     {"string", "date"},
-	"dateTime": {"string", "date-time"},
-	"password": {"string", "password"},
-}
-
 type additionalData struct {
 	data map[string]interface{}
 }
