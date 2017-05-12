@@ -22,6 +22,16 @@ var (
 	typeOfTextUnmarshaler = reflect.TypeOf((*encoding.TextUnmarshaler)(nil)).Elem()
 )
 
+// IParameter allows to return custom parameters
+type IParameter interface {
+	SwgenParameter() (name string, params []ParamObj, err error)
+}
+
+// IDefinition allows to return custom definitions
+type IDefinition interface {
+	SwgenDefinition() (typeName string, typeDef SchemaObj, err error)
+}
+
 func (g *Generator) addDefinition(name string, def SchemaObj) {
 	g.defMux.Lock()
 	defer g.defMux.Unlock()
@@ -192,23 +202,6 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 
 	defer g.parseDefInQueue()
 
-	switch typeName {
-	case "NullFloat64":
-		typeDef = g.genSchemaForCommonName("float")
-	case "NullBool":
-		typeDef = g.genSchemaForCommonName("boolean")
-	case "NullString":
-		typeDef = g.genSchemaForCommonName("string")
-	case "NullInt64":
-		typeDef = g.genSchemaForCommonName("long")
-	case "NullDateTime":
-		typeDef = g.genSchemaForCommonName("dateTime")
-	case "NullDate":
-		typeDef = g.genSchemaForCommonName("date")
-	case "NullTimestamp":
-		typeDef = g.genSchemaForCommonName("long")
-	}
-
 	g.addDefinition(typeName, typeDef)
 	return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
 }
@@ -239,10 +232,12 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type) map[string]SchemaO
 		}
 
 		propName := strings.Split(tag, ",")[0]
-		var obj SchemaObj
+		var (
+			obj SchemaObj
+		)
 
-		if swGenType := field.Tag.Get("swgen_type"); swGenType != "" {
-			obj = g.genSchemaForCommonName(swGenType)
+		if dataType := field.Tag.Get("swgen_type"); dataType != "" {
+			obj = SchemaFromCommonName(commonName(dataType))
 		} else {
 			obj = g.genSchemaForType(field.Type)
 		}
@@ -254,7 +249,6 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type) map[string]SchemaO
 		}
 
 		properties[propName] = obj
-
 	}
 
 	return properties
@@ -322,19 +316,6 @@ func (g *Generator) parseDefInQueue() {
 	close(done)
 }
 
-// supported types: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
-func (g *Generator) genSchemaForCommonName(commonName string) SchemaObj {
-	data, ok := swGenCommonNamesMap[commonName]
-	if !ok {
-		panic(fmt.Sprintf("Unsupported common name: %s", commonName))
-	}
-
-	return SchemaObj{
-		Type:   data.Type,
-		Format: data.Format,
-	}
-}
-
 func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	for fType.Kind() == reflect.Ptr {
 		fType = fType.Elem()
@@ -343,17 +324,17 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	smObj := SchemaObj{}
 	switch fType.Kind() {
 	case reflect.Bool:
-		smObj = g.genSchemaForCommonName("boolean")
+		smObj = SchemaFromCommonName(CommonNameBoolean)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Uint, reflect.Uint8, reflect.Uint16:
-		smObj = g.genSchemaForCommonName("integer")
+		smObj = SchemaFromCommonName(CommonNameInteger)
 	case reflect.Int64, reflect.Uint32, reflect.Uint64:
-		smObj = g.genSchemaForCommonName("long")
+		smObj = SchemaFromCommonName(CommonNameLong)
 	case reflect.Float32:
-		smObj = g.genSchemaForCommonName("float")
+		smObj = SchemaFromCommonName(CommonNameFloat)
 	case reflect.Float64:
-		smObj = g.genSchemaForCommonName("double")
+		smObj = SchemaFromCommonName(CommonNameDouble)
 	case reflect.String:
-		smObj = g.genSchemaForCommonName("string")
+		smObj = SchemaFromCommonName(CommonNameString)
 	case reflect.Array, reflect.Slice:
 		if fType != typeOfJSONRawMsg {
 			smObj.Type = "array"
@@ -367,7 +348,7 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	case reflect.Struct:
 		switch {
 		case fType == typeOfTime:
-			smObj = g.genSchemaForCommonName("dateTime")
+			smObj = SchemaFromCommonName(CommonNameDateTime)
 		case reflect.PtrTo(fType).Implements(typeOfTextUnmarshaler):
 			smObj.Type = "string"
 		default:
@@ -465,7 +446,7 @@ func (g *Generator) ParseParameter(i interface{}) (name string, params []ParamOb
 
 		var schema SchemaObj
 		if swGenType := field.Tag.Get("swgen_type"); swGenType != "" {
-			schema = g.genSchemaForCommonName(swGenType)
+			schema = SchemaFromCommonName(commonName(swGenType))
 		} else {
 			if newInterface, ok := g.getTypeMapByString(field.Type.String()); ok {
 				schema = g.genSchemaForType(reflect.TypeOf(newInterface))
@@ -616,7 +597,6 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 }
 
 func (g *Generator) isSchemaObjectEmpty(obj SchemaObj) bool {
-
 	if obj.Ref != "" {
 		if def, ok := g.getDefinition(obj.TypeName); ok {
 			return g.isSchemaObjectEmpty(def)
@@ -625,7 +605,7 @@ func (g *Generator) isSchemaObjectEmpty(obj SchemaObj) bool {
 		}
 	}
 
-	if _, ok := swGenCommonNamesMap[obj.TypeName]; ok {
+	if _, ok := commonNamesMap[commonName(obj.TypeName)]; ok {
 		return false
 	}
 
