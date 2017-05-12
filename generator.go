@@ -14,8 +14,10 @@ var gen = NewGenerator()
 
 // Generator create swagger document
 type Generator struct {
-	doc  Document
-	host string // address of api in host:port format
+	doc              Document
+	host             string // address of api in host:port format
+	corsEnabled      bool   // allow cross-origin HTTP request
+	corsAllowHeaders []string
 
 	definitions map[string]SchemaObj // list of all definition objects
 	defMux      *sync.Mutex
@@ -49,7 +51,25 @@ func NewGenerator() *Generator {
 	g.doc.Version = "2.0"
 	g.doc.BasePath = "/"
 
+	// set default Access-Control-Allow-Headers of swagger.json
+	g.corsAllowHeaders = []string{"Content-Type", "api_key", "Authorization"}
+
 	return g
+}
+
+// EnableCORS enable HTTP handler support CORS
+func (g *Generator) EnableCORS(b bool, allowHeaders ...string) *Generator {
+	g.corsEnabled = b
+	if len(allowHeaders) != 0 {
+		g.corsAllowHeaders = append(g.corsAllowHeaders, allowHeaders...)
+	}
+
+	return g
+}
+
+// EnableCORS enable HTTP handler support CORS
+func EnableCORS(b bool, allowHeaders ...string) *Generator {
+	return gen.EnableCORS(b, allowHeaders...)
 }
 
 // SetHost set host info for swagger specification
@@ -225,6 +245,13 @@ func (g *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
+
+	if g.corsEnabled {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", strings.Join(g.corsAllowHeaders, ", "))
+	}
+
 	w.Write(data)
 }
 
