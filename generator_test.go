@@ -383,10 +383,11 @@ func TestGenDocumentFunc(t *testing.T) {
 	SetBasePath("/")
 	SetContact("Test Name", "test@email.com", "http://test.com")
 	SetLicense("MIT", "http://www.mit.com")
-	SetInfo("Test Stock API", "Generate stock api document", "term.com", "1.0.0")
+	SetInfo("Test API", "Generate api document", "term.com", "1.0.0")
 	SetType(ServiceTypeRest)
 	SetUppercaseVersion(false)
 	SetAttachVersionToHead(true)
+	EnableCORS(false)
 
 	info := PathItemInfo{
 		Path:        "/v1/test/handler",
@@ -428,4 +429,37 @@ func TestGenDocumentFunc(t *testing.T) {
 			t.Fatal("Path should be started by /v1")
 		}
 	}
+
+	assertTrue(w.Header().Get("Access-Control-Allow-Origin") == "", t)
+	assertTrue(w.Header().Get("Access-Control-Allow-Methods") == "", t)
+	assertTrue(w.Header().Get("Access-Control-Allow-Headers") == "", t)
+}
+
+func TestCORSSupport(t *testing.T) {
+	g := NewGenerator()
+	g.EnableCORS(true, "X-ABC-Test").
+		SetHost("localhost:1234")
+
+	info := PathItemInfo{
+		Path:        "/v1/test/handler",
+		Title:       "TestHandler",
+		Description: "This is just a test handler with GET request",
+		Method:      "GET",
+	}
+
+	if err := g.SetPathItem(info, nil, nil, nil); err != nil {
+		t.Fatalf("error %v", err)
+	}
+
+	w := httptest.NewRecorder()
+	r, err := http.NewRequest("GET", "http://localhost:1234/docs/swagger.json", nil)
+	if err != nil {
+		t.Fatalf("error when create request: %v", err)
+	}
+
+	g.ServeHTTP(w, r)
+
+	assertTrue(w.Header().Get("Access-Control-Allow-Origin") == "*", t)
+	assertTrue(w.Header().Get("Access-Control-Allow-Methods") == "GET, POST, DELETE, PUT, PATCH, OPTIONS", t)
+	assertTrue(w.Header().Get("Access-Control-Allow-Headers") == "Content-Type, api_key, Authorization, X-ABC-Test", t)
 }
