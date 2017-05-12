@@ -17,5 +17,6 @@ install:
 script:
   - ./.travis.gofmt.sh
   - $HOME/gopath/bin/golint -set_exit_status .
+  - go vet
   - go test -v -cover -race -coverprofile coverage.out
   - $HOME/gopath/bin/goveralls -coverprofile coverage.out -service travis-ci
