@@ -212,6 +212,7 @@ type testDefaults struct {
 	Field4 bool           `json:"field4" default:"true"`
 	Field5 []int          `json:"field5" default:"[1, 2, 3]"`
 	Field6 map[string]int `json:"field6" default:"{\"test\": 1}"`
+	Field7 *uint          `json:"field7" default:"25"`
 }
 
 type NullTypes struct {

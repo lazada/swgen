@@ -629,13 +629,13 @@
                     "type": "integer",
                     "format": "int32",
                     "required": true,
-                    "enum":[
+                    "enum": [
                         0,
                         1,
                         2,
                         3
                     ],
-                    "x-enum-names":[
+                    "x-enum-names": [
                         "PreferNotToDisclose",
                         "Male",
                         "Female",
@@ -646,11 +646,11 @@
                     "in": "query",
                     "type": "string",
                     "required": true,
-                    "enum":[ 
+                    "enum": [
                         "Foo",
                         "Bar"
                     ],
-                    "x-enum-names":[  
+                    "x-enum-names": [
                         "Foo",
                         "Bar"
                     ]
@@ -795,6 +795,11 @@
                         "type": "integer",
                         "format": "int32"
                     }
+                },
+                "field7": {
+                    "default": 25,
+                    "type": "integer",
+                    "format": "int32"
                 }
             }
         },

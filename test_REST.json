@@ -1,1613 +1,1554 @@
 {
-  "swagger": "2.0",
-  "x-service-type": "rest",
-  "x-uppercase-version": true,
-  "x-attach-version-to-head": true,
-  "info": {
-    "title": "swgen title",
-    "description": "swgen description",
-    "termsOfService": "term",
-    "contact": {
-      "name": "Dylan Noblitt",
-      "url": "http://example.com",
-      "email": "dylan.noblitt@example.com"
+    "swagger": "2.0",
+    "x-service-type": "rest",
+    "x-uppercase-version": true,
+    "x-attach-version-to-head": true,
+    "info": {
+        "title": "swgen title",
+        "description": "swgen description",
+        "termsOfService": "term",
+        "contact": {
+            "name": "Dylan Noblitt",
+            "url": "http://example.com",
+            "email": "dylan.noblitt@example.com"
+        },
+        "license": {
+            "name": "BEER-WARE",
+            "url": "https://fedoraproject.org/wiki/Licensing/Beerware"
+        },
+        "version": "2.0"
     },
-    "license": {
-      "name": "BEER-WARE",
-      "url": "https://fedoraproject.org/wiki/Licensing/Beerware"
-    },
-    "version": "2.0"
-  },
-  "host": "localhost",
-  "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "paths": {
-    "/V1/IDefinition1": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test IDefinition1 name",
-        "description": "test IDefinition1 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/definitionExample"
+    "host": "localhost",
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/V1/IDefinition1": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test IDefinition1 name",
+                "description": "test IDefinition1 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/definitionExample"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/definitionExample"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous1": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test10 name",
+                "description": "test10 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous2": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test11 name",
+                "description": "test11 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous3": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test12 name",
+                "description": "test12 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous4": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test13 name",
+                "description": "test13 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous5": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test14 name",
+                "description": "test14 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous6": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test15 name",
+                "description": "test15 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/anonymous7": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test16 name",
+                "description": "test16 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/testSimpleStruct"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/V1/combine": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test1 name",
+                "description": "test1 description",
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleStruct"
+                        }
+                    }
+                },
+                "deprecated": true
             },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/definitionExample"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous1": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test10 name",
-        "description": "test10 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+            "put": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test3 name",
+                "description": "test3 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleSlices"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleMaps"
+                        }
+                    }
+                },
+                "deprecated": true
             },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous2": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test11 name",
-        "description": "test11 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test4 name",
+                "description": "test4 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleMaps"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleMapList"
+                        }
+                    }
+                },
+                "deprecated": true
             },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous3": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test12 name",
-        "description": "test12 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+            "delete": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test5 name",
+                "description": "test5 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleMapList"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSubTypes"
+                        }
+                    }
+                },
+                "deprecated": true
             },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous4": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test13 name",
-        "description": "test13 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+            "options": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test7 name",
+                "description": "test7 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSubTypes"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleStruct"
+                        }
+                    }
+                },
+                "deprecated": true
             },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int32"
-              }
+            "patch": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test6 name",
+                "description": "test6 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSubTypes"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleStruct"
+                        }
+                    }
+                },
+                "deprecated": true
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous5": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test14 name",
-        "description": "test14 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "string"
+        "/V1/date1": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test date 1 name",
+                "description": "test date 1 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/simpleDateTime"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous6": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test15 name",
-        "description": "test15 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "boolean"
+        "/V1/date2": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test date 2 name",
+                "description": "test date 2 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/sliceDateTime"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/anonymous7": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test16 name",
-        "description": "test16 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/definitions/testSimpleStruct"
-              }
+        "/V1/date3": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test date 3 name",
+                "description": "test date 3 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/mapDateTime"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/combine": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test1 name",
-        "description": "test1 description",
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+        "/V1/date4": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test date 4 name",
+                "description": "test date 4 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/mapDateTime"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": true
-      },
-      "put": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test3 name",
-        "description": "test3 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleSlices"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMaps"
+        "/V1/defaeults1": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "default",
+                "description": "test defaults",
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testDefaults"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": true
-      },
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test4 name",
-        "description": "test4 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMaps"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMapList"
+        "/V1/nullTypes": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test nulltypes",
+                "description": "test nulltypes",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/NullTypes"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/NullTypes"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": true
-      },
-      "delete": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test5 name",
-        "description": "test5 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMapList"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSubTypes"
+        "/V1/pathParams/{category}/{id}": {
+            "get": {
+                "tags": [
+                    "V1"
+                ],
+                "summary": "test8 name",
+                "description": "test8 description",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": false
+                    },
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleStruct"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": true
-      },
-      "options": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test7 name",
-        "description": "test7 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSubTypes"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+        "/V1/primitiveTypes1": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "testPrimitives",
+                "description": "test Primitives",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": true
-      },
-      "patch": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test6 name",
-        "description": "test6 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSubTypes"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+        "/V1/primitiveTypes2": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "testPrimitives",
+                "description": "test Primitives",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "type": "boolean"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": true
-      }
-    },
-    "/V1/date1": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test date 1 name",
-        "description": "test date 1 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/simpleDateTime"
+        "/V1/primitiveTypes3": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "testPrimitives",
+                "description": "test Primitives",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/date2": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test date 2 name",
-        "description": "test date 2 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/sliceDateTime"
+        "/V1/primitiveTypes4": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "testPrimitives",
+                "description": "test Primitives",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/date3": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test date 3 name",
-        "description": "test date 3 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/mapDateTime"
+        "/V1/slice1": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test slice 1 name",
+                "description": "test slice 1 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/mapDateTime"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/date4": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test date 4 name",
-        "description": "test date 4 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/mapDateTime"
-              }
+        "/V1/slice2": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test slice 2 name",
+                "description": "test slice 2 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleStruct"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/sliceType"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/defaeults1": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "default",
-        "description": "test defaults",
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testDefaults"
+        "/V1/test1": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test1 name",
+                "description": "test1 description",
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleStruct"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/nullTypes": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test nulltypes",
-        "description": "test nulltypes",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/NullTypes"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/NullTypes"
+        "/V1/test2": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test2 name",
+                "description": "test2 description",
+                "parameters": [{
+                        "name": "simple_string",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_int",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_int32",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_int64",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_uint32",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_uint64",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int64",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_float32",
+                        "in": "query",
+                        "type": "number",
+                        "format": "float",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_float64",
+                        "in": "query",
+                        "type": "number",
+                        "format": "double",
+                        "required": true
+                    },
+                    {
+                        "name": "simple_bool",
+                        "in": "query",
+                        "type": "boolean",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleSlices"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/pathParams/{category}/{id}": {
-      "get": {
-        "tags": [
-          "V1"
-        ],
-        "summary": "test8 name",
-        "description": "test8 description",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "type": "integer",
-            "format": "int64",
-            "required": false
-          },
-          {
-            "name": "category",
-            "in": "path",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+        "/V1/test3": {
+            "put": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test3 name",
+                "description": "test3 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleSlices"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleMaps"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/primitiveTypes1": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "testPrimitives",
-        "description": "test Primitives",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "/V1/test4": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test4 name",
+                "description": "test4 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleMaps"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleMapList"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/primitiveTypes2": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "testPrimitives",
-        "description": "test Primitives",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "boolean"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "number",
-              "format": "double"
+        "/V1/test5": {
+            "delete": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test5 name",
+                "description": "test5 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSimpleMapList"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSubTypes"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/primitiveTypes3": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "testPrimitives",
-        "description": "test Primitives",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "string"
+        "/V1/test6": {
+            "patch": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test6 name",
+                "description": "test6 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSubTypes"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleStruct"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/primitiveTypes4": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "testPrimitives",
-        "description": "test Primitives",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "string"
+        "/V1/test7": {
+            "options": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test7 name",
+                "description": "test7 description",
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testSimpleSlices"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/slice1": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test slice 1 name",
-        "description": "test slice 1 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/mapDateTime"
-              }
+        "/V1/test8": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test8v1 name",
+                "description": "test8v1 description",
+                "parameters": [{
+                        "name": "field1",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true
+                    },
+                    {
+                        "name": "field2",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "field3",
+                        "in": "query",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/testSimpleStruct"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/slice2": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test slice 2 name",
-        "description": "test slice 2 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/sliceType"
+        "/V1/test9": {
+            "get": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test9 name",
+                "description": "test9 description",
+                "parameters": [{
+                        "name": "fieldQuery",
+                        "in": "query",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/mixedStruct"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "$ref": "#/definitions/testSimpleStruct"
+                            }
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/test1": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test1 name",
-        "description": "test1 description",
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
+        "/V1/typeReplacement1": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test9 name",
+                "description": "test9 description",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/testSubTypes"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/testWrapParams"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
         },
-        "deprecated": false
-      }
-    },
-    "/V1/test2": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test2 name",
-        "description": "test2 description",
-        "parameters": [
-          {
-            "name": "simple_string",
-            "in": "query",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "simple_int",
-            "in": "query",
-            "type": "integer",
-            "format": "int32",
-            "required": true
-          },
-          {
-            "name": "simple_int32",
-            "in": "query",
-            "type": "integer",
-            "format": "int32",
-            "required": true
-          },
-          {
-            "name": "simple_int64",
-            "in": "query",
-            "type": "integer",
-            "format": "int64",
-            "required": true
-          },
-          {
-            "name": "simple_uint32",
-            "in": "query",
-            "type": "integer",
-            "format": "int64",
-            "required": true
-          },
-          {
-            "name": "simple_uint64",
-            "in": "query",
-            "type": "integer",
-            "format": "int64",
-            "required": true
-          },
-          {
-            "name": "simple_float32",
-            "in": "query",
-            "type": "number",
-            "format": "float",
-            "required": true
-          },
-          {
-            "name": "simple_float64",
-            "in": "query",
-            "type": "number",
-            "format": "double",
-            "required": true
-          },
-          {
-            "name": "simple_bool",
-            "in": "query",
-            "type": "boolean",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleSlices"
+        "/V1/unknown": {
+            "post": {
+                "tags": [
+                    "v1"
+                ],
+                "summary": "test unknown types",
+                "description": "test unknown types",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/Unknown"
+                    },
+                    "required": true
+                }],
+                "responses": {
+                    "200": {
+                        "description": "request success",
+                        "schema": {
+                            "$ref": "#/definitions/Unknown"
+                        }
+                    }
+                },
+                "deprecated": false
             }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test3": {
-      "put": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test3 name",
-        "description": "test3 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleSlices"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMaps"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test4": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test4 name",
-        "description": "test4 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMaps"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMapList"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test5": {
-      "delete": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test5 name",
-        "description": "test5 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSimpleMapList"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSubTypes"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test6": {
-      "patch": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test6 name",
-        "description": "test6 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSubTypes"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleStruct"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test7": {
-      "options": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test7 name",
-        "description": "test7 description",
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testSimpleSlices"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test8": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test8v1 name",
-        "description": "test8v1 description",
-        "parameters": [
-          {
-            "name": "field1",
-            "in": "query",
-            "type": "integer",
-            "format": "int32",
-            "required": true
-          },
-          {
-            "name": "field2",
-            "in": "query",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "field3",
-            "in": "query",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/definitions/testSimpleStruct"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/test9": {
-      "get": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test9 name",
-        "description": "test9 description",
-        "parameters": [
-          {
-            "name": "fieldQuery",
-            "in": "query",
-            "type": "integer",
-            "format": "int32",
-            "required": true
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/mixedStruct"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "$ref": "#/definitions/testSimpleStruct"
-              }
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/typeReplacement1": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test9 name",
-        "description": "test9 description",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/testSubTypes"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/testWrapParams"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/V1/unknown": {
-      "post": {
-        "tags": [
-          "v1"
-        ],
-        "summary": "test unknown types",
-        "description": "test unknown types",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Unknown"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "request success",
-            "schema": {
-              "$ref": "#/definitions/Unknown"
-            }
-          }
-        },
-        "deprecated": false
-      }
-    }
-  },
-  "definitions": {
-    "NullBool": {
-      "type": "boolean"
-    },
-    "NullDate": {
-      "type": "string",
-      "format": "date"
-    },
-    "NullDateTime": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "NullFloat64": {
-      "type": "number",
-      "format": "float"
-    },
-    "NullInt64": {
-      "type": "integer",
-      "format": "int64"
-    },
-    "NullString": {
-      "type": "string"
-    },
-    "NullTimestamp": {
-      "type": "integer",
-      "format": "int64"
-    },
-    "NullTypes": {
-      "type": "object",
-      "properties": {
-        "null_bool": {
-          "$ref": "#/definitions/NullBool"
-        },
-        "null_date": {
-          "$ref": "#/definitions/NullDate"
-        },
-        "null_date_time": {
-          "$ref": "#/definitions/NullDateTime"
-        },
-        "null_float": {
-          "$ref": "#/definitions/NullFloat64"
-        },
-        "null_int": {
-          "$ref": "#/definitions/NullInt64"
-        },
-        "null_string": {
-          "$ref": "#/definitions/NullString"
-        },
-        "null_timestamp": {
-          "$ref": "#/definitions/NullTimestamp"
         }
-      }
     },
-    "Unknown": {
-      "type": "object",
-      "properties": {
-        "anything": {},
-        "whatever": {}
-      }
-    },
-    "deepReplacementTag": {
-      "type": "object",
-      "properties": {
-        "test_field_1": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "definitionExample": {
-      "type": "string",
-      "format": "byte"
-    },
-    "mapDateTime": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/simpleDateTime"
-          }
-        }
-      }
-    },
-    "mixedStruct": {
-      "type": "object",
-      "properties": {
-        "fieldBody": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "simpleDateTime": {
-      "type": "object",
-      "properties": {
-        "time": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "simpleTestReplacement": {
-      "type": "string"
-    },
-    "sliceDateTime": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/simpleDateTime"
-          }
-        }
-      }
-    },
-    "sliceType": {
-      "type": "number",
-      "format": "double"
-    },
-    "testDefaults": {
-      "type": "object",
-      "properties": {
-        "field1": {
-          "default": 25,
-          "type": "integer",
-          "format": "int32"
-        },
-        "field2": {
-          "default": 25.5,
-          "type": "number",
-          "format": "double"
-        },
-        "field3": {
-          "default": "test",
-          "type": "string"
-        },
-        "field4": {
-          "default": true,
-          "type": "boolean"
-        },
-        "field5": {
-          "default": [
-            1,
-            2,
-            3
-          ],
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "field6": {
-          "default": {
-            "test": 1
-          },
-          "type": "object",
-          "additionalProperties": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      }
-    },
-    "testSimpleMapList": {
-      "type": "object",
-      "properties": {
-        "map_list_bool": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "boolean"
-            }
-          }
-        },
-        "map_list_float32": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "number",
-              "format": "float"
-            }
-          }
-        },
-        "map_list_float64": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "number",
-              "format": "double"
-            }
-          }
-        },
-        "map_list_int": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        },
-        "map_list_int32": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        },
-        "map_list_int64": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "map_list_string": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          }
-        },
-        "map_list_uint32": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        },
-        "map_list_uint64": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        }
-      }
-    },
-    "testSimpleMaps": {
-      "type": "object",
-      "properties": {
-        "map_bool": {
-          "type": "object",
-          "additionalProperties": {
+    "definitions": {
+        "NullBool": {
             "type": "boolean"
-          }
         },
-        "map_float32": {
-          "type": "object",
-          "additionalProperties": {
+        "NullDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "NullDateTime": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "NullFloat64": {
             "type": "number",
             "format": "float"
-          }
         },
-        "map_float64": {
-          "type": "object",
-          "additionalProperties": {
+        "NullInt64": {
+            "type": "integer",
+            "format": "int64"
+        },
+        "NullString": {
+            "type": "string"
+        },
+        "NullTimestamp": {
+            "type": "integer",
+            "format": "int64"
+        },
+        "NullTypes": {
+            "type": "object",
+            "properties": {
+                "null_bool": {
+                    "$ref": "#/definitions/NullBool"
+                },
+                "null_date": {
+                    "$ref": "#/definitions/NullDate"
+                },
+                "null_date_time": {
+                    "$ref": "#/definitions/NullDateTime"
+                },
+                "null_float": {
+                    "$ref": "#/definitions/NullFloat64"
+                },
+                "null_int": {
+                    "$ref": "#/definitions/NullInt64"
+                },
+                "null_string": {
+                    "$ref": "#/definitions/NullString"
+                },
+                "null_timestamp": {
+                    "$ref": "#/definitions/NullTimestamp"
+                }
+            }
+        },
+        "Unknown": {
+            "type": "object",
+            "properties": {
+                "anything": {},
+                "whatever": {}
+            }
+        },
+        "deepReplacementTag": {
+            "type": "object",
+            "properties": {
+                "test_field_1": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "definitionExample": {
+            "type": "string",
+            "format": "byte"
+        },
+        "mapDateTime": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/simpleDateTime"
+                    }
+                }
+            }
+        },
+        "mixedStruct": {
+            "type": "object",
+            "properties": {
+                "fieldBody": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "simpleDateTime": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "simpleTestReplacement": {
+            "type": "string"
+        },
+        "sliceDateTime": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/simpleDateTime"
+                    }
+                }
+            }
+        },
+        "sliceType": {
             "type": "number",
             "format": "double"
-          }
         },
-        "map_int": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "integer",
-            "format": "int32"
-          }
+        "testDefaults": {
+            "type": "object",
+            "properties": {
+                "field1": {
+                    "default": 25,
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "field2": {
+                    "default": 25.5,
+                    "type": "number",
+                    "format": "double"
+                },
+                "field3": {
+                    "default": "test",
+                    "type": "string"
+                },
+                "field4": {
+                    "default": true,
+                    "type": "boolean"
+                },
+                "field5": {
+                    "default": [
+                        1,
+                        2,
+                        3
+                    ],
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "field6": {
+                    "default": {
+                        "test": 1
+                    },
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "field7": {
+                    "default": 25,
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
         },
-        "map_int32": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "integer",
-            "format": "int32"
-          }
+        "testSimpleMapList": {
+            "type": "object",
+            "properties": {
+                "map_list_bool": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "map_list_float32": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    }
+                },
+                "map_list_float64": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    }
+                },
+                "map_list_int": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                },
+                "map_list_int32": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                },
+                "map_list_int64": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                },
+                "map_list_string": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "map_list_uint32": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                },
+                "map_list_uint64": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                }
+            }
         },
-        "map_int64": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "integer",
-            "format": "int64"
-          }
+        "testSimpleMaps": {
+            "type": "object",
+            "properties": {
+                "map_bool": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "boolean"
+                    }
+                },
+                "map_float32": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "map_float64": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "map_int": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "map_int32": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "map_int64": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "map_string": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "map_uint32": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "map_uint64": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            }
         },
-        "map_string": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+        "testSimpleSlices": {
+            "type": "object",
+            "properties": {
+                "list_bool": {
+                    "type": "array",
+                    "items": {
+                        "type": "boolean"
+                    }
+                },
+                "list_float32": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                },
+                "list_float64": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "list_int": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "list_int32": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "list_int64": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "list_string": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "list_uint32": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "list_uint64": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            }
         },
-        "map_uint32": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "integer",
-            "format": "int64"
-          }
+        "testSimpleStruct": {
+            "type": "object",
+            "properties": {
+                "simple_bool": {
+                    "type": "boolean"
+                },
+                "simple_float32": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "simple_float64": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "simple_int": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "simple_int32": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "simple_int64": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "simple_string": {
+                    "type": "string"
+                },
+                "simple_uint32": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "simple_uint64": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
         },
-        "map_uint64": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "integer",
-            "format": "int64"
-          }
+        "testSubTypes": {
+            "type": "object",
+            "properties": {
+                "test_simple_map_list": {
+                    "$ref": "#/definitions/testSimpleMapList"
+                },
+                "test_simple_maps": {
+                    "$ref": "#/definitions/testSimpleMaps"
+                },
+                "test_simple_slices": {
+                    "$ref": "#/definitions/testSimpleSlices"
+                },
+                "test_simple_struct": {
+                    "$ref": "#/definitions/testSimpleStruct"
+                }
+            }
+        },
+        "testWrapParams": {
+            "type": "object",
+            "properties": {
+                "deep_replacement": {
+                    "$ref": "#/definitions/deepReplacementTag"
+                },
+                "should_be_sting": {
+                    "type": "string"
+                },
+                "simple_test_replacement": {
+                    "$ref": "#/definitions/simpleTestReplacement"
+                }
+            }
         }
-      }
-    },
-    "testSimpleSlices": {
-      "type": "object",
-      "properties": {
-        "list_bool": {
-          "type": "array",
-          "items": {
-            "type": "boolean"
-          }
-        },
-        "list_float32": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "format": "float"
-          }
-        },
-        "list_float64": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "list_int": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "list_int32": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "list_int64": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "list_string": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "list_uint32": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "list_uint64": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      }
-    },
-    "testSimpleStruct": {
-      "type": "object",
-      "properties": {
-        "simple_bool": {
-          "type": "boolean"
-        },
-        "simple_float32": {
-          "type": "number",
-          "format": "float"
-        },
-        "simple_float64": {
-          "type": "number",
-          "format": "double"
-        },
-        "simple_int": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "simple_int32": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "simple_int64": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "simple_string": {
-          "type": "string"
-        },
-        "simple_uint32": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "simple_uint64": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "testSubTypes": {
-      "type": "object",
-      "properties": {
-        "test_simple_map_list": {
-          "$ref": "#/definitions/testSimpleMapList"
-        },
-        "test_simple_maps": {
-          "$ref": "#/definitions/testSimpleMaps"
-        },
-        "test_simple_slices": {
-          "$ref": "#/definitions/testSimpleSlices"
-        },
-        "test_simple_struct": {
-          "$ref": "#/definitions/testSimpleStruct"
-        }
-      }
-    },
-    "testWrapParams": {
-      "type": "object",
-      "properties": {
-        "deep_replacement": {
-          "$ref": "#/definitions/deepReplacementTag"
-        },
-        "should_be_sting": {
-          "type": "string"
-        },
-        "simple_test_replacement": {
-          "$ref": "#/definitions/simpleTestReplacement"
-        }
-      }
     }
-  }
 }
