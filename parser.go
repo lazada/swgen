@@ -124,26 +124,7 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	}
 
 	if newInterface, ok := g.getTypeMapByString(t.String()); ok {
-		var (
-			typeName = t.Name()
-			typeDef  SchemaObj
-		)
-
-		if definition, ok := newInterface.(IDefinition); ok {
-			var err error
-			if _, typeDef, err = definition.SwgenDefinition(); err != nil {
-				return typeDef, err
-			}
-		} else {
-			typeDef = g.genSchemaForType(reflect.TypeOf(newInterface))
-		}
-
-		if !g.defExists(typeName) || !g.defInQueue(typeName) {
-			g.addDefinition(typeName, typeDef)
-			defer g.parseDefInQueue()
-		}
-
-		return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+		return g.ParseDefinition(newInterface)
 	}
 
 	// if pointer get the underlying element
