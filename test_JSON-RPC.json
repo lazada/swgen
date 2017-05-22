@@ -362,7 +362,7 @@
                     "200": {
                         "description": "request success",
                         "schema": {
-                            "$ref": "#/definitions/sliceType"
+                            "type": "string"
                         }
                     }
                 },
@@ -740,9 +740,6 @@
                 }
             }
         },
-        "simpleTestReplacement": {
-            "type": "string"
-        },
         "sliceDateTime": {
             "type": "object",
             "properties": {
@@ -753,9 +750,6 @@
                     }
                 }
             }
-        },
-        "sliceType": {
-            "type": "string"
         },
         "testDefaults": {
             "type": "object",
