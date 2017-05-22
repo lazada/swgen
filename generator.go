@@ -160,12 +160,12 @@ func SetLicense(name, url string) *Generator {
 	return gen.SetLicense(name, url)
 }
 
-// SetType set service type
+// AddExtendedField add vendor extension field to document
 func AddExtendedField(name string, value interface{}) *Generator {
 	return gen.AddExtendedField(name, value)
 }
 
-// AddExtendedField add field to additional data map
+// AddExtendedField add vendor extension field to document
 func (g *Generator) AddExtendedField(name string, value interface{}) *Generator {
 	g.doc.AddExtendedField(name, value)
 	return g
