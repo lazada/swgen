@@ -95,15 +95,11 @@ func ResetDefinitions() {
 	gen.ResetDefinitions()
 }
 
-// ParseDefinition create a DefObj from input object, it should be a non-nil pointer to anything
-// it reuse schema/json tag for property name.
-func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error) {
+func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err error) {
 	var (
 		typeName string
 		typeDef  SchemaObj
 	)
-
-	t := reflect.TypeOf(i)
 
 	if definition, ok := i.(IDefinition); ok {
 		typeName, typeDef, err = definition.SwgenDefinition()
@@ -118,6 +114,9 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 			return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
 		}
 		defer g.parseDefInQueue()
+		if g.reflectGoTypes {
+			typeDef.GoType = goType(t)
+		}
 		g.addDefinition(typeName, typeDef)
 
 		return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
@@ -146,7 +145,7 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		}
 
 		typeDef = SchemaObj{Type: "object"}
-		typeDef.Properties = g.parseDefinitionProperties(t)
+		typeDef.Properties = g.parseDefinitionProperties(t, &typeDef)
 	case reflect.Slice, reflect.Array:
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
@@ -164,9 +163,9 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 			itemSchema = g.genSchemaForType(elemType)
 		} else {
 			itemSchema = SchemaObj{
-				Type:       "object",
-				Properties: g.parseDefinitionProperties(elemType),
+				Type: "object",
 			}
+			itemSchema.Properties = g.parseDefinitionProperties(elemType, &itemSchema)
 		}
 
 		typeDef = SchemaObj{Type: "array"}
@@ -194,12 +193,60 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 
 	defer g.parseDefInQueue()
 
+	if g.reflectGoTypes {
+		typeDef.GoType = goType(t)
+	}
 	g.addDefinition(typeName, typeDef)
 	return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
 }
 
-func (g *Generator) parseDefinitionProperties(t reflect.Type) map[string]SchemaObj {
+func goType(t reflect.Type) (s string) {
+	s = t.Name()
+	pkgPath := t.PkgPath()
+	if pkgPath != "" {
+		pos := strings.Index(pkgPath, "/vendor/")
+		if pos != -1 {
+			pkgPath = pkgPath[pos+8:]
+		}
+		s = pkgPath + "." + s
+	}
+
+	ts := t.String()
+	typeRef := s
+
+	pos := strings.LastIndex(typeRef, "/")
+	if pos != -1 {
+		typeRef = typeRef[pos+1:]
+	}
+
+	if typeRef != ts {
+		s = s + "::" + t.String()
+	}
+
+	switch t.Kind() {
+	case reflect.Slice:
+		return "[]" + goType(t.Elem())
+	case reflect.Ptr:
+		return "*" + goType(t.Elem())
+	case reflect.Map:
+		return "map[" + goType(t.Key()) + "]" + goType(t.Elem())
+	}
+
+	return
+}
+
+// ParseDefinition create a DefObj from input object, it should be a non-nil pointer to anything
+// it reuse schema/json tag for property name.
+func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error) {
+	return g.parse(i, reflect.TypeOf(i))
+}
+
+func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj) map[string]SchemaObj {
 	properties := make(map[string]SchemaObj, t.NumField())
+	if g.reflectGoTypes {
+		parent.GoPropertyNames = make(map[string]string, t.NumField())
+		parent.GoPropertyTypes = make(map[string]string, t.NumField())
+	}
 
 	for i := 0; i < t.NumField(); i = i + 1 {
 		field := t.Field(i)
@@ -210,7 +257,7 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type) map[string]SchemaO
 		}
 
 		if field.Anonymous {
-			fieldProperties := g.parseDefinitionProperties(field.Type)
+			fieldProperties := g.parseDefinitionProperties(field.Type, parent)
 			for propertyName, property := range fieldProperties {
 				properties[propertyName] = property
 			}
@@ -238,6 +285,13 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type) map[string]SchemaO
 			if defaultValue, err := g.caseDefaultValue(field.Type, defaultTag); err == nil {
 				obj.Default = defaultValue
 			}
+		}
+		if g.reflectGoTypes {
+			if obj.Ref == "" {
+				obj.GoType = goType(field.Type)
+			}
+			parent.GoPropertyNames[propName] = field.Name
+			parent.GoPropertyTypes[propName] = goType(field.Type)
 		}
 
 		properties[propName] = obj
@@ -359,6 +413,10 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 		panic(fmt.Sprintf("type %s is not supported: %s", fType.Kind(), fType.String()))
 	}
 
+	if g.reflectGoTypes && smObj.Ref == "" {
+		smObj.GoType = goType(fType)
+	}
+
 	return smObj
 }
 
@@ -412,6 +470,11 @@ func (g *Generator) ParseParameter(i interface{}) (name string, params []ParamOb
 
 		paramName := strings.Split(nameTag, ",")[0]
 		param := ParamObj{}
+		if g.reflectGoTypes {
+			param.AddExtendedField("x-go-name", field.Name)
+			param.AddExtendedField("x-go-type", goType(field.Type))
+		}
+
 		param.Name = paramName
 
 		if e, isEnumer := reflect.Zero(field.Type).Interface().(enumer); isEnumer {
@@ -529,6 +592,10 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 	}
 
 	if params != nil {
+		if g.reflectGoTypes {
+			operationObj.AddExtendedField("x-request-go-type", goType(reflect.TypeOf(params)))
+		}
+
 		if _, params, err := g.ParseParameter(params); err == nil {
 			operationObj.Parameters = params
 		} else {
@@ -536,11 +603,13 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 		}
 	}
 
-	if response != nil {
-		operationObj.Responses = g.parseResponseObject(response)
-	}
+	operationObj.Responses = g.parseResponseObject(response)
 
 	if body != nil {
+		if g.reflectGoTypes {
+			operationObj.AddExtendedField("x-request-go-type", goType(reflect.TypeOf(body)))
+		}
+
 		typeDef, err := g.ParseDefinition(body)
 		if err != nil {
 			return err
@@ -626,11 +695,13 @@ func (g *Generator) parseResponseObject(responseObj interface{}) (res Responses)
 		}
 		// since we only response json object
 		// so, type of response object is always object
-		resObj := ResponseObj{Description: "request success", Schema: &SchemaObj{}}
-		resObj.Schema = &schema
+		resObj := ResponseObj{Description: "request success", Schema: &schema}
 		res["200"] = resObj
 	} else {
-		res["200"] = ResponseObj{Description: "request success"}
+		res["200"] = ResponseObj{
+			Description: "request success",
+			Schema:      &SchemaObj{Type: "null"},
+		}
 	}
 
 	return res

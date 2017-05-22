@@ -124,7 +124,7 @@ type OperationObj struct {
 	Description string     `json:"description"` // A verbose explanation of the operation behavior
 	Parameters  []ParamObj `json:"parameters,omitempty"`
 	Responses   Responses  `json:"responses"`
-	Deprecated  bool       `json:"deprecated"`
+	Deprecated  bool       `json:"deprecated,omitempty"`
 	additionalData
 }
 
@@ -148,8 +148,16 @@ type ParamObj struct {
 	CollectionFormat string        `json:"collectionFormat,omitempty"` // "multi" - this is valid only for parameters in "query" or "formData"
 	Description      string        `json:"description,omitempty"`
 	Default          interface{}   `json:"default,omitempty"`
-	Required         bool          `json:"required"`
+	Required         bool          `json:"required,omitempty"`
 	Enum
+	additionalData
+}
+
+type _ParamObj ParamObj
+
+// MarshalJSON marshal OperationObj with additionalData inlined
+func (o ParamObj) MarshalJSON() ([]byte, error) {
+	return o.marshalJSONWithStruct(_ParamObj(o))
 }
 
 // ParamItemObj describes an property object, in param object or property of definition
@@ -186,6 +194,9 @@ type SchemaObj struct {
 	AdditionalProperties *SchemaObj           `json:"additionalProperties,omitempty"` // if type is object (map[])
 	Properties           map[string]SchemaObj `json:"properties,omitempty"`           // if type is object
 	TypeName             string               `json:"-"`                              // for internal using, passing typeName
+	GoType               string               `json:"x-go-type,omitempty"`
+	GoPropertyNames      map[string]string    `json:"x-go-property-names,omitempty"`
+	GoPropertyTypes      map[string]string    `json:"x-go-property-types,omitempty"`
 }
 
 type additionalData struct {
