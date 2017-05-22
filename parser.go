@@ -124,12 +124,19 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	}
 
 	if newInterface, ok := g.getTypeMapByString(t.String()); ok {
-		if _, ok := newInterface.(IDefinition); ok {
-			return g.ParseDefinition(newInterface)
-		}
+		var (
+			typeName = t.Name()
+			typeDef  SchemaObj
+		)
 
-		typeName = t.Name()
-		typeDef = g.genSchemaForType(reflect.TypeOf(newInterface))
+		if definition, ok := newInterface.(IDefinition); ok {
+			var err error
+			if _, typeDef, err = definition.SwgenDefinition(); err != nil {
+				return typeDef, err
+			}
+		} else {
+			typeDef = g.genSchemaForType(reflect.TypeOf(newInterface))
+		}
 
 		if !g.defExists(typeName) || !g.defInQueue(typeName) {
 			g.addDefinition(typeName, typeDef)
