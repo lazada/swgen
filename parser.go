@@ -124,6 +124,10 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	}
 
 	if newInterface, ok := g.getTypeMapByString(t.String()); ok {
+		if _, ok := newInterface.(IDefinition); ok {
+			return g.ParseDefinition(newInterface)
+		}
+
 		typeName = t.Name()
 		typeDef = g.genSchemaForType(reflect.TypeOf(newInterface))
 
