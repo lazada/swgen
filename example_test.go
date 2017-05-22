@@ -44,11 +44,11 @@ func ExampleGenerator_GenDocument() {
 	)
 
 	// extended field
-	gen.SetUppercaseVersion(true)
+	gen.AddExtendedField("x-uppercase-version", true)
 
 	docData, _ := gen.GenDocument()
 	fmt.Println(string(docData))
 
 	// output:
-	// {"swagger":"2.0","info":{"title":"Swagger Petstore (Simple)","description":"A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification","termsOfService":"http://helloreverb.com/terms/","contact":{"name":"Swagger API team","url":"http://swagger.io","email":"foo@example.com"},"license":{"name":"MIT","url":"http://opensource.org/licenses/MIT"},"version":"2.0"},"host":"petstore.swagger.io","basePath":"/api","schemes":["http","https"],"paths":{"/pets":{"get":{"tags":["v1"],"summary":"findPets","description":"Returns all pets from the system that the user has access to","parameters":[{"name":"tags","in":"query","type":"array","items":{"type":"string"},"collectionFormat":"multi","description":"tags to filter by","required":false},{"name":"limit","in":"query","type":"integer","format":"int32","description":"maximum number of results to return","required":false}],"responses":{"200":{"description":"request success","schema":{"type":"array","items":{"$ref":"#/definitions/Pet"}}}},"deprecated":false,"x-example":"example"}}},"definitions":{"Pet":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"tag":{"type":"string"}}}},"x-uppercase-version":true}
+	// {"swagger":"2.0","info":{"title":"Swagger Petstore (Simple)","description":"A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification","termsOfService":"http://helloreverb.com/terms/","contact":{"name":"Swagger API team","url":"http://swagger.io","email":"foo@example.com"},"license":{"name":"MIT","url":"http://opensource.org/licenses/MIT"},"version":"2.0"},"host":"petstore.swagger.io","basePath":"/api","schemes":["http","https"],"paths":{"/pets":{"get":{"tags":["v1"],"summary":"findPets","description":"Returns all pets from the system that the user has access to","parameters":[{"name":"tags","in":"query","type":"array","items":{"type":"string"},"collectionFormat":"multi","description":"tags to filter by"},{"name":"limit","in":"query","type":"integer","format":"int32","description":"maximum number of results to return"}],"responses":{"200":{"description":"request success","schema":{"type":"array","items":{"$ref":"#/definitions/Pet"}}}},"x-example":"example"}}},"definitions":{"Pet":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"tag":{"type":"string"}}}},"x-uppercase-version":true}
 }

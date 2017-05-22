@@ -30,3 +30,4 @@ _testmain.go
 .idea
 tmp
 test_REST_last_run.json
+test_JSON-RPC_last_run.json

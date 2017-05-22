@@ -29,6 +29,9 @@ type Generator struct {
 	pathsMux *sync.RWMutex
 
 	typesMap map[string]interface{}
+
+	indentJSON     bool
+	reflectGoTypes bool
 }
 
 // NewGenerator create a new Generator
@@ -54,6 +57,18 @@ func NewGenerator() *Generator {
 	// set default Access-Control-Allow-Headers of swagger.json
 	g.corsAllowHeaders = []string{"Content-Type", "api_key", "Authorization"}
 
+	return g
+}
+
+// IndentJSON controls JSON indentation
+func (g *Generator) IndentJSON(enabled bool) *Generator {
+	g.indentJSON = enabled
+	return g
+}
+
+// ReflectGoTypes controls JSON indentation
+func (g *Generator) ReflectGoTypes(enabled bool) *Generator {
+	g.reflectGoTypes = enabled
 	return g
 }
 
@@ -145,37 +160,15 @@ func SetLicense(name, url string) *Generator {
 	return gen.SetLicense(name, url)
 }
 
-// SetType set service type
-func (g *Generator) SetType(serviceType ServiceType) *Generator {
-	g.doc.AddExtendedField("x-service-type", serviceType)
+// AddExtendedField add vendor extension field to document
+func AddExtendedField(name string, value interface{}) *Generator {
+	return gen.AddExtendedField(name, value)
+}
+
+// AddExtendedField add vendor extension field to document
+func (g *Generator) AddExtendedField(name string, value interface{}) *Generator {
+	g.doc.AddExtendedField(name, value)
 	return g
-}
-
-// SetType set service type
-func SetType(serviceType ServiceType) *Generator {
-	return gen.SetType(serviceType)
-}
-
-// SetUppercaseVersion set uppercase version
-func (g *Generator) SetUppercaseVersion(uppercase bool) *Generator {
-	g.doc.AddExtendedField("x-uppercase-version", uppercase)
-	return g
-}
-
-// SetUppercaseVersion set uppercase version
-func SetUppercaseVersion(uppercase bool) *Generator {
-	return gen.SetUppercaseVersion(uppercase)
-}
-
-// SetAttachVersionToHead set version position
-func (g *Generator) SetAttachVersionToHead(attachToHead bool) *Generator {
-	g.doc.AddExtendedField("x-attach-version-to-head", attachToHead)
-	return g
-}
-
-// SetAttachVersionToHead set version position
-func SetAttachVersionToHead(attachToHead bool) *Generator {
-	return gen.SetAttachVersionToHead(attachToHead)
 }
 
 // AddTypeMap add rule to use dst interface instead of src
@@ -216,7 +209,15 @@ func (g *Generator) genDocument(host string) ([]byte, error) {
 	}
 
 	g.pathsMux.RLock()
-	data, err := json.Marshal(g.doc)
+	var (
+		data []byte
+		err  error
+	)
+	if g.indentJSON {
+		data, err = json.MarshalIndent(g.doc, "", "  ")
+	} else {
+		data, err = json.Marshal(g.doc)
+	}
 	g.pathsMux.RUnlock()
 
 	return data, err

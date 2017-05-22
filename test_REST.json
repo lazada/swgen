@@ -1,1548 +1,1962 @@
 {
-    "swagger": "2.0",
-    "x-service-type": "rest",
-    "x-uppercase-version": true,
-    "x-attach-version-to-head": true,
-    "info": {
-        "title": "swgen title",
-        "description": "swgen description",
-        "termsOfService": "term",
-        "contact": {
-            "name": "Dylan Noblitt",
-            "url": "http://example.com",
-            "email": "dylan.noblitt@example.com"
-        },
-        "license": {
-            "name": "BEER-WARE",
-            "url": "https://fedoraproject.org/wiki/Licensing/Beerware"
-        },
-        "version": "2.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "swgen title",
+    "description": "swgen description",
+    "termsOfService": "term",
+    "contact": {
+      "name": "Dylan Noblitt",
+      "url": "http://example.com",
+      "email": "dylan.noblitt@example.com"
     },
-    "host": "localhost",
-    "basePath": "/",
-    "schemes": [
-        "http",
-        "https"
-    ],
-    "paths": {
-        "/V1/IDefinition1": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test IDefinition1 name",
-                "description": "test IDefinition1 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/definitionExample"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/definitionExample"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous1": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test10 name",
-                "description": "test10 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "integer",
-                                "format": "int64"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous2": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test11 name",
-                "description": "test11 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous3": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test12 name",
-                "description": "test12 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous4": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test13 name",
-                "description": "test13 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "integer",
-                                "format": "int32"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous5": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test14 name",
-                "description": "test14 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous6": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test15 name",
-                "description": "test15 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/anonymous7": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test16 name",
-                "description": "test16 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "$ref": "#/definitions/testSimpleStruct"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/combine": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test1 name",
-                "description": "test1 description",
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleStruct"
-                        }
-                    }
-                },
-                "deprecated": true
+    "license": {
+      "name": "BEER-WARE",
+      "url": "https://fedoraproject.org/wiki/Licensing/Beerware"
+    },
+    "version": "2.0"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/V1/IDefinition1": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test IDefinition1 name",
+        "description": "test IDefinition1 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/definitionExample"
             },
-            "put": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test3 name",
-                "description": "test3 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleSlices"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleMaps"
-                        }
-                    }
-                },
-                "deprecated": true
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/definitionExample"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.definitionExample"
+      }
+    },
+    "/V1/anonymous1": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test10 name",
+        "description": "test10 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             },
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test4 name",
-                "description": "test4 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleMaps"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleMapList"
-                        }
-                    }
-                },
-                "deprecated": true
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "format": "int64",
+                "x-go-type": "int64"
+              },
+              "x-go-type": "map[string]int64"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/anonymous2": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test11 name",
+        "description": "test11 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             },
-            "delete": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test5 name",
-                "description": "test5 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleMapList"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSubTypes"
-                        }
-                    }
-                },
-                "deprecated": true
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "x-go-type": "string"
+              },
+              "x-go-type": "map[float64]string"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/anonymous3": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test12 name",
+        "description": "test12 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             },
-            "options": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test7 name",
-                "description": "test7 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSubTypes"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleStruct"
-                        }
-                    }
-                },
-                "deprecated": true
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "x-go-type": "string"
+              },
+              "x-go-type": "[]string"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/anonymous4": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test13 name",
+        "description": "test13 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             },
-            "patch": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test6 name",
-                "description": "test6 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSubTypes"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleStruct"
-                        }
-                    }
-                },
-                "deprecated": true
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "x-go-type": "int"
+              },
+              "x-go-type": "[]int"
             }
+          }
         },
-        "/V1/date1": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test date 1 name",
-                "description": "test date 1 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/simpleDateTime"
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/anonymous5": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test14 name",
+        "description": "test14 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "string",
+              "x-go-type": "string"
             }
+          }
         },
-        "/V1/date2": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test date 2 name",
-                "description": "test date 2 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/sliceDateTime"
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/anonymous6": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test15 name",
+        "description": "test15 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "boolean",
+              "x-go-type": "bool"
             }
+          }
         },
-        "/V1/date3": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test date 3 name",
-                "description": "test date 3 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/mapDateTime"
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/anonymous7": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test16 name",
+        "description": "test16 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/testSimpleStruct"
+              },
+              "x-go-type": "map[string]github.com/lazada/swgen.testSimpleStruct"
             }
+          }
         },
-        "/V1/date4": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test date 4 name",
-                "description": "test date 4 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/mapDateTime"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/combine": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test1 name",
+        "description": "test1 description",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             }
+          }
         },
-        "/V1/defaeults1": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "default",
-                "description": "test defaults",
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testDefaults"
-                        }
-                    }
-                },
-                "deprecated": false
+        "deprecated": true
+      },
+      "put": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test3 name",
+        "description": "test3 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleSlices"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMaps"
             }
+          }
         },
-        "/V1/nullTypes": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test nulltypes",
-                "description": "test nulltypes",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/NullTypes"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/NullTypes"
-                        }
-                    }
-                },
-                "deprecated": false
+        "deprecated": true,
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleSlices"
+      },
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test4 name",
+        "description": "test4 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMaps"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMapList"
             }
+          }
         },
-        "/V1/pathParams/{category}/{id}": {
-            "get": {
-                "tags": [
-                    "V1"
-                ],
-                "summary": "test8 name",
-                "description": "test8 description",
-                "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "type": "integer",
-                        "format": "int64",
-                        "required": false
-                    },
-                    {
-                        "name": "category",
-                        "in": "path",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleStruct"
-                        }
-                    }
-                },
-                "deprecated": false
+        "deprecated": true,
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleMaps"
+      },
+      "delete": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test5 name",
+        "description": "test5 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMapList"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSubTypes"
             }
+          }
         },
-        "/V1/primitiveTypes1": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "testPrimitives",
-                "description": "test Primitives",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                },
-                "deprecated": false
+        "deprecated": true,
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleMapList"
+      },
+      "options": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test7 name",
+        "description": "test7 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSubTypes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             }
+          }
         },
-        "/V1/primitiveTypes2": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "testPrimitives",
-                "description": "test Primitives",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "type": "boolean"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    }
-                },
-                "deprecated": false
+        "deprecated": true,
+        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+      },
+      "patch": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test6 name",
+        "description": "test6 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSubTypes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             }
+          }
         },
-        "/V1/primitiveTypes3": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "testPrimitives",
-                "description": "test Primitives",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "deprecated": false
+        "deprecated": true,
+        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+      }
+    },
+    "/V1/date1": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test date 1 name",
+        "description": "test date 1 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/simpleDateTime"
             }
+          }
         },
-        "/V1/primitiveTypes4": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "testPrimitives",
-                "description": "test Primitives",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/date2": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test date 2 name",
+        "description": "test date 2 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/sliceDateTime"
             }
+          }
         },
-        "/V1/slice1": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test slice 1 name",
-                "description": "test slice 1 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/mapDateTime"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/date3": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test date 3 name",
+        "description": "test date 3 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/mapDateTime"
             }
+          }
         },
-        "/V1/slice2": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test slice 2 name",
-                "description": "test slice 2 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleStruct"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/date4": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test date 4 name",
+        "description": "test date 4 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/mapDateTime"
+              },
+              "x-go-type": "[]github.com/lazada/swgen.mapDateTime"
             }
+          }
         },
-        "/V1/test1": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test1 name",
-                "description": "test1 description",
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleStruct"
-                        }
-                    }
-                },
-                "deprecated": false
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/defaeults1": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "default",
+        "description": "test defaults",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testDefaults"
             }
-        },
-        "/V1/test2": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test2 name",
-                "description": "test2 description",
-                "parameters": [{
-                        "name": "simple_string",
-                        "in": "query",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_int",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int32",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_int32",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int32",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_int64",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int64",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_uint32",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int64",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_uint64",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int64",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_float32",
-                        "in": "query",
-                        "type": "number",
-                        "format": "float",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_float64",
-                        "in": "query",
-                        "type": "number",
-                        "format": "double",
-                        "required": true
-                    },
-                    {
-                        "name": "simple_bool",
-                        "in": "query",
-                        "type": "boolean",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleSlices"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test3": {
-            "put": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test3 name",
-                "description": "test3 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleSlices"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleMaps"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test4": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test4 name",
-                "description": "test4 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleMaps"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleMapList"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test5": {
-            "delete": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test5 name",
-                "description": "test5 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSimpleMapList"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSubTypes"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test6": {
-            "patch": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test6 name",
-                "description": "test6 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSubTypes"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleStruct"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test7": {
-            "options": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test7 name",
-                "description": "test7 description",
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testSimpleSlices"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test8": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test8v1 name",
-                "description": "test8v1 description",
-                "parameters": [{
-                        "name": "field1",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int32",
-                        "required": true
-                    },
-                    {
-                        "name": "field2",
-                        "in": "query",
-                        "type": "string",
-                        "required": true
-                    },
-                    {
-                        "name": "field3",
-                        "in": "query",
-                        "type": "string",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "$ref": "#/definitions/testSimpleStruct"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/test9": {
-            "get": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test9 name",
-                "description": "test9 description",
-                "parameters": [{
-                        "name": "fieldQuery",
-                        "in": "query",
-                        "type": "integer",
-                        "format": "int32",
-                        "required": true
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/mixedStruct"
-                        },
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "$ref": "#/definitions/testSimpleStruct"
-                            }
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/typeReplacement1": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test9 name",
-                "description": "test9 description",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/testSubTypes"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/testWrapParams"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
-        },
-        "/V1/unknown": {
-            "post": {
-                "tags": [
-                    "v1"
-                ],
-                "summary": "test unknown types",
-                "description": "test unknown types",
-                "parameters": [{
-                    "name": "body",
-                    "in": "body",
-                    "schema": {
-                        "$ref": "#/definitions/Unknown"
-                    },
-                    "required": true
-                }],
-                "responses": {
-                    "200": {
-                        "description": "request success",
-                        "schema": {
-                            "$ref": "#/definitions/Unknown"
-                        }
-                    }
-                },
-                "deprecated": false
-            }
+          }
         }
+      }
     },
-    "definitions": {
-        "NullBool": {
-            "type": "boolean"
+    "/V1/nullTypes": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test nulltypes",
+        "description": "test nulltypes",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/NullTypes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/NullTypes"
+            }
+          }
         },
-        "NullDate": {
+        "x-request-go-type": "github.com/lazada/swgen.NullTypes"
+      }
+    },
+    "/V1/pathParams/{category}/{id}": {
+      "get": {
+        "tags": [
+          "V1"
+        ],
+        "summary": "test8 name",
+        "description": "test8 description",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "x-go-type": "uint64"
+          },
+          {
+            "name": "category",
+            "in": "path",
             "type": "string",
-            "format": "date"
+            "required": true,
+            "x-go-name": "Cat",
+            "x-go-type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            }
+          }
         },
-        "NullDateTime": {
+        "x-request-go-type": "github.com/lazada/swgen.testPathParam"
+      }
+    },
+    "/V1/primitiveTypes1": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "testPrimitives",
+        "description": "test Primitives",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "x-go-type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "x-go-type": "int"
+            }
+          }
+        },
+        "x-request-go-type": "string"
+      }
+    },
+    "/V1/primitiveTypes2": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "testPrimitives",
+        "description": "test Primitives",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "boolean",
+              "x-go-type": "bool"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "x-go-type": "float64"
+            }
+          }
+        },
+        "x-request-go-type": "bool"
+      }
+    },
+    "/V1/primitiveTypes3": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "testPrimitives",
+        "description": "test Primitives",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-type": "int64"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "string",
+              "x-go-type": "string"
+            }
+          }
+        },
+        "x-request-go-type": "int64"
+      }
+    },
+    "/V1/primitiveTypes4": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "testPrimitives",
+        "description": "test Primitives",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-type": "int64"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "string",
+              "x-go-type": "string"
+            }
+          }
+        },
+        "x-request-go-type": "int64"
+      }
+    },
+    "/V1/slice1": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test slice 1 name",
+        "description": "test slice 1 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/mapDateTime"
+              },
+              "x-go-type": "[]github.com/lazada/swgen.mapDateTime"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/slice2": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test slice 2 name",
+        "description": "test slice 2 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "x-go-type": "float64"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/test1": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test1 name",
+        "description": "test1 description",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
+            }
+          }
+        }
+      }
+    },
+    "/V1/test2": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test2 name",
+        "description": "test2 description",
+        "parameters": [
+          {
+            "name": "simple_string",
+            "in": "query",
             "type": "string",
-            "format": "date-time"
-        },
-        "NullFloat64": {
+            "required": true,
+            "x-go-name": "SimpleString",
+            "x-go-type": "string"
+          },
+          {
+            "name": "simple_int",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "x-go-name": "SimpleInt",
+            "x-go-type": "int"
+          },
+          {
+            "name": "simple_int32",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "x-go-name": "SimpleInt32",
+            "x-go-type": "int32"
+          },
+          {
+            "name": "simple_int64",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "required": true,
+            "x-go-name": "SimpleInt64",
+            "x-go-type": "int64"
+          },
+          {
+            "name": "simple_uint32",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "required": true,
+            "x-go-name": "SimpleUInt32",
+            "x-go-type": "uint32"
+          },
+          {
+            "name": "simple_uint64",
+            "in": "query",
+            "type": "integer",
+            "format": "int64",
+            "required": true,
+            "x-go-name": "SimpleUInt64",
+            "x-go-type": "uint64"
+          },
+          {
+            "name": "simple_float32",
+            "in": "query",
             "type": "number",
-            "format": "float"
-        },
-        "NullInt64": {
-            "type": "integer",
-            "format": "int64"
-        },
-        "NullString": {
-            "type": "string"
-        },
-        "NullTimestamp": {
-            "type": "integer",
-            "format": "int64"
-        },
-        "NullTypes": {
-            "type": "object",
-            "properties": {
-                "null_bool": {
-                    "$ref": "#/definitions/NullBool"
-                },
-                "null_date": {
-                    "$ref": "#/definitions/NullDate"
-                },
-                "null_date_time": {
-                    "$ref": "#/definitions/NullDateTime"
-                },
-                "null_float": {
-                    "$ref": "#/definitions/NullFloat64"
-                },
-                "null_int": {
-                    "$ref": "#/definitions/NullInt64"
-                },
-                "null_string": {
-                    "$ref": "#/definitions/NullString"
-                },
-                "null_timestamp": {
-                    "$ref": "#/definitions/NullTimestamp"
-                }
+            "format": "float",
+            "required": true,
+            "x-go-name": "SimpleFloat32",
+            "x-go-type": "float32"
+          },
+          {
+            "name": "simple_float64",
+            "in": "query",
+            "type": "number",
+            "format": "double",
+            "required": true,
+            "x-go-name": "SimpleFloat64",
+            "x-go-type": "float64"
+          },
+          {
+            "name": "simple_bool",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "x-go-name": "SimpleBool",
+            "x-go-type": "bool"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleSlices"
             }
+          }
         },
-        "Unknown": {
-            "type": "object",
-            "properties": {
-                "anything": {},
-                "whatever": {}
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "/V1/test3": {
+      "put": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test3 name",
+        "description": "test3 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleSlices"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMaps"
             }
+          }
         },
-        "deepReplacementTag": {
-            "type": "object",
-            "properties": {
-                "test_field_1": {
-                    "type": "number",
-                    "format": "double"
-                }
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleSlices"
+      }
+    },
+    "/V1/test4": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test4 name",
+        "description": "test4 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMaps"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMapList"
             }
+          }
         },
-        "definitionExample": {
-            "type": "string",
-            "format": "byte"
-        },
-        "mapDateTime": {
-            "type": "object",
-            "properties": {
-                "items": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/simpleDateTime"
-                    }
-                }
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleMaps"
+      }
+    },
+    "/V1/test5": {
+      "delete": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test5 name",
+        "description": "test5 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSimpleMapList"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSubTypes"
             }
+          }
         },
-        "mixedStruct": {
-            "type": "object",
-            "properties": {
-                "fieldBody": {
-                    "type": "integer",
-                    "format": "int32"
-                }
+        "x-request-go-type": "github.com/lazada/swgen.testSimpleMapList"
+      }
+    },
+    "/V1/test6": {
+      "patch": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test6 name",
+        "description": "test6 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSubTypes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleStruct"
             }
+          }
         },
-        "simpleDateTime": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "type": "string",
-                    "format": "date-time"
-                }
+        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+      }
+    },
+    "/V1/test7": {
+      "options": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test7 name",
+        "description": "test7 description",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testSimpleSlices"
             }
-        },
-        "sliceDateTime": {
-            "type": "object",
-            "properties": {
-                "items": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/simpleDateTime"
-                    }
-                }
-            }
-        },
-        "testDefaults": {
-            "type": "object",
-            "properties": {
-                "field1": {
-                    "default": 25,
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "field2": {
-                    "default": 25.5,
-                    "type": "number",
-                    "format": "double"
-                },
-                "field3": {
-                    "default": "test",
-                    "type": "string"
-                },
-                "field4": {
-                    "default": true,
-                    "type": "boolean"
-                },
-                "field5": {
-                    "default": [
-                        1,
-                        2,
-                        3
-                    ],
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                },
-                "field6": {
-                    "default": {
-                        "test": 1
-                    },
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                },
-                "field7": {
-                    "default": 25,
-                    "type": "integer",
-                    "format": "int32"
-                }
-            }
-        },
-        "testSimpleMapList": {
-            "type": "object",
-            "properties": {
-                "map_list_bool": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "map_list_float32": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "number",
-                            "format": "float"
-                        }
-                    }
-                },
-                "map_list_float64": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    }
-                },
-                "map_list_int": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                },
-                "map_list_int32": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    }
-                },
-                "map_list_int64": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                },
-                "map_list_string": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "map_list_uint32": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                },
-                "map_list_uint64": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                }
-            }
-        },
-        "testSimpleMaps": {
-            "type": "object",
-            "properties": {
-                "map_bool": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "boolean"
-                    }
-                },
-                "map_float32": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "number",
-                        "format": "float"
-                    }
-                },
-                "map_float64": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                },
-                "map_int": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                },
-                "map_int32": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                },
-                "map_int64": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                },
-                "map_string": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "map_uint32": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                },
-                "map_uint64": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            }
-        },
-        "testSimpleSlices": {
-            "type": "object",
-            "properties": {
-                "list_bool": {
-                    "type": "array",
-                    "items": {
-                        "type": "boolean"
-                    }
-                },
-                "list_float32": {
-                    "type": "array",
-                    "items": {
-                        "type": "number",
-                        "format": "float"
-                    }
-                },
-                "list_float64": {
-                    "type": "array",
-                    "items": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                },
-                "list_int": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                },
-                "list_int32": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                },
-                "list_int64": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                },
-                "list_string": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "list_uint32": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                },
-                "list_uint64": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            }
-        },
-        "testSimpleStruct": {
-            "type": "object",
-            "properties": {
-                "simple_bool": {
-                    "type": "boolean"
-                },
-                "simple_float32": {
-                    "type": "number",
-                    "format": "float"
-                },
-                "simple_float64": {
-                    "type": "number",
-                    "format": "double"
-                },
-                "simple_int": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "simple_int32": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "simple_int64": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "simple_string": {
-                    "type": "string"
-                },
-                "simple_uint32": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "simple_uint64": {
-                    "type": "integer",
-                    "format": "int64"
-                }
-            }
-        },
-        "testSubTypes": {
-            "type": "object",
-            "properties": {
-                "test_simple_map_list": {
-                    "$ref": "#/definitions/testSimpleMapList"
-                },
-                "test_simple_maps": {
-                    "$ref": "#/definitions/testSimpleMaps"
-                },
-                "test_simple_slices": {
-                    "$ref": "#/definitions/testSimpleSlices"
-                },
-                "test_simple_struct": {
-                    "$ref": "#/definitions/testSimpleStruct"
-                }
-            }
-        },
-        "testWrapParams": {
-            "type": "object",
-            "properties": {
-                "deep_replacement": {
-                    "$ref": "#/definitions/deepReplacementTag"
-                },
-                "should_be_sting": {
-                    "type": "string"
-                },
-                "simple_test_replacement": {
-                    "$ref": "#/definitions/simpleTestReplacement"
-                }
-            }
+          }
         }
+      }
+    },
+    "/V1/test8": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test8v1 name",
+        "description": "test8v1 description",
+        "parameters": [
+          {
+            "name": "field1",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "x-go-name": "Field1",
+            "x-go-type": "int"
+          },
+          {
+            "name": "field2",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-go-name": "Field2",
+            "x-go-type": "string"
+          },
+          {
+            "name": "field3",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "x-go-name": "Field3",
+            "x-go-type": "github.com/lazada/swgen.simpleTestReplacement"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/testSimpleStruct"
+              },
+              "x-go-type": "map[string]github.com/lazada/swgen.testSimpleStruct"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.paramStructMap"
+      }
+    },
+    "/V1/test9": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test9 name",
+        "description": "test9 description",
+        "parameters": [
+          {
+            "name": "fieldQuery",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "required": true,
+            "x-go-name": "FieldQuery",
+            "x-go-type": "int"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/mixedStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/testSimpleStruct"
+              },
+              "x-go-type": "map[string]github.com/lazada/swgen.testSimpleStruct"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.mixedStruct"
+      }
+    },
+    "/V1/typeReplacement1": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test9 name",
+        "description": "test9 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/testSubTypes"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testWrapParams"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+      }
+    },
+    "/V1/unknown": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test unknown types",
+        "description": "test unknown types",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Unknown"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/Unknown"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.Unknown"
+      }
     }
+  },
+  "definitions": {
+    "NullBool": {
+      "type": "boolean",
+      "x-go-type": "github.com/lazada/swgen.NullBool"
+    },
+    "NullDate": {
+      "type": "string",
+      "format": "date",
+      "x-go-type": "github.com/lazada/swgen.NullDate"
+    },
+    "NullDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-type": "github.com/lazada/swgen.NullDateTime"
+    },
+    "NullFloat64": {
+      "type": "number",
+      "format": "float",
+      "x-go-type": "github.com/lazada/swgen.NullFloat64"
+    },
+    "NullInt64": {
+      "type": "integer",
+      "format": "int64",
+      "x-go-type": "github.com/lazada/swgen.NullInt64"
+    },
+    "NullString": {
+      "type": "string",
+      "x-go-type": "github.com/lazada/swgen.NullString"
+    },
+    "NullTimestamp": {
+      "type": "integer",
+      "format": "int64",
+      "x-go-type": "github.com/lazada/swgen.NullTimestamp"
+    },
+    "NullTypes": {
+      "type": "object",
+      "properties": {
+        "null_bool": {
+          "$ref": "#/definitions/NullBool"
+        },
+        "null_date": {
+          "$ref": "#/definitions/NullDate"
+        },
+        "null_date_time": {
+          "$ref": "#/definitions/NullDateTime"
+        },
+        "null_float": {
+          "$ref": "#/definitions/NullFloat64"
+        },
+        "null_int": {
+          "$ref": "#/definitions/NullInt64"
+        },
+        "null_string": {
+          "$ref": "#/definitions/NullString"
+        },
+        "null_timestamp": {
+          "$ref": "#/definitions/NullTimestamp"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.NullTypes",
+      "x-go-property-names": {
+        "null_bool": "Bool",
+        "null_date": "Date",
+        "null_date_time": "DateTime",
+        "null_float": "Float",
+        "null_int": "Int",
+        "null_string": "String",
+        "null_timestamp": "Timestamp"
+      },
+      "x-go-property-types": {
+        "null_bool": "github.com/lazada/swgen.NullBool",
+        "null_date": "github.com/lazada/swgen.NullDate",
+        "null_date_time": "github.com/lazada/swgen.NullDateTime",
+        "null_float": "github.com/lazada/swgen.NullFloat64",
+        "null_int": "github.com/lazada/swgen.NullInt64",
+        "null_string": "github.com/lazada/swgen.NullString",
+        "null_timestamp": "github.com/lazada/swgen.NullTimestamp"
+      }
+    },
+    "Unknown": {
+      "type": "object",
+      "properties": {
+        "anything": {
+          "x-go-type": "::interface {}"
+        },
+        "whatever": {
+          "x-go-type": "*[]uint8"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.Unknown",
+      "x-go-property-names": {
+        "anything": "Anything",
+        "whatever": "Whatever"
+      },
+      "x-go-property-types": {
+        "anything": "::interface {}",
+        "whatever": "*[]uint8"
+      }
+    },
+    "deepReplacementTag": {
+      "type": "object",
+      "properties": {
+        "test_field_1": {
+          "type": "number",
+          "format": "double",
+          "x-go-type": "string"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.deepReplacementTag",
+      "x-go-property-names": {
+        "test_field_1": "TestField1"
+      },
+      "x-go-property-types": {
+        "test_field_1": "string"
+      }
+    },
+    "definitionExample": {
+      "type": "string",
+      "format": "byte",
+      "x-go-type": "github.com/lazada/swgen.definitionExample"
+    },
+    "mapDateTime": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/simpleDateTime"
+          },
+          "x-go-type": "map[string]github.com/lazada/swgen.simpleDateTime"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.mapDateTime",
+      "x-go-property-names": {
+        "items": "Items"
+      },
+      "x-go-property-types": {
+        "items": "map[string]github.com/lazada/swgen.simpleDateTime"
+      }
+    },
+    "mixedStruct": {
+      "type": "object",
+      "properties": {
+        "fieldBody": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "int"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.mixedStruct",
+      "x-go-property-names": {
+        "fieldBody": "FieldBody"
+      },
+      "x-go-property-types": {
+        "fieldBody": "int"
+      }
+    },
+    "simpleDateTime": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-type": "time.Time"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.simpleDateTime",
+      "x-go-property-names": {
+        "time": "Time"
+      },
+      "x-go-property-types": {
+        "time": "time.Time"
+      }
+    },
+    "sliceDateTime": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/simpleDateTime"
+          },
+          "x-go-type": "[]github.com/lazada/swgen.simpleDateTime"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.sliceDateTime",
+      "x-go-property-names": {
+        "items": "Items"
+      },
+      "x-go-property-types": {
+        "items": "[]github.com/lazada/swgen.simpleDateTime"
+      }
+    },
+    "testDefaults": {
+      "type": "object",
+      "properties": {
+        "field1": {
+          "default": 25,
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "int"
+        },
+        "field2": {
+          "default": 25.5,
+          "type": "number",
+          "format": "double",
+          "x-go-type": "float64"
+        },
+        "field3": {
+          "default": "test",
+          "type": "string",
+          "x-go-type": "string"
+        },
+        "field4": {
+          "default": true,
+          "type": "boolean",
+          "x-go-type": "bool"
+        },
+        "field5": {
+          "default": [
+            1,
+            2,
+            3
+          ],
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32",
+            "x-go-type": "int"
+          },
+          "x-go-type": "[]int"
+        },
+        "field6": {
+          "default": {
+            "test": 1
+          },
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int32",
+            "x-go-type": "int"
+          },
+          "x-go-type": "map[string]int"
+        },
+        "field7": {
+          "default": 25,
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "*uint"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testDefaults",
+      "x-go-property-names": {
+        "field1": "Field1",
+        "field2": "Field2",
+        "field3": "Field3",
+        "field4": "Field4",
+        "field5": "Field5",
+        "field6": "Field6",
+        "field7": "Field7"
+      },
+      "x-go-property-types": {
+        "field1": "int",
+        "field2": "float64",
+        "field3": "string",
+        "field4": "bool",
+        "field5": "[]int",
+        "field6": "map[string]int",
+        "field7": "*uint"
+      }
+    },
+    "testSimpleMapList": {
+      "type": "object",
+      "properties": {
+        "map_list_bool": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean",
+              "x-go-type": "bool"
+            },
+            "x-go-type": "map[string]bool"
+          },
+          "x-go-type": "[]map[string]bool"
+        },
+        "map_list_float32": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "float",
+              "x-go-type": "float32"
+            },
+            "x-go-type": "map[string]float32"
+          },
+          "x-go-type": "[]map[string]float32"
+        },
+        "map_list_float64": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "double",
+              "x-go-type": "float64"
+            },
+            "x-go-type": "map[string]float64"
+          },
+          "x-go-type": "[]map[string]float64"
+        },
+        "map_list_int": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32",
+              "x-go-type": "int"
+            },
+            "x-go-type": "map[string]int"
+          },
+          "x-go-type": "[]map[string]int"
+        },
+        "map_list_int32": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32",
+              "x-go-type": "int32"
+            },
+            "x-go-type": "map[string]int32"
+          },
+          "x-go-type": "[]map[string]int32"
+        },
+        "map_list_int64": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-type": "int64"
+            },
+            "x-go-type": "map[string]int64"
+          },
+          "x-go-type": "[]map[string]int64"
+        },
+        "map_list_string": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "x-go-type": "string"
+            },
+            "x-go-type": "map[string]string"
+          },
+          "x-go-type": "[]map[string]string"
+        },
+        "map_list_uint32": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-type": "uint32"
+            },
+            "x-go-type": "map[string]uint32"
+          },
+          "x-go-type": "[]map[string]uint32"
+        },
+        "map_list_uint64": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-type": "uint64"
+            },
+            "x-go-type": "map[string]uint64"
+          },
+          "x-go-type": "[]map[string]uint64"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testSimpleMapList",
+      "x-go-property-names": {
+        "map_list_bool": "MapListBool",
+        "map_list_float32": "MapListFloat32",
+        "map_list_float64": "MapListFloat64",
+        "map_list_int": "MapListInt",
+        "map_list_int32": "MapListInt32",
+        "map_list_int64": "MapListInt64",
+        "map_list_string": "MapListString",
+        "map_list_uint32": "MapListUInt32",
+        "map_list_uint64": "MapListUInt64"
+      },
+      "x-go-property-types": {
+        "map_list_bool": "[]map[string]bool",
+        "map_list_float32": "[]map[string]float32",
+        "map_list_float64": "[]map[string]float64",
+        "map_list_int": "[]map[string]int",
+        "map_list_int32": "[]map[string]int32",
+        "map_list_int64": "[]map[string]int64",
+        "map_list_string": "[]map[string]string",
+        "map_list_uint32": "[]map[string]uint32",
+        "map_list_uint64": "[]map[string]uint64"
+      }
+    },
+    "testSimpleMaps": {
+      "type": "object",
+      "properties": {
+        "map_bool": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean",
+            "x-go-type": "bool"
+          },
+          "x-go-type": "map[string]bool"
+        },
+        "map_float32": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "format": "float",
+            "x-go-type": "float32"
+          },
+          "x-go-type": "map[string]float32"
+        },
+        "map_float64": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "format": "double",
+            "x-go-type": "float64"
+          },
+          "x-go-type": "map[string]float64"
+        },
+        "map_int": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int32",
+            "x-go-type": "int"
+          },
+          "x-go-type": "map[string]int"
+        },
+        "map_int32": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int32",
+            "x-go-type": "int32"
+          },
+          "x-go-type": "map[string]int32"
+        },
+        "map_int64": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-type": "int64"
+          },
+          "x-go-type": "map[string]int64"
+        },
+        "map_string": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "x-go-type": "string"
+          },
+          "x-go-type": "map[string]string"
+        },
+        "map_uint32": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-type": "uint32"
+          },
+          "x-go-type": "map[string]uint32"
+        },
+        "map_uint64": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-type": "uint64"
+          },
+          "x-go-type": "map[string]uint64"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testSimpleMaps",
+      "x-go-property-names": {
+        "map_bool": "MapBool",
+        "map_float32": "MapFloat32",
+        "map_float64": "MapFloat64",
+        "map_int": "MapInt",
+        "map_int32": "MapInt32",
+        "map_int64": "MapInt64",
+        "map_string": "MapString",
+        "map_uint32": "MapUInt32",
+        "map_uint64": "MapUInt64"
+      },
+      "x-go-property-types": {
+        "map_bool": "map[string]bool",
+        "map_float32": "map[string]float32",
+        "map_float64": "map[string]float64",
+        "map_int": "map[string]int",
+        "map_int32": "map[string]int32",
+        "map_int64": "map[string]int64",
+        "map_string": "map[string]string",
+        "map_uint32": "map[string]uint32",
+        "map_uint64": "map[string]uint64"
+      }
+    },
+    "testSimpleSlices": {
+      "type": "object",
+      "properties": {
+        "list_bool": {
+          "type": "array",
+          "items": {
+            "type": "boolean",
+            "x-go-type": "bool"
+          },
+          "x-go-type": "[]bool"
+        },
+        "list_float32": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "float",
+            "x-go-type": "float32"
+          },
+          "x-go-type": "[]float32"
+        },
+        "list_float64": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double",
+            "x-go-type": "float64"
+          },
+          "x-go-type": "[]float64"
+        },
+        "list_int": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32",
+            "x-go-type": "int"
+          },
+          "x-go-type": "[]int"
+        },
+        "list_int32": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32",
+            "x-go-type": "int32"
+          },
+          "x-go-type": "[]int32"
+        },
+        "list_int64": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-type": "int64"
+          },
+          "x-go-type": "[]int64"
+        },
+        "list_string": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-go-type": "string"
+          },
+          "x-go-type": "[]string"
+        },
+        "list_uint32": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-type": "uint32"
+          },
+          "x-go-type": "[]uint32"
+        },
+        "list_uint64": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-type": "uint64"
+          },
+          "x-go-type": "[]uint64"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testSimpleSlices",
+      "x-go-property-names": {
+        "list_bool": "ListBool",
+        "list_float32": "ListFloat32",
+        "list_float64": "ListFloat64",
+        "list_int": "ListInt",
+        "list_int32": "ListInt32",
+        "list_int64": "ListInt64",
+        "list_string": "ListString",
+        "list_uint32": "ListUInt32",
+        "list_uint64": "ListUInt64"
+      },
+      "x-go-property-types": {
+        "list_bool": "[]bool",
+        "list_float32": "[]float32",
+        "list_float64": "[]float64",
+        "list_int": "[]int",
+        "list_int32": "[]int32",
+        "list_int64": "[]int64",
+        "list_string": "[]string",
+        "list_uint32": "[]uint32",
+        "list_uint64": "[]uint64"
+      }
+    },
+    "testSimpleStruct": {
+      "type": "object",
+      "properties": {
+        "simple_bool": {
+          "type": "boolean",
+          "x-go-type": "bool"
+        },
+        "simple_float32": {
+          "type": "number",
+          "format": "float",
+          "x-go-type": "float32"
+        },
+        "simple_float64": {
+          "type": "number",
+          "format": "double",
+          "x-go-type": "float64"
+        },
+        "simple_int": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "int"
+        },
+        "simple_int32": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "int32"
+        },
+        "simple_int64": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-type": "int64"
+        },
+        "simple_string": {
+          "type": "string",
+          "x-go-type": "string"
+        },
+        "simple_uint32": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-type": "uint32"
+        },
+        "simple_uint64": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-type": "uint64"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testSimpleStruct",
+      "x-go-property-names": {
+        "simple_bool": "SimpleBool",
+        "simple_float32": "SimpleFloat32",
+        "simple_float64": "SimpleFloat64",
+        "simple_int": "SimpleInt",
+        "simple_int32": "SimpleInt32",
+        "simple_int64": "SimpleInt64",
+        "simple_string": "SimpleString",
+        "simple_uint32": "SimpleUInt32",
+        "simple_uint64": "SimpleUInt64"
+      },
+      "x-go-property-types": {
+        "simple_bool": "bool",
+        "simple_float32": "float32",
+        "simple_float64": "float64",
+        "simple_int": "int",
+        "simple_int32": "int32",
+        "simple_int64": "int64",
+        "simple_string": "string",
+        "simple_uint32": "uint32",
+        "simple_uint64": "uint64"
+      }
+    },
+    "testSubTypes": {
+      "type": "object",
+      "properties": {
+        "test_simple_map_list": {
+          "$ref": "#/definitions/testSimpleMapList"
+        },
+        "test_simple_maps": {
+          "$ref": "#/definitions/testSimpleMaps"
+        },
+        "test_simple_slices": {
+          "$ref": "#/definitions/testSimpleSlices"
+        },
+        "test_simple_struct": {
+          "$ref": "#/definitions/testSimpleStruct"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testSubTypes",
+      "x-go-property-names": {
+        "test_simple_map_list": "TestSimpleMapList",
+        "test_simple_maps": "TestSimpleMaps",
+        "test_simple_slices": "TestSimpleSlices",
+        "test_simple_struct": "TestSimpleStruct"
+      },
+      "x-go-property-types": {
+        "test_simple_map_list": "github.com/lazada/swgen.testSimpleMapList",
+        "test_simple_maps": "github.com/lazada/swgen.testSimpleMaps",
+        "test_simple_slices": "github.com/lazada/swgen.testSimpleSlices",
+        "test_simple_struct": "github.com/lazada/swgen.testSimpleStruct"
+      }
+    },
+    "testWrapParams": {
+      "type": "object",
+      "properties": {
+        "deep_replacement": {
+          "$ref": "#/definitions/deepReplacementTag"
+        },
+        "should_be_sting": {
+          "type": "string",
+          "x-go-type": "int"
+        },
+        "simple_test_replacement": {
+          "$ref": "#/definitions/simpleTestReplacement"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.testWrapParams",
+      "x-go-property-names": {
+        "deep_replacement": "DeepReplacementTag",
+        "should_be_sting": "ReplaceByTag",
+        "simple_test_replacement": "SimpleTestReplacement"
+      },
+      "x-go-property-types": {
+        "deep_replacement": "github.com/lazada/swgen.deepReplacementTag",
+        "should_be_sting": "int",
+        "simple_test_replacement": "github.com/lazada/swgen.simpleTestReplacement"
+      }
+    }
+  },
+  "x-service-type": "rest"
 }

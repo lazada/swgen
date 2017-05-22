@@ -259,9 +259,9 @@ func TestREST(t *testing.T) {
 		SetInfo("swgen title", "swgen description", "term", "2.0").
 		SetLicense("BEER-WARE", "https://fedoraproject.org/wiki/Licensing/Beerware").
 		SetContact("Dylan Noblitt", "http://example.com", "dylan.noblitt@example.com").
-		SetType(ServiceTypeRest).
-		SetUppercaseVersion(true).
-		SetAttachVersionToHead(true)
+		AddExtendedField("x-service-type", ServiceTypeRest).
+		ReflectGoTypes(true).
+		IndentJSON(true)
 
 	gen.AddTypeMap(simpleTestReplacement{}, "")
 	gen.AddTypeMap(sliceType{}, float64(0))
@@ -328,7 +328,6 @@ func TestREST(t *testing.T) {
 		_, err = fp.Write(bytes)
 	}
 
-	//println("\n", string(bytes), "\n", "\n", "\n")
 	assertTrue(checkResult(bytes, "test_REST.json", t), t)
 }
 
@@ -338,11 +337,10 @@ func TestJsonRpc(t *testing.T) {
 	gen.SetInfo("swgen title", "swgen description", "term", "2.0")
 	gen.SetLicense("BEER-WARE", "https://fedoraproject.org/wiki/Licensing/Beerware")
 	gen.SetContact("Dylan Noblitt", "http://example.com", "dylan.noblitt@example.com")
-	gen.SetType(ServiceTypeJSONRPC)
-	gen.SetUppercaseVersion(false)
-	gen.SetAttachVersionToHead(false)
+	gen.AddExtendedField("x-service-type", ServiceTypeJSONRPC)
 	gen.AddTypeMap(simpleTestReplacement{}, "")
 	gen.AddTypeMap(sliceType{}, "")
+	gen.IndentJSON(true)
 
 	var emptyInterface interface{}
 
@@ -381,11 +379,17 @@ func TestJsonRpc(t *testing.T) {
 	gen.SetPathItem(createPathItemInfo("/V1/primitiveTypes3", "POST", "testPrimitives", "test Primitives", "v1", false), emptyInterface, int64(10), "")
 	gen.SetPathItem(createPathItemInfo("/V1/primitiveTypes4", "POST", "testPrimitives", "test Primitives", "v1", false), emptyInterface, int64(10), "")
 
-	gen.SetPathItem(createPathItemInfo("/V1/defaeults1", "POST", "default", "test defaults", "v1", false), emptyInterface, emptyInterface, testDefaults{})
+	gen.SetPathItem(createPathItemInfo("/V1/defaults1", "POST", "default", "test defaults", "v1", false), emptyInterface, emptyInterface, testDefaults{})
 
 	bytes, err := gen.GenDocument()
 	if err != nil {
 		t.Fatalf("can not generate document: %s", err.Error())
+	}
+
+	fp, err := os.OpenFile("test_JSON-RPC_last_run.json", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, os.ModePerm)
+	if err == nil {
+		defer fp.Close()
+		_, err = fp.Write(bytes)
 	}
 
 	assertTrue(checkResult(bytes, "test_JSON-RPC.json", t), t)
@@ -433,9 +437,6 @@ func TestGenDocumentFunc(t *testing.T) {
 	SetContact("Test Name", "test@email.com", "http://test.com")
 	SetLicense("MIT", "http://www.mit.com")
 	SetInfo("Test API", "Generate api document", "term.com", "1.0.0")
-	SetType(ServiceTypeRest)
-	SetUppercaseVersion(false)
-	SetAttachVersionToHead(true)
 	EnableCORS(false)
 
 	info := PathItemInfo{
