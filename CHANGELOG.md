@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.2.0](https://github.com/lazada/swgen/tree/v0.2.0) (2017-05-23)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.1.1...v0.2.0)
+
+**Implemented enhancements:**
+
+- Reflect original go types and swagger compliance [\#13](https://github.com/lazada/swgen/pull/13) ([vearutop](https://github.com/vearutop))
+- Use func SwgenDefinition if destination mapping type implements IDefinition interface. [\#12](https://github.com/lazada/swgen/pull/12) ([ngdinhtoan](https://github.com/ngdinhtoan))
+- Support cross-origin HTTP request \(CORS\) [\#11](https://github.com/lazada/swgen/pull/11) ([ngdinhtoan](https://github.com/ngdinhtoan))
+- Run go vet when build on travis-ci [\#10](https://github.com/lazada/swgen/pull/10) ([ngdinhtoan](https://github.com/ngdinhtoan))
+- Get rid of hard code check type name of struct to create object schema, use interface IDefinition or swgen\_type tag instead. [\#9](https://github.com/lazada/swgen/pull/9) ([ngdinhtoan](https://github.com/ngdinhtoan))
+
 ## [v0.1.1](https://github.com/lazada/swgen/tree/v0.1.1) (2017-05-10)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.1.0...v0.1.1)
 
