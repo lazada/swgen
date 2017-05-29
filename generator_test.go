@@ -108,7 +108,12 @@ type paramStructMap struct {
 	Field3 simpleTestReplacement `schema:"field3"`
 }
 
+type AnonymousField struct {
+	AnonProp int `json:"anonProp"`
+}
+
 type mixedStruct struct {
+	AnonymousField
 	FieldQuery int `schema:"fieldQuery"`
 	FieldBody  int `json:"fieldBody"`
 }

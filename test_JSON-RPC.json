@@ -799,6 +799,10 @@
     "mixedStruct": {
       "type": "object",
       "properties": {
+        "anonProp": {
+          "type": "integer",
+          "format": "int32"
+        },
         "fieldBody": {
           "type": "integer",
           "format": "int32"
