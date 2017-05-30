@@ -243,7 +243,7 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 
 func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj) map[string]SchemaObj {
 	properties := make(map[string]SchemaObj, t.NumField())
-	if g.reflectGoTypes {
+	if g.reflectGoTypes && parent.GoPropertyNames == nil {
 		parent.GoPropertyNames = make(map[string]string, t.NumField())
 		parent.GoPropertyTypes = make(map[string]string, t.NumField())
 	}

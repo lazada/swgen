@@ -1345,6 +1345,11 @@
     "mixedStruct": {
       "type": "object",
       "properties": {
+        "anonProp": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "int"
+        },
         "fieldBody": {
           "type": "integer",
           "format": "int32",
@@ -1353,9 +1358,11 @@
       },
       "x-go-type": "github.com/lazada/swgen.mixedStruct",
       "x-go-property-names": {
+        "anonProp": "AnonProp",
         "fieldBody": "FieldBody"
       },
       "x-go-property-types": {
+        "anonProp": "int",
         "fieldBody": "int"
       }
     },
