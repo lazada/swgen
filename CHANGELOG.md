@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.2.1](https://github.com/lazada/swgen/tree/v0.2.1) (2017-05-30)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.2.0...v0.2.1)
+
+**Fixed bugs:**
+
+- Missing go type reflection from anonymous properties [\#14](https://github.com/lazada/swgen/pull/14) ([vearutop](https://github.com/vearutop))
+
 ## [v0.2.0](https://github.com/lazada/swgen/tree/v0.2.0) (2017-05-23)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.1.1...v0.2.0)
 
