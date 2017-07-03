@@ -95,10 +95,14 @@ func ResetDefinitions() {
 	gen.ResetDefinitions()
 }
 
-func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err error) {
+// ParseDefinition create a DefObj from input object, it should be a non-nil pointer to anything
+// it reuse schema/json tag for property name.
+func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error) {
 	var (
 		typeName string
 		typeDef  SchemaObj
+		t        reflect.Type  = reflect.TypeOf(i)
+		v        reflect.Value = reflect.ValueOf(i)
 	)
 
 	if definition, ok := i.(IDefinition); ok {
@@ -145,7 +149,7 @@ func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err 
 		}
 
 		typeDef = SchemaObj{Type: "object"}
-		typeDef.Properties = g.parseDefinitionProperties(t, &typeDef)
+		typeDef.Properties = g.parseDefinitionProperties(v, &typeDef)
 	case reflect.Slice, reflect.Array:
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
@@ -165,7 +169,7 @@ func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err 
 			itemSchema = SchemaObj{
 				Type: "object",
 			}
-			itemSchema.Properties = g.parseDefinitionProperties(elemType, &itemSchema)
+			itemSchema.Properties = g.parseDefinitionProperties(v.Elem(), &itemSchema)
 		}
 
 		typeDef = SchemaObj{Type: "array"}
@@ -235,13 +239,11 @@ func goType(t reflect.Type) (s string) {
 	return
 }
 
-// ParseDefinition create a DefObj from input object, it should be a non-nil pointer to anything
-// it reuse schema/json tag for property name.
-func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error) {
-	return g.parse(i, reflect.TypeOf(i))
-}
-
-func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj) map[string]SchemaObj {
+func (g *Generator) parseDefinitionProperties(v reflect.Value, parent *SchemaObj) map[string]SchemaObj {
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	t := v.Type()
 	properties := make(map[string]SchemaObj, t.NumField())
 	if g.reflectGoTypes && parent.GoPropertyNames == nil {
 		parent.GoPropertyNames = make(map[string]string, t.NumField())
@@ -257,7 +259,7 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj)
 		}
 
 		if field.Anonymous {
-			fieldProperties := g.parseDefinitionProperties(field.Type, parent)
+			fieldProperties := g.parseDefinitionProperties(v.Field(i), parent)
 			for propertyName, property := range fieldProperties {
 				properties[propertyName] = property
 			}
@@ -278,7 +280,11 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj)
 		if dataType := field.Tag.Get("swgen_type"); dataType != "" {
 			obj = SchemaFromCommonName(commonName(dataType))
 		} else {
-			obj = g.genSchemaForType(field.Type)
+			if field.Type.Kind() == reflect.Interface && v.Field(i).Elem().IsValid() {
+				obj = g.genSchemaForType(v.Field(i).Elem().Type())
+			} else {
+				obj = g.genSchemaForType(field.Type)
+			}
 		}
 
 		if defaultTag := field.Tag.Get("default"); defaultTag != "" {

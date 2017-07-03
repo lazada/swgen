@@ -31,6 +31,12 @@ type Employee struct {
 	Salary float64 `json:"salary"`
 }
 
+type Project struct {
+	Id      uint        `json:"id"`
+	Name    string      `json:"name"`
+	Manager interface{} `json:"manager"`
+}
+
 // PreferredWarehouseRequest is request object of get preferred warehouse handler
 type PreferredWarehouseRequest struct {
 	Items              []string `schema:"items" description:"List of simple sku"`
@@ -94,6 +100,19 @@ func TestParseDefinitionWithEmbeddedStruct(t *testing.T) {
 	expectedPropertiesCount := 9
 	if propertiesCount != expectedPropertiesCount {
 		t.Fatalf("Expected %d properties, got %d : %#v", expectedPropertiesCount, propertiesCount, gen.definitions[name].Properties)
+	}
+}
+
+func TestParseDefinitionWithEmbeddedInterface(t *testing.T) {
+	p := &Project{Manager: new(Employee)}
+
+	typeDef, err := ParseDefinition(p)
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
+
+	if gen.definitions[typeDef.TypeName].Properties["manager"].Ref != "#/definitions/Employee" {
+		t.Fatalf("'manager' field was not parsed correctly.")
 	}
 }
 
