@@ -47,7 +47,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.definitionExample"
+        "x-request-go-type": "github.com/sb-lazada/swgen.definitionExample"
       }
     },
     "/V1/anonymous1": {
@@ -81,7 +81,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/anonymous2": {
@@ -114,7 +114,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/anonymous3": {
@@ -147,7 +147,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/anonymous4": {
@@ -181,7 +181,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/anonymous5": {
@@ -210,7 +210,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/anonymous6": {
@@ -239,7 +239,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/anonymous7": {
@@ -267,11 +267,11 @@
               "additionalProperties": {
                 "$ref": "#/definitions/testSimpleStruct"
               },
-              "x-go-type": "map[string]github.com/lazada/swgen.testSimpleStruct"
+              "x-go-type": "map[string]github.com/sb-lazada/swgen.testSimpleStruct"
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/combine": {
@@ -316,7 +316,7 @@
           }
         },
         "deprecated": true,
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleSlices"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleSlices"
       },
       "post": {
         "tags": [
@@ -343,7 +343,7 @@
           }
         },
         "deprecated": true,
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleMaps"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleMaps"
       },
       "delete": {
         "tags": [
@@ -370,7 +370,7 @@
           }
         },
         "deprecated": true,
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleMapList"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleMapList"
       },
       "options": {
         "tags": [
@@ -397,7 +397,7 @@
           }
         },
         "deprecated": true,
-        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSubTypes"
       },
       "patch": {
         "tags": [
@@ -424,7 +424,7 @@
           }
         },
         "deprecated": true,
-        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSubTypes"
       }
     },
     "/V1/date1": {
@@ -452,7 +452,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/date2": {
@@ -480,7 +480,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/date3": {
@@ -508,7 +508,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/date4": {
@@ -536,11 +536,11 @@
               "items": {
                 "$ref": "#/definitions/mapDateTime"
               },
-              "x-go-type": "[]github.com/lazada/swgen.mapDateTime"
+              "x-go-type": "[]github.com/sb-lazada/swgen.mapDateTime"
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/defaeults1": {
@@ -585,7 +585,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.NullTypes"
+        "x-request-go-type": "github.com/sb-lazada/swgen.NullTypes"
       }
     },
     "/V1/pathParams/{category}/{id}": {
@@ -621,7 +621,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testPathParam"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testPathParam"
       }
     },
     "/V1/primitiveTypes1": {
@@ -773,11 +773,11 @@
               "items": {
                 "$ref": "#/definitions/mapDateTime"
               },
-              "x-go-type": "[]github.com/lazada/swgen.mapDateTime"
+              "x-go-type": "[]github.com/sb-lazada/swgen.mapDateTime"
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/slice2": {
@@ -807,7 +807,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/test1": {
@@ -923,7 +923,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "/V1/test3": {
@@ -951,7 +951,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleSlices"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleSlices"
       }
     },
     "/V1/test4": {
@@ -979,7 +979,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleMaps"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleMaps"
       }
     },
     "/V1/test5": {
@@ -1007,7 +1007,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSimpleMapList"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSimpleMapList"
       }
     },
     "/V1/test6": {
@@ -1035,7 +1035,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSubTypes"
       }
     },
     "/V1/test7": {
@@ -1086,7 +1086,7 @@
             "type": "string",
             "required": true,
             "x-go-name": "Field3",
-            "x-go-type": "github.com/lazada/swgen.simpleTestReplacement"
+            "x-go-type": "github.com/sb-lazada/swgen.simpleTestReplacement"
           }
         ],
         "responses": {
@@ -1097,11 +1097,11 @@
               "additionalProperties": {
                 "$ref": "#/definitions/testSimpleStruct"
               },
-              "x-go-type": "map[string]github.com/lazada/swgen.testSimpleStruct"
+              "x-go-type": "map[string]github.com/sb-lazada/swgen.testSimpleStruct"
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.paramStructMap"
+        "x-request-go-type": "github.com/sb-lazada/swgen.paramStructMap"
       }
     },
     "/V1/test9": {
@@ -1138,11 +1138,11 @@
               "additionalProperties": {
                 "$ref": "#/definitions/testSimpleStruct"
               },
-              "x-go-type": "map[string]github.com/lazada/swgen.testSimpleStruct"
+              "x-go-type": "map[string]github.com/sb-lazada/swgen.testSimpleStruct"
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.mixedStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.mixedStruct"
       }
     },
     "/V1/typeReplacement1": {
@@ -1170,7 +1170,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testSubTypes"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testSubTypes"
       }
     },
     "/V1/unknown": {
@@ -1198,43 +1198,43 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.Unknown"
+        "x-request-go-type": "github.com/sb-lazada/swgen.Unknown"
       }
     }
   },
   "definitions": {
     "NullBool": {
       "type": "boolean",
-      "x-go-type": "github.com/lazada/swgen.NullBool"
+      "x-go-type": "github.com/sb-lazada/swgen.NullBool"
     },
     "NullDate": {
       "type": "string",
       "format": "date",
-      "x-go-type": "github.com/lazada/swgen.NullDate"
+      "x-go-type": "github.com/sb-lazada/swgen.NullDate"
     },
     "NullDateTime": {
       "type": "string",
       "format": "date-time",
-      "x-go-type": "github.com/lazada/swgen.NullDateTime"
+      "x-go-type": "github.com/sb-lazada/swgen.NullDateTime"
     },
     "NullFloat64": {
       "type": "number",
       "format": "float",
-      "x-go-type": "github.com/lazada/swgen.NullFloat64"
+      "x-go-type": "github.com/sb-lazada/swgen.NullFloat64"
     },
     "NullInt64": {
       "type": "integer",
       "format": "int64",
-      "x-go-type": "github.com/lazada/swgen.NullInt64"
+      "x-go-type": "github.com/sb-lazada/swgen.NullInt64"
     },
     "NullString": {
       "type": "string",
-      "x-go-type": "github.com/lazada/swgen.NullString"
+      "x-go-type": "github.com/sb-lazada/swgen.NullString"
     },
     "NullTimestamp": {
       "type": "integer",
       "format": "int64",
-      "x-go-type": "github.com/lazada/swgen.NullTimestamp"
+      "x-go-type": "github.com/sb-lazada/swgen.NullTimestamp"
     },
     "NullTypes": {
       "type": "object",
@@ -1261,7 +1261,7 @@
           "$ref": "#/definitions/NullTimestamp"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.NullTypes",
+      "x-go-type": "github.com/sb-lazada/swgen.NullTypes",
       "x-go-property-names": {
         "null_bool": "Bool",
         "null_date": "Date",
@@ -1272,13 +1272,13 @@
         "null_timestamp": "Timestamp"
       },
       "x-go-property-types": {
-        "null_bool": "github.com/lazada/swgen.NullBool",
-        "null_date": "github.com/lazada/swgen.NullDate",
-        "null_date_time": "github.com/lazada/swgen.NullDateTime",
-        "null_float": "github.com/lazada/swgen.NullFloat64",
-        "null_int": "github.com/lazada/swgen.NullInt64",
-        "null_string": "github.com/lazada/swgen.NullString",
-        "null_timestamp": "github.com/lazada/swgen.NullTimestamp"
+        "null_bool": "github.com/sb-lazada/swgen.NullBool",
+        "null_date": "github.com/sb-lazada/swgen.NullDate",
+        "null_date_time": "github.com/sb-lazada/swgen.NullDateTime",
+        "null_float": "github.com/sb-lazada/swgen.NullFloat64",
+        "null_int": "github.com/sb-lazada/swgen.NullInt64",
+        "null_string": "github.com/sb-lazada/swgen.NullString",
+        "null_timestamp": "github.com/sb-lazada/swgen.NullTimestamp"
       }
     },
     "Unknown": {
@@ -1291,7 +1291,7 @@
           "x-go-type": "*[]uint8"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.Unknown",
+      "x-go-type": "github.com/sb-lazada/swgen.Unknown",
       "x-go-property-names": {
         "anything": "Anything",
         "whatever": "Whatever"
@@ -1310,7 +1310,7 @@
           "x-go-type": "string"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.deepReplacementTag",
+      "x-go-type": "github.com/sb-lazada/swgen.deepReplacementTag",
       "x-go-property-names": {
         "test_field_1": "TestField1"
       },
@@ -1321,7 +1321,7 @@
     "definitionExample": {
       "type": "string",
       "format": "byte",
-      "x-go-type": "github.com/lazada/swgen.definitionExample"
+      "x-go-type": "github.com/sb-lazada/swgen.definitionExample"
     },
     "mapDateTime": {
       "type": "object",
@@ -1331,15 +1331,15 @@
           "additionalProperties": {
             "$ref": "#/definitions/simpleDateTime"
           },
-          "x-go-type": "map[string]github.com/lazada/swgen.simpleDateTime"
+          "x-go-type": "map[string]github.com/sb-lazada/swgen.simpleDateTime"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.mapDateTime",
+      "x-go-type": "github.com/sb-lazada/swgen.mapDateTime",
       "x-go-property-names": {
         "items": "Items"
       },
       "x-go-property-types": {
-        "items": "map[string]github.com/lazada/swgen.simpleDateTime"
+        "items": "map[string]github.com/sb-lazada/swgen.simpleDateTime"
       }
     },
     "mixedStruct": {
@@ -1356,7 +1356,7 @@
           "x-go-type": "int"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.mixedStruct",
+      "x-go-type": "github.com/sb-lazada/swgen.mixedStruct",
       "x-go-property-names": {
         "anonProp": "AnonProp",
         "fieldBody": "FieldBody"
@@ -1375,7 +1375,7 @@
           "x-go-type": "time.Time"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.simpleDateTime",
+      "x-go-type": "github.com/sb-lazada/swgen.simpleDateTime",
       "x-go-property-names": {
         "time": "Time"
       },
@@ -1391,15 +1391,15 @@
           "items": {
             "$ref": "#/definitions/simpleDateTime"
           },
-          "x-go-type": "[]github.com/lazada/swgen.simpleDateTime"
+          "x-go-type": "[]github.com/sb-lazada/swgen.simpleDateTime"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.sliceDateTime",
+      "x-go-type": "github.com/sb-lazada/swgen.sliceDateTime",
       "x-go-property-names": {
         "items": "Items"
       },
       "x-go-property-types": {
-        "items": "[]github.com/lazada/swgen.simpleDateTime"
+        "items": "[]github.com/sb-lazada/swgen.simpleDateTime"
       }
     },
     "testDefaults": {
@@ -1460,7 +1460,7 @@
           "x-go-type": "*uint"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testDefaults",
+      "x-go-type": "github.com/sb-lazada/swgen.testDefaults",
       "x-go-property-names": {
         "field1": "Field1",
         "field2": "Field2",
@@ -1599,7 +1599,7 @@
           "x-go-type": "[]map[string]uint64"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testSimpleMapList",
+      "x-go-type": "github.com/sb-lazada/swgen.testSimpleMapList",
       "x-go-property-names": {
         "map_list_bool": "MapListBool",
         "map_list_float32": "MapListFloat32",
@@ -1706,7 +1706,7 @@
           "x-go-type": "map[string]uint64"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testSimpleMaps",
+      "x-go-type": "github.com/sb-lazada/swgen.testSimpleMaps",
       "x-go-property-names": {
         "map_bool": "MapBool",
         "map_float32": "MapFloat32",
@@ -1813,7 +1813,7 @@
           "x-go-type": "[]uint64"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testSimpleSlices",
+      "x-go-type": "github.com/sb-lazada/swgen.testSimpleSlices",
       "x-go-property-names": {
         "list_bool": "ListBool",
         "list_float32": "ListFloat32",
@@ -1884,7 +1884,7 @@
           "x-go-type": "uint64"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testSimpleStruct",
+      "x-go-type": "github.com/sb-lazada/swgen.testSimpleStruct",
       "x-go-property-names": {
         "simple_bool": "SimpleBool",
         "simple_float32": "SimpleFloat32",
@@ -1924,7 +1924,7 @@
           "$ref": "#/definitions/testSimpleStruct"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testSubTypes",
+      "x-go-type": "github.com/sb-lazada/swgen.testSubTypes",
       "x-go-property-names": {
         "test_simple_map_list": "TestSimpleMapList",
         "test_simple_maps": "TestSimpleMaps",
@@ -1932,10 +1932,10 @@
         "test_simple_struct": "TestSimpleStruct"
       },
       "x-go-property-types": {
-        "test_simple_map_list": "github.com/lazada/swgen.testSimpleMapList",
-        "test_simple_maps": "github.com/lazada/swgen.testSimpleMaps",
-        "test_simple_slices": "github.com/lazada/swgen.testSimpleSlices",
-        "test_simple_struct": "github.com/lazada/swgen.testSimpleStruct"
+        "test_simple_map_list": "github.com/sb-lazada/swgen.testSimpleMapList",
+        "test_simple_maps": "github.com/sb-lazada/swgen.testSimpleMaps",
+        "test_simple_slices": "github.com/sb-lazada/swgen.testSimpleSlices",
+        "test_simple_struct": "github.com/sb-lazada/swgen.testSimpleStruct"
       }
     },
     "testWrapParams": {
@@ -1952,16 +1952,16 @@
           "$ref": "#/definitions/simpleTestReplacement"
         }
       },
-      "x-go-type": "github.com/lazada/swgen.testWrapParams",
+      "x-go-type": "github.com/sb-lazada/swgen.testWrapParams",
       "x-go-property-names": {
         "deep_replacement": "DeepReplacementTag",
         "should_be_sting": "ReplaceByTag",
         "simple_test_replacement": "SimpleTestReplacement"
       },
       "x-go-property-types": {
-        "deep_replacement": "github.com/lazada/swgen.deepReplacementTag",
+        "deep_replacement": "github.com/sb-lazada/swgen.deepReplacementTag",
         "should_be_sting": "int",
-        "simple_test_replacement": "github.com/lazada/swgen.simpleTestReplacement"
+        "simple_test_replacement": "github.com/sb-lazada/swgen.simpleTestReplacement"
       }
     }
   },
