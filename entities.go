@@ -199,6 +199,39 @@ type SchemaObj struct {
 	GoPropertyTypes      map[string]string    `json:"x-go-property-types,omitempty"`
 }
 
+func NewSchemaObj(jsonType, typeName string) (so *SchemaObj) {
+	so = &SchemaObj{
+		Type:     jsonType,
+		TypeName: typeName,
+	}
+	if typeName != "" {
+		so.Ref = refDefinitionPrefix + typeName
+	}
+	return
+}
+
+func (so *SchemaObj) isEmpty() bool {
+	if isCommonName(so.TypeName) || so.Ref != "" {
+		return false
+	}
+
+	switch so.Type {
+	case "object":
+		return len(so.Properties) == 0
+	case "array":
+		return so.Items == nil
+	default:
+		return len(so.Properties) == 0 && so.AdditionalProperties == nil && so.Format == ""
+	}
+}
+
+func (so SchemaObj) Export() SchemaObj {
+	return SchemaObj{
+		Ref:      so.Ref,
+		TypeName: so.TypeName,
+	}
+}
+
 type additionalData struct {
 	data map[string]interface{}
 }

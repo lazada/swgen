@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sync"
 	"testing"
+	"reflect"
 )
 
 type Person struct {
@@ -91,28 +92,37 @@ func TestParseDefinitionNonEmptyInterface(t *testing.T) {
 
 func TestParseDefinitionWithEmbeddedStruct(t *testing.T) {
 	ts := &Employee{}
-	typeDef, err := ParseDefinition(ts)
-	if err != nil {
+	tt := reflect.TypeOf(ts)
+
+	if _, err := ParseDefinition(ts); err != nil {
 		t.Fatalf("%v", err)
 	}
-	name := typeDef.TypeName
-	propertiesCount := len(gen.definitions[name].Properties)
-	expectedPropertiesCount := 9
-	if propertiesCount != expectedPropertiesCount {
-		t.Fatalf("Expected %d properties, got %d : %#v", expectedPropertiesCount, propertiesCount, gen.definitions[name].Properties)
+
+	if typeDef, found := gen.getDefinition(tt); found == false {
+		t.Fatal("No definition for", tt)
+	} else {
+		propertiesCount := len(typeDef.Properties)
+		expectedPropertiesCount := 9
+		if propertiesCount != expectedPropertiesCount {
+			t.Fatalf("Expected %d properties, got %d : %#v", expectedPropertiesCount, propertiesCount, typeDef.Properties)
+		}
 	}
 }
 
 func TestParseDefinitionWithEmbeddedInterface(t *testing.T) {
 	p := &Project{Manager: new(Employee)}
+	tt := reflect.TypeOf(p)
 
-	typeDef, err := ParseDefinition(p)
-	if err != nil {
+	if _, err := ParseDefinition(p); err != nil {
 		t.Fatalf("%v", err)
 	}
 
-	if gen.definitions[typeDef.TypeName].Properties["manager"].Ref != "#/definitions/Employee" {
-		t.Fatalf("'manager' field was not parsed correctly.")
+	if typeDef, found := gen.getDefinition(tt); found == false {
+		t.Fatal("No definition for", tt)
+	} else {
+		if typeDef.Properties["manager"].Ref != "#/definitions/Employee" {
+			t.Fatalf("'manager' field was not parsed correctly.")
+		}
 	}
 }
 
