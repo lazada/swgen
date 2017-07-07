@@ -360,32 +360,13 @@ func ParseDefinition(i interface{}) (typeDef SchemaObj, err error) {
 }
 
 func (g *Generator) parseDefInQueue() {
-	g.queueMux.Lock()
-	length := len(g.defQueue)
-
-	if length == 0 {
-		g.queueMux.Unlock()
+	if len(g.defQueue) == 0 {
 		return
 	}
 
-	done := make(chan reflect.Type, length)
 	for t := range g.defQueue {
-		go func(t reflect.Type) {
-			g.ParseDefinition(reflect.Zero(t).Interface())
-			done <- t
-		}(t)
+		g.ParseDefinition(reflect.Zero(t).Interface())
 	}
-
-	g.queueMux.Unlock()
-
-	for i := 0; i < length; i = i + 1 {
-		t := <-done
-		g.queueMux.Lock()
-		delete(g.defQueue, t)
-		g.queueMux.Unlock()
-	}
-
-	close(done)
 }
 
 func (g *Generator) genSchemaForType(t reflect.Type) SchemaObj {
@@ -695,13 +676,10 @@ func SetPathItem(info PathItemInfo, params interface{}, body interface{}, respon
 }
 
 func (g *Generator) parseResponseObject(responseObj interface{}) (res Responses) {
-	//fmt.Println("parseResponseObject() with reflect.Type:", ReflectTypeHash(reflect.TypeOf(responseObj)))
-
 	res = make(Responses)
 
 	if responseObj != nil {
 		schema, err := g.ParseDefinition(responseObj)
-		//fmt.Printf("Generator.parseResponseObject():\n\tresponseObj = %#v\n\tschema = %#v\n", responseObj, schema)
 		if err != nil {
 			panic(fmt.Sprintf("could not create schema object for response %v", responseObj))
 		}
