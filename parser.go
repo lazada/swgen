@@ -106,9 +106,8 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	var (
 		typeName string
 		typeDef  SchemaObj
-		t        reflect.Type = reflect.TypeOf(i)
-		// tt       reflect.Type  = t // if 't' is a pointer type, 'tt' will contain its underlying (indirected) type
-		v reflect.Value = reflect.ValueOf(i)
+		t        = reflect.TypeOf(i)
+		v        = reflect.ValueOf(i)
 	)
 
 	//fmt.Printf("\n[1] ParseDefinition() entry point:\n\t%#v\n\treflect.Type hash = %d, kind = %s\n",
@@ -148,10 +147,10 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	}
 
 	/*
-	if t.Name() == "" {
-		fmt.Println("[5] ParseDefinition(): parameter type name was empty, calling genSchemaForType()")
-		return g.genSchemaForType(t), nil
-	}
+		if t.Name() == "" {
+			fmt.Println("[5] ParseDefinition(): parameter type name was empty, calling genSchemaForType()")
+			return g.genSchemaForType(t), nil
+		}
 	*/
 
 	//fmt.Printf("[6] ParseDefinition(): entering type switch, kind = %s, reliable type name = %s\n", t.Kind(), ReflectTypeReliableName(t))
@@ -219,9 +218,8 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	if typeDef.TypeName != "" { // non-anonymous types should be added to definitions map and returned "in-place" as references
 		g.addDefinition(t, typeDef)
 		return typeDef.Export(), nil
-	} else {
-		return typeDef, nil // anonymous types are not added to definitions map; instead, they are returned "in-place" in full form
 	}
+	return typeDef, nil // anonymous types are not added to definitions map; instead, they are returned "in-place" in full form
 }
 
 func goType(t reflect.Type) (s string) {

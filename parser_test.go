@@ -3,9 +3,9 @@ package swgen
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"sync"
 	"testing"
-	"reflect"
 )
 
 type Person struct {
@@ -33,7 +33,7 @@ type Employee struct {
 }
 
 type Project struct {
-	Id      uint        `json:"id"`
+	ID      uint        `json:"id"`
 	Name    string      `json:"name"`
 	Manager interface{} `json:"manager"`
 }
