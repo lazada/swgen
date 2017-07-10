@@ -1,17 +1,17 @@
 package swgen
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 type TestStruct1 struct {
-	Id   uint
+	ID   uint
 	Name string
 }
 
 type TestStruct2 struct {
-	Id   uint
+	ID   uint
 	Name string
 }
 
@@ -21,12 +21,12 @@ func TestReflectTypeHash(t *testing.T) {
 		ts2        TestStruct2
 
 		anon1a, anon1b struct {
-			Id   uint
+			ID   uint
 			Name string
 		}
 
 		anon2 = struct {
-			Id   uint
+			ID   uint
 			Name string
 		}{}
 	)

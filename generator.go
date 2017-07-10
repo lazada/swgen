@@ -3,10 +3,10 @@ package swgen
 import (
 	"encoding/json"
 	"net/http"
+	"reflect"
 	"strconv"
 	"strings"
 	"sync"
-	"reflect"
 )
 
 // Generator create swagger document
