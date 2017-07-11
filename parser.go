@@ -110,11 +110,7 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		v        = reflect.ValueOf(i)
 	)
 
-	//fmt.Printf("\n[1] ParseDefinition() entry point:\n\t%#v\n\treflect.Type hash = %d, kind = %s\n",
-	//	i, ReflectTypeHash(t), t.Kind())
-
 	if definition, ok := i.(IDefinition); ok {
-		//fmt.Println("[2a] ParseDefinition(): parameter implements IDefinition")
 		typeName, typeDef, err = definition.SwgenDefinition()
 		if err != nil {
 			return typeDef, err
@@ -130,30 +126,19 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		if g.reflectGoTypes {
 			typeDef.GoType = goType(t)
 		}
-		//fmt.Println("[2b] ParseDefinition(): call to addDefinition() from IDefinition case, typeDef.TypeName =", typeDef.TypeName)
 		g.addDefinition(t, typeDef)
 
 		return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
 	}
 
 	if mappedTo, ok := g.getMappedType(t); ok {
-		//fmt.Printf("[3] ParseDefinition(): type is mapped to %#v\n", mappedTo)
 		return g.ParseDefinition(mappedTo)
 	}
 
 	if t.Kind() == reflect.Ptr {
 		t = t.Elem()
-		//fmt.Printf("[4] ParseDefinition(): parameter was a pointer, dereferencing to type hash %d\n", ReflectTypeHash(t))
 	}
 
-	/*
-		if t.Name() == "" {
-			fmt.Println("[5] ParseDefinition(): parameter type name was empty, calling genSchemaForType()")
-			return g.genSchemaForType(t), nil
-		}
-	*/
-
-	//fmt.Printf("[6] ParseDefinition(): entering type switch, kind = %s, reliable type name = %s\n", t.Kind(), ReflectTypeReliableName(t))
 	switch t.Kind() {
 	case reflect.Struct:
 		if typeDef, found := g.getDefinition(t); found {
@@ -210,10 +195,6 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	if g.reflectGoTypes {
 		typeDef.GoType = goType(t)
 	}
-
-	//typeDefJson, _ := json.MarshalIndent(typeDef, "", "\t")
-	//fmt.Printf("[8a] ParseDefinition() at end: type hash = %d, type name = %s, typeDef = %s\n",
-	//	ReflectTypeHash(t), typeDef.TypeName, typeDefJson)
 
 	if typeDef.TypeName != "" { // non-anonymous types should be added to definitions map and returned "in-place" as references
 		g.addDefinition(t, typeDef)
@@ -617,10 +598,6 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 		}
 
 		typeDef, err := g.ParseDefinition(body)
-
-		//typeDefJson, _ := json.MarshalIndent(typeDef, "", "\t")
-		//fmt.Printf("SetPathItem(): parsing body: type hash = %d, type name = %s, typeDef = %s\n",
-		//	ReflectTypeHash(reflect.TypeOf(body)), typeDef.TypeName, typeDefJson)
 
 		if err != nil {
 			return err
