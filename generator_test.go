@@ -14,6 +14,8 @@ import (
 	"github.com/kr/pretty"
 )
 
+type testEmptyStruct struct{}
+
 type testSimpleStruct struct {
 	SimpleString  string  `json:"simple_string" schema:"simple_string"`
 	SimpleInt     int     `json:"simple_int" schema:"simple_int"`
@@ -321,6 +323,8 @@ func TestREST(t *testing.T) {
 
 	gen.SetPathItem(createPathItemInfo("/V1/defaeults1", "GET", "default", "test defaults", "v1", false), emptyInterface, emptyInterface, testDefaults{})
 	gen.SetPathItem(createPathItemInfo("/V1/unknown", "POST", "test unknown types", "test unknown types", "v1", false), emptyInterface, Unknown{}, Unknown{})
+
+	gen.SetPathItem(createPathItemInfo("/V1/empty", "POST", "test empty struct", "test empty struct", "v1", false), testEmptyStruct{}, nil, testEmptyStruct{})
 
 	bytes, err := gen.GenDocument()
 	if err != nil {
