@@ -560,6 +560,24 @@
         }
       }
     },
+    "/V1/empty": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test empty struct",
+        "description": "test empty struct",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/testEmptyStruct"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.testEmptyStruct"
+      }
+    },
     "/V1/nullTypes": {
       "get": {
         "tags": [
@@ -1479,6 +1497,10 @@
         "field6": "map[string]int",
         "field7": "*uint"
       }
+    },
+    "testEmptyStruct": {
+      "type": "object",
+      "x-go-type": "github.com/lazada/swgen.testEmptyStruct"
     },
     "testSimpleMapList": {
       "type": "object",
