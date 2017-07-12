@@ -148,9 +148,9 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		typeDef = *NewSchemaObj("object", ReflectTypeReliableName(t))
 		typeDef.Properties = g.parseDefinitionProperties(v, &typeDef)
 
-		if len(typeDef.Properties) == 0 {
-			typeDef.Ref = ""
-		}
+		//if len(typeDef.Properties) == 0 {
+		//	typeDef.Ref = ""
+		//}
 	case reflect.Slice, reflect.Array:
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
