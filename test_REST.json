@@ -575,7 +575,7 @@
             }
           }
         },
-        "x-request-go-type": "github.com/lazada/swgen.testEmptyStruct"
+        "x-request-go-type": "github.com/sb-lazada/swgen.testEmptyStruct"
       }
     },
     "/V1/nullTypes": {
@@ -1500,7 +1500,7 @@
     },
     "testEmptyStruct": {
       "type": "object",
-      "x-go-type": "github.com/lazada/swgen.testEmptyStruct"
+      "x-go-type": "github.com/sb-lazada/swgen.testEmptyStruct"
     },
     "testSimpleMapList": {
       "type": "object",
