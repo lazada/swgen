@@ -6,7 +6,6 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	"sync"
 )
 
 // Generator create swagger document
@@ -16,16 +15,10 @@ type Generator struct {
 	corsEnabled      bool   // allow cross-origin HTTP request
 	corsAllowHeaders []string
 
-	definitions defMap // list of all definition objects
-	defMux      *sync.Mutex
-
-	defQueue map[reflect.Type]struct{}
-	queueMux *sync.Mutex
-
-	paths    map[string]PathItem // list all of paths object
-	pathsMux *sync.RWMutex
-
-	typesMap map[reflect.Type]interface{}
+	definitions defMap                    // list of all definition objects
+	defQueue    map[reflect.Type]struct{} // queue of reflect.Type objects waiting for analysis
+	paths       map[string]PathItem       // list all of paths object
+	typesMap    map[reflect.Type]interface{}
 
 	indentJSON     bool
 	reflectGoTypes bool
@@ -33,13 +26,10 @@ type Generator struct {
 
 type defMap map[reflect.Type]SchemaObj
 
-func (m *defMap) GenDefinitions(defMux *sync.Mutex) (result map[string]SchemaObj) {
+func (m *defMap) GenDefinitions() (result map[string]SchemaObj) {
 	if m == nil {
 		return nil
 	}
-
-	defMux.Lock()
-	defer defMux.Unlock()
 
 	result = make(map[string]SchemaObj)
 	for _, typeDef := range *m {
@@ -54,14 +44,9 @@ func NewGenerator() *Generator {
 	g := &Generator{}
 
 	g.definitions = make(map[reflect.Type]SchemaObj)
-	g.defMux = &sync.Mutex{}
-
 	g.defQueue = make(map[reflect.Type]struct{})
-	g.queueMux = &sync.Mutex{}
-
 	g.paths = make(map[string]PathItem) // list all of paths object
 	g.typesMap = make(map[reflect.Type]interface{})
-	g.pathsMux = &sync.RWMutex{}
 
 	g.doc.Schemes = []string{"http", "https"}
 	g.doc.Paths = make(map[string]PathItem)
@@ -166,7 +151,7 @@ func (g *Generator) getMappedType(t reflect.Type) (dst interface{}, found bool) 
 func (g *Generator) genDocument(host string) ([]byte, error) {
 	// ensure that all definition in queue is parsed before generating
 	g.parseDefInQueue()
-	g.doc.Definitions = g.definitions.GenDefinitions(g.defMux)
+	g.doc.Definitions = g.definitions.GenDefinitions()
 	g.doc.Host = host
 	g.doc.Paths = make(map[string]PathItem)
 
@@ -187,7 +172,6 @@ func (g *Generator) genDocument(host string) ([]byte, error) {
 		g.doc.Paths[path] = item
 	}
 
-	g.pathsMux.RLock()
 	var (
 		data []byte
 		err  error
@@ -197,7 +181,6 @@ func (g *Generator) genDocument(host string) ([]byte, error) {
 	} else {
 		data, err = json.Marshal(g.doc)
 	}
-	g.pathsMux.RUnlock()
 
 	return data, err
 }
