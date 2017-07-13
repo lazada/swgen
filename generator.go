@@ -66,6 +66,7 @@ func NewGenerator() *Generator {
 	g.doc.Schemes = []string{"http", "https"}
 	g.doc.Paths = make(map[string]PathItem)
 	g.doc.Definitions = make(map[string]SchemaObj)
+	g.doc.SecurityDefinitions = make(map[string]SecurityDef)
 	g.doc.Version = "2.0"
 	g.doc.BasePath = "/"
 
@@ -148,6 +149,12 @@ func (g *Generator) SetLicense(name, url string) *Generator {
 // AddExtendedField add vendor extension field to document
 func (g *Generator) AddExtendedField(name string, value interface{}) *Generator {
 	g.doc.AddExtendedField(name, value)
+	return g
+}
+
+// AddSecurityDefinition adds shared security definition to document
+func (g *Generator) AddSecurityDefinition(name string, def SecurityDef) *Generator {
+	g.doc.SecurityDefinitions[name] = def
 	return g
 }
 

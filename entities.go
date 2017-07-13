@@ -18,13 +18,14 @@ const (
 // Document represent for a document object of swagger data
 // see http://swagger.io/specification/
 type Document struct {
-	Version     string               `json:"swagger"`        // Specifies the Swagger Specification version being used
-	Info        InfoObj              `json:"info"`           // Provides metadata about the API
-	Host        string               `json:"host,omitempty"` // The host (name or ip) serving the API
-	BasePath    string               `json:"basePath"`       // The base path on which the API is served, which is relative to the host
-	Schemes     []string             `json:"schemes"`        // Values MUST be from the list: "http", "https", "ws", "wss"
-	Paths       map[string]PathItem  `json:"paths"`          // The available paths and operations for the API
-	Definitions map[string]SchemaObj `json:"definitions"`    // An object to hold data types produced and consumed by operations
+	Version             string                 `json:"swagger"`                       // Specifies the Swagger Specification version being used
+	Info                InfoObj                `json:"info"`                          // Provides metadata about the API
+	Host                string                 `json:"host,omitempty"`                // The host (name or ip) serving the API
+	BasePath            string                 `json:"basePath"`                      // The base path on which the API is served, which is relative to the host
+	Schemes             []string               `json:"schemes"`                       // Values MUST be from the list: "http", "https", "ws", "wss"
+	Paths               map[string]PathItem    `json:"paths"`                         // The available paths and operations for the API
+	Definitions         map[string]SchemaObj   `json:"definitions"`                   // An object to hold data types produced and consumed by operations
+	SecurityDefinitions map[string]SecurityDef `json:"securityDefinitions,omitempty"` // An object to hold available security mechanisms
 	additionalData
 }
 
@@ -94,6 +95,54 @@ func (pi PathItem) HasMethod(method string) bool {
 	return false
 }
 
+type securityType string
+
+const (
+	// SecurityBasicAuth is a HTTP Basic Authentication security type
+	SecurityBasicAuth securityType = "basic"
+	// SecurityAPIKey is an API key security type
+	SecurityAPIKey    securityType = "apiKey"
+	// SecurityOAuth2 is an OAuth2 security type
+	SecurityOAuth2    securityType = "oauth2"
+)
+
+type apiKeyIn string
+
+const (
+	// APIKeyInHeader defines API key in header
+	APIKeyInHeader apiKeyIn = "header"
+	// APIKeyInQuery defines API key in query parameter
+	APIKeyInQuery  apiKeyIn = "query"
+)
+
+type oauthFlow string
+
+const (
+	// Oauth2AccessCode is access code Oauth2 flow
+	Oauth2AccessCode  oauthFlow = "accessCode"
+	// Oauth2Application is application Oauth2 flow
+	Oauth2Application oauthFlow = "application"
+	// Oauth2Implicit is implicit Oauth2 flow
+	Oauth2Implicit    oauthFlow = "implicit"
+	// Oauth2Password is password Oauth2 flow
+	Oauth2Password    oauthFlow = "password"
+)
+
+// SecurityDef holds security definition
+type SecurityDef struct {
+	Type securityType `json:"type"`
+
+	// apiKey properties
+	In   apiKeyIn `json:"in,omitempty"`
+	Name string   `json:"name,omitempty"` // Example: X-API-Key
+
+	// oauth2 properties
+	Flow             oauthFlow         `json:"flow,omitempty"`
+	AuthorizationURL string            `json:"authorizationUrl,omitempty"` // Example: https://example.com/oauth/authorize
+	TokenURL         string            `json:"tokenUrl,omitempty"`         // Example: https://example.com/oauth/token
+	Scopes           map[string]string `json:"scopes,omitempty"`           // Example: {"read": "Grants read access", "write": "Grants write access"}
+}
+
 // PathItemInfo some basic information of a path item and operation object
 type PathItemInfo struct {
 	Path        string
@@ -102,6 +151,10 @@ type PathItemInfo struct {
 	Description string
 	Tag         string
 	Deprecated  bool
+
+	Security       []string            // Names of security definitions
+	SecurityOAuth2 map[string][]string // Map of names of security definitions to required scopes
+
 	additionalData
 }
 
@@ -119,12 +172,13 @@ type enumer interface {
 // OperationObj describes a single API operation on a path
 // see http://swagger.io/specification/#operationObject
 type OperationObj struct {
-	Tags        []string   `json:"tags,omitempty"`
-	Summary     string     `json:"summary"`     // like a title, a short summary of what the operation does (120 chars)
-	Description string     `json:"description"` // A verbose explanation of the operation behavior
-	Parameters  []ParamObj `json:"parameters,omitempty"`
-	Responses   Responses  `json:"responses"`
-	Deprecated  bool       `json:"deprecated,omitempty"`
+	Tags        []string            `json:"tags,omitempty"`
+	Summary     string              `json:"summary"`     // like a title, a short summary of what the operation does (120 chars)
+	Description string              `json:"description"` // A verbose explanation of the operation behavior
+	Parameters  []ParamObj          `json:"parameters,omitempty"`
+	Responses   Responses           `json:"responses"`
+	Security    map[string][]string `json:"security,omitempty"`
+	Deprecated  bool                `json:"deprecated,omitempty"`
 	additionalData
 }
 
