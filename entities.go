@@ -101,9 +101,9 @@ const (
 	// SecurityBasicAuth is a HTTP Basic Authentication security type
 	SecurityBasicAuth securityType = "basic"
 	// SecurityAPIKey is an API key security type
-	SecurityAPIKey    securityType = "apiKey"
+	SecurityAPIKey securityType = "apiKey"
 	// SecurityOAuth2 is an OAuth2 security type
-	SecurityOAuth2    securityType = "oauth2"
+	SecurityOAuth2 securityType = "oauth2"
 )
 
 type apiKeyIn string
@@ -112,20 +112,20 @@ const (
 	// APIKeyInHeader defines API key in header
 	APIKeyInHeader apiKeyIn = "header"
 	// APIKeyInQuery defines API key in query parameter
-	APIKeyInQuery  apiKeyIn = "query"
+	APIKeyInQuery apiKeyIn = "query"
 )
 
 type oauthFlow string
 
 const (
 	// Oauth2AccessCode is access code Oauth2 flow
-	Oauth2AccessCode  oauthFlow = "accessCode"
+	Oauth2AccessCode oauthFlow = "accessCode"
 	// Oauth2Application is application Oauth2 flow
 	Oauth2Application oauthFlow = "application"
 	// Oauth2Implicit is implicit Oauth2 flow
-	Oauth2Implicit    oauthFlow = "implicit"
+	Oauth2Implicit oauthFlow = "implicit"
 	// Oauth2Password is password Oauth2 flow
-	Oauth2Password    oauthFlow = "password"
+	Oauth2Password oauthFlow = "password"
 )
 
 // SecurityDef holds security definition
