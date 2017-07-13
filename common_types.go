@@ -46,6 +46,11 @@ var commonNamesMap = map[commonName]typeFormat{
 	CommonNamePassword: {"string", "password"},
 }
 
+func isCommonName(typeName string) (ok bool) {
+	_, ok = commonNamesMap[commonName(typeName)]
+	return
+}
+
 // SchemaFromCommonName create SchemaObj from common name of data types
 // supported types: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types
 func SchemaFromCommonName(name commonName) SchemaObj {

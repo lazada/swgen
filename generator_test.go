@@ -328,7 +328,7 @@ func TestREST(t *testing.T) {
 
 	bytes, err := gen.GenDocument()
 	if err != nil {
-		t.Fatalf("can not generate document: %s", err.Error())
+		t.Fatalf("Failed to generate Swagger JSON document: %s", err.Error())
 	}
 
 	fp, err := os.OpenFile("test_REST_last_run.json", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, os.ModePerm)

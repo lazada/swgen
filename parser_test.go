@@ -3,6 +3,7 @@ package swgen
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"sync"
 	"testing"
 )
@@ -29,6 +30,12 @@ type PersonName struct {
 type Employee struct {
 	Person
 	Salary float64 `json:"salary"`
+}
+
+type Project struct {
+	ID      uint        `json:"id"`
+	Name    string      `json:"name"`
+	Manager interface{} `json:"manager"`
 }
 
 // PreferredWarehouseRequest is request object of get preferred warehouse handler
@@ -85,15 +92,37 @@ func TestParseDefinitionNonEmptyInterface(t *testing.T) {
 
 func TestParseDefinitionWithEmbeddedStruct(t *testing.T) {
 	ts := &Employee{}
-	typeDef, err := ParseDefinition(ts)
-	if err != nil {
+	tt := reflect.TypeOf(ts)
+
+	if _, err := ParseDefinition(ts); err != nil {
 		t.Fatalf("%v", err)
 	}
-	name := typeDef.TypeName
-	propertiesCount := len(gen.definitions[name].Properties)
-	expectedPropertiesCount := 9
-	if propertiesCount != expectedPropertiesCount {
-		t.Fatalf("Expected %d properties, got %d : %#v", expectedPropertiesCount, propertiesCount, gen.definitions[name].Properties)
+
+	if typeDef, found := gen.getDefinition(tt); found == false {
+		t.Fatal("No definition for", tt)
+	} else {
+		propertiesCount := len(typeDef.Properties)
+		expectedPropertiesCount := 9
+		if propertiesCount != expectedPropertiesCount {
+			t.Fatalf("Expected %d properties, got %d : %#v", expectedPropertiesCount, propertiesCount, typeDef.Properties)
+		}
+	}
+}
+
+func TestParseDefinitionWithEmbeddedInterface(t *testing.T) {
+	p := &Project{Manager: new(Employee)}
+	tt := reflect.TypeOf(p)
+
+	if _, err := ParseDefinition(p); err != nil {
+		t.Fatalf("%v", err)
+	}
+
+	if typeDef, found := gen.getDefinition(tt); found == false {
+		t.Fatal("No definition for", tt)
+	} else {
+		if typeDef.Properties["manager"].Ref != "#/definitions/Employee" {
+			t.Fatalf("'manager' field was not parsed correctly.")
+		}
 	}
 }
 

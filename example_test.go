@@ -9,7 +9,7 @@ import (
 func ExampleGenerator_GenDocument() {
 	// PetsRequest defines all params for /pest request
 	type PetsRequest struct {
-		Tags  []string `schema:"tags" in:"query" required:"-" description:"tags to filter by"`
+		Tags  []string `schema:"tags"  in:"query" required:"-" description:"tags to filter by"`
 		Limit int32    `schema:"limit" in:"query" required:"-" description:"maximum number of results to return"`
 	}
 

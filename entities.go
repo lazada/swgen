@@ -199,6 +199,47 @@ type SchemaObj struct {
 	GoPropertyTypes      map[string]string    `json:"x-go-property-types,omitempty"`
 }
 
+// NewSchemaObj Constructor function for SchemaObj struct type
+func NewSchemaObj(jsonType, typeName string) (so *SchemaObj) {
+	so = &SchemaObj{
+		Type:     jsonType,
+		TypeName: typeName,
+	}
+	if typeName != "" {
+		so.Ref = refDefinitionPrefix + typeName
+	}
+	return
+}
+
+// Checks whether current SchemaObj is "empty". A schema object is considered "empty" if it is an object without visible
+// (exported) properties, an array without elements, or in other cases when it has neither regular nor additional
+// properties, and format is not specified. Schema objects that describe common types ("string", "integer", "boolean" etc.)
+// are always considered non-empty. Same is true for "schema reference objects" (objects that have a non-empty Ref field).
+func (so *SchemaObj) isEmpty() bool {
+	if isCommonName(so.TypeName) || so.Ref != "" {
+		return false
+	}
+
+	switch so.Type {
+	case "object":
+		return len(so.Properties) == 0
+	case "array":
+		return so.Items == nil
+	default:
+		return len(so.Properties) == 0 && so.AdditionalProperties == nil && so.Format == ""
+	}
+}
+
+// Export returns a "schema reference object" corresponding to this schema object. A "schema reference object" is an abridged
+// version of the original SchemaObj, having only two non-empty fields: Ref and TypeName. "Schema reference objects"
+// are used to refer original schema objects from other schemas.
+func (so SchemaObj) Export() SchemaObj {
+	return SchemaObj{
+		Ref:      so.Ref,
+		TypeName: so.TypeName,
+	}
+}
+
 type additionalData struct {
 	data map[string]interface{}
 }

@@ -32,46 +32,51 @@ type IDefinition interface {
 	SwgenDefinition() (typeName string, typeDef SchemaObj, err error)
 }
 
-func (g *Generator) addDefinition(name string, def SchemaObj) {
+func (g *Generator) addDefinition(t reflect.Type, typeDef SchemaObj) {
+	if typeDef.TypeName == "" {
+		return // there should be no anonymous definitions in Swagger JSON
+	}
 	g.defMux.Lock()
 	defer g.defMux.Unlock()
-	g.definitions[name] = def
+	g.definitions[t] = typeDef
 }
 
-func (g *Generator) defExists(name string) (b bool) {
+func (g *Generator) defExists(t reflect.Type) (b bool) {
 	g.defMux.Lock()
 	defer g.defMux.Unlock()
 
-	_, b = g.definitions[name]
+	_, b = g.definitions[t]
 	return b
 }
 
-func (g *Generator) addToDefQueue(name string, i interface{}) {
+func (g *Generator) addToDefQueue(t reflect.Type) {
 	g.queueMux.Lock()
 	defer g.queueMux.Unlock()
 
-	g.defQueue[name] = i
+	g.defQueue[t] = struct{}{}
 }
 
-func (g *Generator) defInQueue(name string) (b bool) {
+func (g *Generator) defInQueue(t reflect.Type) (found bool) {
 	g.queueMux.Lock()
 	defer g.queueMux.Unlock()
 
-	_, b = g.defQueue[name]
-	return b
+	_, found = g.defQueue[t]
+	return
 }
 
-func (g *Generator) getDefinition(name string) (SchemaObj, bool) {
-	def, ok := g.definitions[name]
-
-	return def, ok
+func (g *Generator) getDefinition(t reflect.Type) (typeDef SchemaObj, found bool) {
+	typeDef, found = g.definitions[t]
+	if !found && t.Kind() == reflect.Ptr {
+		typeDef, found = g.definitions[t.Elem()]
+	}
+	return
 }
 
-func (g *Generator) deleteDefinition(name string) {
+func (g *Generator) deleteDefinition(t reflect.Type) {
 	g.queueMux.Lock()
 	defer g.queueMux.Unlock()
 
-	delete(g.definitions, name)
+	delete(g.definitions, t)
 }
 
 //
@@ -82,11 +87,11 @@ func (g *Generator) deleteDefinition(name string) {
 // ResetDefinitions will remove all exists definitions and init again
 func (g *Generator) ResetDefinitions() {
 	g.defMux.Lock()
-	g.definitions = make(map[string]SchemaObj)
+	g.definitions = make(defMap)
 	g.defMux.Unlock()
 
 	g.queueMux.Lock()
-	g.defQueue = make(map[string]interface{})
+	g.defQueue = make(map[reflect.Type]struct{})
 	g.queueMux.Unlock()
 }
 
@@ -95,10 +100,14 @@ func ResetDefinitions() {
 	gen.ResetDefinitions()
 }
 
-func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err error) {
+// ParseDefinition create a DefObj from input object, it should be a non-nil pointer to anything
+// it reuse schema/json tag for property name.
+func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error) {
 	var (
 		typeName string
 		typeDef  SchemaObj
+		t        = reflect.TypeOf(i)
+		v        = reflect.ValueOf(i)
 	)
 
 	if definition, ok := i.(IDefinition); ok {
@@ -110,79 +119,69 @@ func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err 
 			typeName = t.Name()
 		}
 		typeDef.TypeName = typeName
-		if g.defExists(typeName) {
+		if g.defExists(t) {
 			return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
 		}
 		defer g.parseDefInQueue()
 		if g.reflectGoTypes {
 			typeDef.GoType = goType(t)
 		}
-		g.addDefinition(typeName, typeDef)
+		g.addDefinition(t, typeDef)
 
 		return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
 	}
 
-	if newInterface, ok := g.getTypeMapByString(t.String()); ok {
-		return g.ParseDefinition(newInterface)
+	if mappedTo, ok := g.getMappedType(t); ok {
+		return g.ParseDefinition(mappedTo)
 	}
 
-	// if pointer get the underlying element
 	if t.Kind() == reflect.Ptr {
 		t = t.Elem()
 	}
 
-	if t.Name() == "" {
-		typeDef = g.genSchemaForType(t)
-		return typeDef, nil
-	}
-
 	switch t.Kind() {
 	case reflect.Struct:
-		typeName = t.Name()
-
-		if g.defExists(typeName) {
-			return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+		if typeDef, found := g.getDefinition(t); found {
+			return typeDef.Export(), nil
 		}
 
-		typeDef = SchemaObj{Type: "object"}
-		typeDef.Properties = g.parseDefinitionProperties(t, &typeDef)
+		typeDef = *NewSchemaObj("object", ReflectTypeReliableName(t))
+		typeDef.Properties = g.parseDefinitionProperties(v, &typeDef)
+
+		//if len(typeDef.Properties) == 0 {
+		//	typeDef.Ref = ""
+		//}
 	case reflect.Slice, reflect.Array:
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
 			elemType = elemType.Elem()
 		}
 
-		typeName = t.Name()
-
-		if g.defExists(typeName) {
-			return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+		if typeDef, found := g.getDefinition(t); found {
+			return typeDef.Export(), nil
 		}
 
 		var itemSchema SchemaObj
 		if elemType.Kind() != reflect.Struct || (elemType.Kind() == reflect.Struct && elemType.Name() != "") {
 			itemSchema = g.genSchemaForType(elemType)
 		} else {
-			itemSchema = SchemaObj{
-				Type: "object",
-			}
-			itemSchema.Properties = g.parseDefinitionProperties(elemType, &itemSchema)
+			itemSchema = *NewSchemaObj("object", elemType.Name())
+			itemSchema.Properties = g.parseDefinitionProperties(v.Elem(), &itemSchema)
 		}
 
-		typeDef = SchemaObj{Type: "array"}
+		typeDef = *NewSchemaObj("array", t.Name())
 		typeDef.Items = &itemSchema
 	case reflect.Map:
-		typeName = t.Name()
-		typeDef = SchemaObj{Type: "object"}
-
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
 			elemType = elemType.Elem()
 		}
 
-		if g.defExists(typeName) {
-			return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+		if typeDef, found := g.getDefinition(t); found {
+			return typeDef.Export(), nil
 		}
 
+		typeDef = *NewSchemaObj("object", t.Name())
 		itemDef := g.genSchemaForType(elemType)
 		typeDef.AdditionalProperties = &itemDef
 	default:
@@ -196,8 +195,12 @@ func (g *Generator) parse(i interface{}, t reflect.Type) (schema SchemaObj, err 
 	if g.reflectGoTypes {
 		typeDef.GoType = goType(t)
 	}
-	g.addDefinition(typeName, typeDef)
-	return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+
+	if typeDef.TypeName != "" { // non-anonymous types should be added to definitions map and returned "in-place" as references
+		g.addDefinition(t, typeDef)
+		return typeDef.Export(), nil
+	}
+	return typeDef, nil // anonymous types are not added to definitions map; instead, they are returned "in-place" in full form
 }
 
 func goType(t reflect.Type) (s string) {
@@ -235,13 +238,11 @@ func goType(t reflect.Type) (s string) {
 	return
 }
 
-// ParseDefinition create a DefObj from input object, it should be a non-nil pointer to anything
-// it reuse schema/json tag for property name.
-func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error) {
-	return g.parse(i, reflect.TypeOf(i))
-}
-
-func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj) map[string]SchemaObj {
+func (g *Generator) parseDefinitionProperties(v reflect.Value, parent *SchemaObj) map[string]SchemaObj {
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	t := v.Type()
 	properties := make(map[string]SchemaObj, t.NumField())
 	if g.reflectGoTypes && parent.GoPropertyNames == nil {
 		parent.GoPropertyNames = make(map[string]string, t.NumField())
@@ -257,7 +258,7 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj)
 		}
 
 		if field.Anonymous {
-			fieldProperties := g.parseDefinitionProperties(field.Type, parent)
+			fieldProperties := g.parseDefinitionProperties(v.Field(i), parent)
 			for propertyName, property := range fieldProperties {
 				properties[propertyName] = property
 			}
@@ -278,7 +279,11 @@ func (g *Generator) parseDefinitionProperties(t reflect.Type, parent *SchemaObj)
 		if dataType := field.Tag.Get("swgen_type"); dataType != "" {
 			obj = SchemaFromCommonName(commonName(dataType))
 		} else {
-			obj = g.genSchemaForType(field.Type)
+			if field.Type.Kind() == reflect.Interface && v.Field(i).Elem().IsValid() {
+				obj = g.genSchemaForType(v.Field(i).Elem().Type())
+			} else {
+				obj = g.genSchemaForType(field.Type)
+			}
 		}
 
 		if defaultTag := field.Tag.Get("default"); defaultTag != "" {
@@ -334,41 +339,23 @@ func ParseDefinition(i interface{}) (typeDef SchemaObj, err error) {
 }
 
 func (g *Generator) parseDefInQueue() {
-	g.queueMux.Lock()
-	length := len(g.defQueue)
-
-	if length == 0 {
-		g.queueMux.Unlock()
+	if len(g.defQueue) == 0 {
 		return
 	}
 
-	done := make(chan string, length)
-	for _, i := range g.defQueue {
-		go func(i interface{}) {
-			typeDef, _ := g.ParseDefinition(i)
-			done <- typeDef.TypeName
-		}(i)
+	for t := range g.defQueue {
+		g.ParseDefinition(reflect.Zero(t).Interface())
 	}
-
-	g.queueMux.Unlock()
-
-	for i := 0; i < length; i = i + 1 {
-		name := <-done
-		g.queueMux.Lock()
-		delete(g.defQueue, name)
-		g.queueMux.Unlock()
-	}
-
-	close(done)
 }
 
-func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
-	for fType.Kind() == reflect.Ptr {
-		fType = fType.Elem()
+func (g *Generator) genSchemaForType(t reflect.Type) SchemaObj {
+	for t.Kind() == reflect.Ptr {
+		t = t.Elem()
 	}
 
-	smObj := SchemaObj{}
-	switch fType.Kind() {
+	smObj := SchemaObj{TypeName: t.Name()}
+
+	switch t.Kind() {
 	case reflect.Bool:
 		smObj = SchemaFromCommonName(CommonNameBoolean)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Uint, reflect.Uint8, reflect.Uint16:
@@ -382,39 +369,38 @@ func (g *Generator) genSchemaForType(fType reflect.Type) SchemaObj {
 	case reflect.String:
 		smObj = SchemaFromCommonName(CommonNameString)
 	case reflect.Array, reflect.Slice:
-		if fType != typeOfJSONRawMsg {
+		if t != typeOfJSONRawMsg {
 			smObj.Type = "array"
-			itemSchema := g.genSchemaForType(fType.Elem())
+			itemSchema := g.genSchemaForType(t.Elem())
 			smObj.Items = &itemSchema
 		}
 	case reflect.Map:
 		smObj.Type = "object"
-		itemSchema := g.genSchemaForType(fType.Elem())
+		itemSchema := g.genSchemaForType(t.Elem())
 		smObj.AdditionalProperties = &itemSchema
 	case reflect.Struct:
 		switch {
-		case fType == typeOfTime:
+		case t == typeOfTime:
 			smObj = SchemaFromCommonName(CommonNameDateTime)
-		case reflect.PtrTo(fType).Implements(typeOfTextUnmarshaler):
+		case reflect.PtrTo(t).Implements(typeOfTextUnmarshaler):
 			smObj.Type = "string"
 		default:
-			name := fType.Name()
+			name := ReflectTypeReliableName(t)
 			smObj.Ref = refDefinitionPrefix + name
-			if !g.defExists(name) || !g.defInQueue(name) {
-				stcInterface := reflect.Zero(fType).Interface()
-				g.addToDefQueue(name, stcInterface)
+			if !g.defExists(t) || !g.defInQueue(t) {
+				g.addToDefQueue(t)
 			}
 		}
 	case reflect.Interface:
-		if fType.NumMethod() > 0 {
-			panic("Non-empty interface is not supported: " + fType.String())
+		if t.NumMethod() > 0 {
+			panic("Non-empty interface is not supported: " + t.String())
 		}
 	default:
-		panic(fmt.Sprintf("type %s is not supported: %s", fType.Kind(), fType.String()))
+		panic(fmt.Sprintf("type %s is not supported: %s", t.Kind(), t.String()))
 	}
 
 	if g.reflectGoTypes && smObj.Ref == "" {
-		smObj.GoType = goType(fType)
+		smObj.GoType = goType(t)
 	}
 
 	return smObj
@@ -432,26 +418,27 @@ func (g *Generator) ParseParameter(i interface{}) (name string, params []ParamOb
 	}
 
 	v := reflect.ValueOf(i)
+
 	if v.Kind() == reflect.Ptr {
 		v = v.Elem()
 	}
 
 	if v.Kind() != reflect.Struct {
-		err = errors.New("input must be a struct")
+		err = errors.New("Generator.ParseParameter() failed: parameters must be a struct")
 		return
 	}
 
-	if newInterface, ok := g.getTypeMapByString(v.Type().String()); ok {
-		return g.ParseParameter(newInterface)
+	t := v.Type()
+
+	if mappedTo, ok := g.getMappedType(t); ok {
+		return g.ParseParameter(mappedTo)
 	}
 
-	sType := v.Type()
-
-	name = sType.Name()
+	name = t.Name()
 	params = []ParamObj{}
 
-	for i := 0; i < sType.NumField(); i = i + 1 {
-		field := sType.Field(i)
+	for i := 0; i < t.NumField(); i = i + 1 {
+		field := t.Field(i)
 		// we can't access the value of un-exportable or anonymous fields
 		if field.PkgPath != "" || field.Anonymous {
 			continue
@@ -503,8 +490,8 @@ func (g *Generator) ParseParameter(i interface{}) (name string, params []ParamOb
 		if swGenType := field.Tag.Get("swgen_type"); swGenType != "" {
 			schema = SchemaFromCommonName(commonName(swGenType))
 		} else {
-			if newInterface, ok := g.getTypeMapByString(field.Type.String()); ok {
-				schema = g.genSchemaForType(reflect.TypeOf(newInterface))
+			if mappedTo, ok := g.getMappedType(field.Type); ok {
+				schema = g.genSchemaForType(reflect.TypeOf(mappedTo))
 			} else {
 				schema = g.genSchemaForType(field.Type)
 			}
@@ -611,11 +598,12 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 		}
 
 		typeDef, err := g.ParseDefinition(body)
+
 		if err != nil {
 			return err
 		}
 
-		if !g.isSchemaObjectEmpty(typeDef) {
+		if !typeDef.isEmpty() {
 			param := ParamObj{
 				Name:     "body",
 				In:       "body",
@@ -629,7 +617,7 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 
 			operationObj.Parameters = append(operationObj.Parameters, param)
 		} else {
-			g.deleteDefinition(typeDef.TypeName)
+			g.deleteDefinition(reflect.TypeOf(body))
 		}
 	}
 
@@ -657,29 +645,6 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 	return nil
 }
 
-func (g *Generator) isSchemaObjectEmpty(obj SchemaObj) bool {
-	if obj.Ref != "" {
-		if def, ok := g.getDefinition(obj.TypeName); ok {
-			return g.isSchemaObjectEmpty(def)
-		} else if !g.defInQueue(obj.TypeName) {
-			return true
-		}
-	}
-
-	if _, ok := commonNamesMap[commonName(obj.TypeName)]; ok {
-		return false
-	}
-
-	switch obj.Type {
-	case "object":
-		return len(obj.Properties) == 0
-	case "array":
-		return obj.Items == nil
-	default:
-		return len(obj.Properties) == 0 && obj.AdditionalProperties == nil && obj.Format == ""
-	}
-}
-
 // SetPathItem register path item with some information and input, output
 func SetPathItem(info PathItemInfo, params interface{}, body interface{}, response interface{}) error {
 	return gen.SetPathItem(info, params, body, response)
@@ -695,8 +660,10 @@ func (g *Generator) parseResponseObject(responseObj interface{}) (res Responses)
 		}
 		// since we only response json object
 		// so, type of response object is always object
-		resObj := ResponseObj{Description: "request success", Schema: &schema}
-		res["200"] = resObj
+		res["200"] = ResponseObj{
+			Description: "request success",
+			Schema:      &schema,
+		}
 	} else {
 		res["200"] = ResponseObj{
 			Description: "request success",

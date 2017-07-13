@@ -9,9 +9,6 @@ import (
 	"sync"
 )
 
-// singleton package generator
-var gen = NewGenerator()
-
 // Generator create swagger document
 type Generator struct {
 	doc              Document
@@ -19,33 +16,51 @@ type Generator struct {
 	corsEnabled      bool   // allow cross-origin HTTP request
 	corsAllowHeaders []string
 
-	definitions map[string]SchemaObj // list of all definition objects
+	definitions defMap // list of all definition objects
 	defMux      *sync.Mutex
 
-	defQueue map[string]interface{}
+	defQueue map[reflect.Type]struct{}
 	queueMux *sync.Mutex
 
 	paths    map[string]PathItem // list all of paths object
 	pathsMux *sync.RWMutex
 
-	typesMap map[string]interface{}
+	typesMap map[reflect.Type]interface{}
 
 	indentJSON     bool
 	reflectGoTypes bool
+}
+
+type defMap map[reflect.Type]SchemaObj
+
+func (m *defMap) GenDefinitions(defMux *sync.Mutex) (result map[string]SchemaObj) {
+	if m == nil {
+		return nil
+	}
+
+	defMux.Lock()
+	defer defMux.Unlock()
+
+	result = make(map[string]SchemaObj)
+	for _, typeDef := range *m {
+		typeDef.Ref = "" // first (top) level Swagger definitions are never references
+		result[typeDef.TypeName] = typeDef
+	}
+	return
 }
 
 // NewGenerator create a new Generator
 func NewGenerator() *Generator {
 	g := &Generator{}
 
-	g.definitions = make(map[string]SchemaObj)
+	g.definitions = make(map[reflect.Type]SchemaObj)
 	g.defMux = &sync.Mutex{}
 
-	g.defQueue = make(map[string]interface{})
+	g.defQueue = make(map[reflect.Type]struct{})
 	g.queueMux = &sync.Mutex{}
 
 	g.paths = make(map[string]PathItem) // list all of paths object
-	g.typesMap = make(map[string]interface{})
+	g.typesMap = make(map[reflect.Type]interface{})
 	g.pathsMux = &sync.RWMutex{}
 
 	g.doc.Schemes = []string{"http", "https"}
@@ -82,31 +97,16 @@ func (g *Generator) EnableCORS(b bool, allowHeaders ...string) *Generator {
 	return g
 }
 
-// EnableCORS enable HTTP handler support CORS
-func EnableCORS(b bool, allowHeaders ...string) *Generator {
-	return gen.EnableCORS(b, allowHeaders...)
-}
-
 // SetHost set host info for swagger specification
 func (g *Generator) SetHost(host string) *Generator {
 	g.host = host
 	return g
 }
 
-// SetHost set host info for swagger specification
-func SetHost(host string) *Generator {
-	return gen.SetHost(host)
-}
-
 // SetBasePath set host info for swagger specification
 func (g *Generator) SetBasePath(basePath string) *Generator {
 	g.doc.BasePath = "/" + strings.Trim(basePath, "/")
 	return g
-}
-
-// SetBasePath set host info for swagger specification
-func SetBasePath(basePath string) *Generator {
-	return gen.SetBasePath(basePath)
 }
 
 // SetContact set contact information for API
@@ -119,11 +119,6 @@ func (g *Generator) SetContact(name, url, email string) *Generator {
 
 	g.doc.Info.Contact = ct
 	return g
-}
-
-// SetContact set contact information for API
-func SetContact(name, url, email string) *Generator {
-	return gen.SetContact(name, url, email)
 }
 
 // SetInfo set information about API
@@ -139,11 +134,6 @@ func (g *Generator) SetInfo(title, description, term, version string) *Generator
 	return g
 }
 
-// SetInfo set information about API
-func SetInfo(title, description, term, version string) *Generator {
-	return gen.SetInfo(title, description, term, version)
-}
-
 // SetLicense set license information for API
 func (g *Generator) SetLicense(name, url string) *Generator {
 	ls := LicenseObj{
@@ -155,16 +145,6 @@ func (g *Generator) SetLicense(name, url string) *Generator {
 	return g
 }
 
-// SetLicense set license information for API
-func SetLicense(name, url string) *Generator {
-	return gen.SetLicense(name, url)
-}
-
-// AddExtendedField add vendor extension field to document
-func AddExtendedField(name string, value interface{}) *Generator {
-	return gen.AddExtendedField(name, value)
-}
-
 // AddExtendedField add vendor extension field to document
 func (g *Generator) AddExtendedField(name string, value interface{}) *Generator {
 	g.doc.AddExtendedField(name, value)
@@ -173,21 +153,20 @@ func (g *Generator) AddExtendedField(name string, value interface{}) *Generator 
 
 // AddTypeMap add rule to use dst interface instead of src
 func (g *Generator) AddTypeMap(src interface{}, dst interface{}) *Generator {
-	t := reflect.TypeOf(src)
-	g.typesMap[t.String()] = dst
+	g.typesMap[reflect.TypeOf(src)] = dst
 	return g
 }
 
-// AddTypeMap add rule to use dst interface instead of src
-func AddTypeMap(src interface{}, dst interface{}) *Generator {
-	return gen.AddTypeMap(src, dst)
+func (g *Generator) getMappedType(t reflect.Type) (dst interface{}, found bool) {
+	dst, found = g.typesMap[t]
+	return
 }
 
 // genDocument returns document specification in JSON string (in []byte)
 func (g *Generator) genDocument(host string) ([]byte, error) {
 	// ensure that all definition in queue is parsed before generating
 	g.parseDefInQueue()
-	g.doc.Definitions = g.definitions
+	g.doc.Definitions = g.definitions.GenDefinitions(g.defMux)
 	g.doc.Host = host
 	g.doc.Paths = make(map[string]PathItem)
 
@@ -228,11 +207,6 @@ func (g *Generator) GenDocument() ([]byte, error) {
 	return g.genDocument(g.host)
 }
 
-// GenDocument returns document specification in JSON string (in []byte)
-func GenDocument() ([]byte, error) {
-	return gen.GenDocument()
-}
-
 // ServeHTTP implements http.Handler to server swagger.json document
 func (g *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	host := r.URL.Host
@@ -254,14 +228,4 @@ func (g *Generator) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(data)
-}
-
-// ServeHTTP implements http.HandleFunc to server swagger.json document
-func ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	gen.ServeHTTP(w, r)
-}
-
-func (g *Generator) getTypeMapByString(src string) (interface{}, bool) {
-	dstInterface, exists := g.typesMap[src]
-	return dstInterface, exists
 }

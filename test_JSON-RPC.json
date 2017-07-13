@@ -695,6 +695,16 @@
         ],
         "summary": "test8v1 name",
         "description": "test8v1 description",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/paramStructMap"
+            },
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "request success",
@@ -1173,6 +1183,9 @@
           "$ref": "#/definitions/simpleTestReplacement"
         }
       }
+    },
+    "paramStructMap": {
+      "type": "object"
     }
   },
   "x-service-type": "json-rpc"
