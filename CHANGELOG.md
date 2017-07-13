@@ -1,5 +1,14 @@
 # Change Log
 
+## [v0.3.0](https://github.com/lazada/swgen/tree/v0.3.0) (2017-07-13)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.2.1...v0.3.0)
+
+**Implemented enhancements:**
+
+- Security controls [\#19](https://github.com/lazada/swgen/pull/19) ([vearutop](https://github.com/vearutop))
+- Add testing reference to empty struct [\#18](https://github.com/lazada/swgen/pull/18) ([vearutop](https://github.com/vearutop))
+- Handling of anonymous structs and nested structs in interface{} fields [\#16](https://github.com/lazada/swgen/pull/16) ([sb-lazada](https://github.com/sb-lazada))
+
 ## [v0.2.1](https://github.com/lazada/swgen/tree/v0.2.1) (2017-05-30)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.2.0...v0.2.1)
 
