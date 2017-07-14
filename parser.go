@@ -36,30 +36,19 @@ func (g *Generator) addDefinition(t reflect.Type, typeDef SchemaObj) {
 	if typeDef.TypeName == "" {
 		return // there should be no anonymous definitions in Swagger JSON
 	}
-	g.defMux.Lock()
-	defer g.defMux.Unlock()
 	g.definitions[t] = typeDef
 }
 
 func (g *Generator) defExists(t reflect.Type) (b bool) {
-	g.defMux.Lock()
-	defer g.defMux.Unlock()
-
 	_, b = g.definitions[t]
 	return b
 }
 
 func (g *Generator) addToDefQueue(t reflect.Type) {
-	g.queueMux.Lock()
-	defer g.queueMux.Unlock()
-
 	g.defQueue[t] = struct{}{}
 }
 
 func (g *Generator) defInQueue(t reflect.Type) (found bool) {
-	g.queueMux.Lock()
-	defer g.queueMux.Unlock()
-
 	_, found = g.defQueue[t]
 	return
 }
@@ -73,9 +62,6 @@ func (g *Generator) getDefinition(t reflect.Type) (typeDef SchemaObj, found bool
 }
 
 func (g *Generator) deleteDefinition(t reflect.Type) {
-	g.queueMux.Lock()
-	defer g.queueMux.Unlock()
-
 	delete(g.definitions, t)
 }
 
@@ -86,13 +72,8 @@ func (g *Generator) deleteDefinition(t reflect.Type) {
 
 // ResetDefinitions will remove all exists definitions and init again
 func (g *Generator) ResetDefinitions() {
-	g.defMux.Lock()
 	g.definitions = make(defMap)
-	g.defMux.Unlock()
-
-	g.queueMux.Lock()
 	g.defQueue = make(map[reflect.Type]struct{})
-	g.queueMux.Unlock()
 }
 
 // ResetDefinitions will remove all exists definitions and init again
@@ -529,9 +510,7 @@ func ParseParameter(i interface{}) (name string, params []ParamObj, err error) {
 
 // ResetPaths remove all current paths
 func (g *Generator) ResetPaths() {
-	g.pathsMux.Lock()
 	g.paths = make(map[string]PathItem)
-	g.pathsMux.Unlock()
 }
 
 // ResetPaths remove all current paths
@@ -557,9 +536,7 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 		}
 	}
 
-	g.pathsMux.RLock()
 	item, found = g.paths[info.Path]
-	g.pathsMux.RUnlock()
 
 	if found && item.HasMethod(info.Method) {
 		return nil
@@ -659,9 +636,7 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 		item.Patch = operationObj
 	}
 
-	g.pathsMux.Lock()
 	g.paths[info.Path] = item
-	g.pathsMux.Unlock()
 
 	return nil
 }
