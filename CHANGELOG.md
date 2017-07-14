@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.1](https://github.com/lazada/swgen/tree/v0.3.1) (2017-07-14)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.3.0...v0.3.1)
+
+**Implemented enhancements:**
+
+- Removed redundant mutexes from swgen.Generator [\#20](https://github.com/lazada/swgen/pull/20) ([sb-lazada](https://github.com/sb-lazada))
+
 ## [v0.3.0](https://github.com/lazada/swgen/tree/v0.3.0) (2017-07-13)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.2.1...v0.3.0)
 
