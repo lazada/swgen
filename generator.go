@@ -15,10 +15,11 @@ type Generator struct {
 	corsEnabled      bool   // allow cross-origin HTTP request
 	corsAllowHeaders []string
 
-	definitions defMap                    // list of all definition objects
-	defQueue    map[reflect.Type]struct{} // queue of reflect.Type objects waiting for analysis
-	paths       map[string]PathItem       // list all of paths object
-	typesMap    map[reflect.Type]interface{}
+	definitionAdded map[string]bool           // index of TypeNames
+	definitions     defMap                    // list of all definition objects
+	defQueue        map[reflect.Type]struct{} // queue of reflect.Type objects waiting for analysis
+	paths           map[string]PathItem       // list all of paths object
+	typesMap        map[reflect.Type]interface{}
 
 	indentJSON     bool
 	reflectGoTypes bool
@@ -32,9 +33,14 @@ func (m *defMap) GenDefinitions() (result map[string]SchemaObj) {
 	}
 
 	result = make(map[string]SchemaObj)
-	for _, typeDef := range *m {
+	for t, typeDef := range *m {
 		typeDef.Ref = "" // first (top) level Swagger definitions are never references
-		result[typeDef.TypeName] = typeDef
+		if _, ok := result[typeDef.TypeName]; ok {
+			typeName := goType(t)
+			result[typeName] = typeDef
+		} else {
+			result[typeDef.TypeName] = typeDef
+		}
 	}
 	return
 }
@@ -44,6 +50,8 @@ func NewGenerator() *Generator {
 	g := &Generator{}
 
 	g.definitions = make(map[reflect.Type]SchemaObj)
+	g.definitionAdded = make(map[string]bool)
+
 	g.defQueue = make(map[reflect.Type]struct{})
 	g.paths = make(map[string]PathItem) // list all of paths object
 	g.typesMap = make(map[reflect.Type]interface{})

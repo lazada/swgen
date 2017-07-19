@@ -32,11 +32,32 @@ type IDefinition interface {
 	SwgenDefinition() (typeName string, typeDef SchemaObj, err error)
 }
 
-func (g *Generator) addDefinition(t reflect.Type, typeDef SchemaObj) {
+func (g *Generator) addDefinition(t reflect.Type, typeDef *SchemaObj) {
 	if typeDef.TypeName == "" {
 		return // there should be no anonymous definitions in Swagger JSON
 	}
-	g.definitions[t] = typeDef
+	if _, ok := g.definitions[t]; ok { // skip existing definition
+		return
+	}
+
+	if _, ok := g.definitionAdded[typeDef.TypeName]; ok { // process duplicate TypeName
+		var typeName string
+		typeIndex := 2
+		for {
+			typeName = fmt.Sprintf("%sType%d", typeDef.TypeName, typeIndex)
+			if _, ok := g.definitionAdded[typeName]; !ok {
+				break
+			}
+			typeIndex++
+		}
+
+		typeDef.TypeName = typeName
+		if typeDef.Ref != "" {
+			typeDef.Ref = refDefinitionPrefix + typeDef.TypeName
+		}
+	}
+	g.definitionAdded[typeDef.TypeName] = true
+	g.definitions[t] = *typeDef
 }
 
 func (g *Generator) defExists(t reflect.Type) (b bool) {
@@ -73,6 +94,7 @@ func (g *Generator) deleteDefinition(t reflect.Type) {
 // ResetDefinitions will remove all exists definitions and init again
 func (g *Generator) ResetDefinitions() {
 	g.definitions = make(defMap)
+	g.definitionAdded = make(map[string]bool)
 	g.defQueue = make(map[reflect.Type]struct{})
 }
 
@@ -100,16 +122,16 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 			typeName = t.Name()
 		}
 		typeDef.TypeName = typeName
-		if g.defExists(t) {
-			return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+		if def, ok := g.getDefinition(t); ok {
+			return SchemaObj{Ref: refDefinitionPrefix + def.TypeName, TypeName: def.TypeName}, nil
 		}
 		defer g.parseDefInQueue()
 		if g.reflectGoTypes {
 			typeDef.GoType = goType(t)
 		}
-		g.addDefinition(t, typeDef)
+		g.addDefinition(t, &typeDef)
 
-		return SchemaObj{Ref: refDefinitionPrefix + typeName, TypeName: typeName}, nil
+		return SchemaObj{Ref: refDefinitionPrefix + typeDef.TypeName, TypeName: typeDef.TypeName}, nil
 	}
 
 	if mappedTo, ok := g.getMappedType(t); ok {
@@ -178,7 +200,7 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 	}
 
 	if typeDef.TypeName != "" { // non-anonymous types should be added to definitions map and returned "in-place" as references
-		g.addDefinition(t, typeDef)
+		g.addDefinition(t, &typeDef)
 		return typeDef.Export(), nil
 	}
 	return typeDef, nil // anonymous types are not added to definitions map; instead, they are returned "in-place" in full form
