@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.3.2](https://github.com/lazada/swgen/tree/v0.3.2) (2017-07-19)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.3.1...v0.3.2)
+
+**Fixed bugs:**
+
+- Structures in different packages with same name producing single definition [\#21](https://github.com/lazada/swgen/issues/21)
+- Structures in different packages with same name producing single definition [\#22](https://github.com/lazada/swgen/pull/22) ([vearutop](https://github.com/vearutop))
+
 ## [v0.3.1](https://github.com/lazada/swgen/tree/v0.3.1) (2017-07-14)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.3.0...v0.3.1)
 
