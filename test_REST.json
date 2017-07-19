@@ -828,6 +828,34 @@
         "x-request-go-type": "github.com/lazada/swgen.testSimpleStruct"
       }
     },
+    "/V1/struct-collision": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test struct name collision",
+        "description": "test struct name collision",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TestSampleStruct"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/TestSampleStruct"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen.TestSampleStruct"
+      }
+    },
     "/V1/test1": {
       "get": {
         "tags": [
@@ -1218,6 +1246,34 @@
         },
         "x-request-go-type": "github.com/lazada/swgen.Unknown"
       }
+    },
+    "/V2/struct-collision": {
+      "post": {
+        "tags": [
+          "v2"
+        ],
+        "summary": "test struct name collision",
+        "description": "test struct name collision",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TestSampleStructType2"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/TestSampleStructType2"
+            }
+          }
+        },
+        "x-request-go-type": "github.com/lazada/swgen/sample.TestSampleStruct"
+      }
     }
   },
   "definitions": {
@@ -1297,6 +1353,52 @@
         "null_int": "github.com/lazada/swgen.NullInt64",
         "null_string": "github.com/lazada/swgen.NullString",
         "null_timestamp": "github.com/lazada/swgen.NullTimestamp"
+      }
+    },
+    "TestSampleStruct": {
+      "type": "object",
+      "properties": {
+        "simple_int": {
+          "type": "integer",
+          "format": "int32",
+          "x-go-type": "int"
+        },
+        "simple_string": {
+          "type": "string",
+          "x-go-type": "string"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.TestSampleStruct",
+      "x-go-property-names": {
+        "simple_int": "SimpleInt",
+        "simple_string": "SimpleString"
+      },
+      "x-go-property-types": {
+        "simple_int": "int",
+        "simple_string": "string"
+      }
+    },
+    "TestSampleStructType2": {
+      "type": "object",
+      "properties": {
+        "simple_bool": {
+          "type": "boolean",
+          "x-go-type": "bool"
+        },
+        "simple_float64": {
+          "type": "number",
+          "format": "double",
+          "x-go-type": "float64"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen/sample.TestSampleStruct",
+      "x-go-property-names": {
+        "simple_bool": "SimpleBool",
+        "simple_float64": "SimpleFloat64"
+      },
+      "x-go-property-types": {
+        "simple_bool": "bool",
+        "simple_float64": "float64"
       }
     },
     "Unknown": {

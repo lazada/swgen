@@ -12,7 +12,13 @@ import (
 	"time"
 
 	"github.com/kr/pretty"
+	"github.com/lazada/swgen/sample"
 )
+
+type TestSampleStruct struct {
+	SimpleString string `json:"simple_string"`
+	SimpleInt    int    `json:"simple_int"`
+}
 
 type testEmptyStruct struct{}
 
@@ -325,6 +331,9 @@ func TestREST(t *testing.T) {
 	gen.SetPathItem(createPathItemInfo("/V1/unknown", "POST", "test unknown types", "test unknown types", "v1", false), emptyInterface, Unknown{}, Unknown{})
 
 	gen.SetPathItem(createPathItemInfo("/V1/empty", "POST", "test empty struct", "test empty struct", "v1", false), testEmptyStruct{}, nil, testEmptyStruct{})
+
+	gen.SetPathItem(createPathItemInfo("/V1/struct-collision", "POST", "test struct name collision", "test struct name collision", "v1", false), nil, TestSampleStruct{}, TestSampleStruct{})
+	gen.SetPathItem(createPathItemInfo("/V2/struct-collision", "POST", "test struct name collision", "test struct name collision", "v2", false), nil, sample.TestSampleStruct{}, sample.TestSampleStruct{})
 
 	bytes, err := gen.GenDocument()
 	if err != nil {

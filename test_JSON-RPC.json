@@ -819,6 +819,9 @@
         }
       }
     },
+    "paramStructMap": {
+      "type": "object"
+    },
     "simpleDateTime": {
       "type": "object",
       "properties": {
@@ -1183,9 +1186,6 @@
           "$ref": "#/definitions/simpleTestReplacement"
         }
       }
-    },
-    "paramStructMap": {
-      "type": "object"
     }
   },
   "x-service-type": "json-rpc"
