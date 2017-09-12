@@ -1191,6 +1191,23 @@
         "x-request-go-type": "github.com/lazada/swgen.mixedStruct"
       }
     },
+    "/V1/type-map": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "test type mapping",
+        "description": "test type mapping",
+        "responses": {
+          "200": {
+            "description": "request success",
+            "schema": {
+              "$ref": "#/definitions/typeMapHolder"
+            }
+          }
+        }
+      }
+    },
     "/V1/typeReplacement1": {
       "post": {
         "tags": [
@@ -2086,6 +2103,30 @@
         "deep_replacement": "github.com/lazada/swgen.deepReplacementTag",
         "should_be_sting": "int",
         "simple_test_replacement": "github.com/lazada/swgen.simpleTestReplacement"
+      }
+    },
+    "typeMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "format": "int32",
+        "x-go-type": "int"
+      },
+      "x-go-type": "map[string]int"
+    },
+    "typeMapHolder": {
+      "type": "object",
+      "properties": {
+        "m": {
+          "$ref": "#/definitions/typeMap"
+        }
+      },
+      "x-go-type": "github.com/lazada/swgen.typeMapHolder",
+      "x-go-property-names": {
+        "m": "M"
+      },
+      "x-go-property-types": {
+        "m": "github.com/lazada/swgen.typeMap"
       }
     }
   },
