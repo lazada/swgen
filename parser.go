@@ -113,6 +113,12 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		v        = reflect.ValueOf(i)
 	)
 
+	if mappedTo, ok := g.getMappedType(t); ok {
+		typeName = t.Name()
+		t = reflect.TypeOf(mappedTo)
+		v = reflect.ValueOf(mappedTo)
+	}
+
 	if definition, ok := i.(IDefinition); ok {
 		typeName, typeDef, err = definition.SwgenDefinition()
 		if err != nil {
@@ -134,10 +140,6 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		return SchemaObj{Ref: refDefinitionPrefix + typeDef.TypeName, TypeName: typeDef.TypeName}, nil
 	}
 
-	if mappedTo, ok := g.getMappedType(t); ok {
-		return g.ParseDefinition(mappedTo)
-	}
-
 	if t.Kind() == reflect.Ptr {
 		t = t.Elem()
 	}
@@ -150,6 +152,9 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 
 		typeDef = *NewSchemaObj("object", ReflectTypeReliableName(t))
 		typeDef.Properties = g.parseDefinitionProperties(v, &typeDef)
+		if typeDef.TypeName == "" {
+			typeDef.TypeName = typeName
+		}
 
 		//if len(typeDef.Properties) == 0 {
 		//	typeDef.Ref = ""
@@ -174,6 +179,9 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 
 		typeDef = *NewSchemaObj("array", t.Name())
 		typeDef.Items = &itemSchema
+		if typeDef.TypeName == "" {
+			typeDef.TypeName = typeName
+		}
 	case reflect.Map:
 		elemType := t.Elem()
 		if elemType.Kind() == reflect.Ptr {
@@ -187,6 +195,9 @@ func (g *Generator) ParseDefinition(i interface{}) (schema SchemaObj, err error)
 		typeDef = *NewSchemaObj("object", t.Name())
 		itemDef := g.genSchemaForType(elemType)
 		typeDef.AdditionalProperties = &itemDef
+		if typeDef.TypeName == "" {
+			typeDef.TypeName = typeName
+		}
 	default:
 		typeDef = g.genSchemaForType(t)
 		typeDef.TypeName = typeDef.Type

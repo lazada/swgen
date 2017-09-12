@@ -126,6 +126,18 @@ type mixedStruct struct {
 	FieldBody  int `json:"fieldBody"`
 }
 
+type typeMapHolder struct {
+	M typeMap `json:"m"`
+}
+
+type typeMap struct {
+	R1 int `json:"1"`
+	R2 int `json:"2"`
+	R3 int `json:"3"`
+	R4 int `json:"4"`
+	R5 int `json:"5"`
+}
+
 type Gender int
 
 func (Gender) GetEnumSlices() ([]interface{}, []string) {
@@ -278,6 +290,7 @@ func TestREST(t *testing.T) {
 
 	gen.AddTypeMap(simpleTestReplacement{}, "")
 	gen.AddTypeMap(sliceType{}, float64(0))
+	gen.AddTypeMap(typeMap{}, map[string]int{})
 
 	var emptyInterface interface{}
 
@@ -334,6 +347,8 @@ func TestREST(t *testing.T) {
 
 	gen.SetPathItem(createPathItemInfo("/V1/struct-collision", "POST", "test struct name collision", "test struct name collision", "v1", false), nil, TestSampleStruct{}, TestSampleStruct{})
 	gen.SetPathItem(createPathItemInfo("/V2/struct-collision", "POST", "test struct name collision", "test struct name collision", "v2", false), nil, sample.TestSampleStruct{}, sample.TestSampleStruct{})
+
+	gen.SetPathItem(createPathItemInfo("/V1/type-map", "POST", "test type mapping", "test type mapping", "v1", false), nil, nil, typeMapHolder{})
 
 	bytes, err := gen.GenDocument()
 	if err != nil {
