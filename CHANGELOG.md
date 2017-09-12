@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.3](https://github.com/lazada/swgen/tree/v0.3.3) (2017-09-12)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.3.2...v0.3.3)
+
+**Fixed bugs:**
+
+- Fixes \#23 Infinite recursion with custom type mapping [\#24](https://github.com/lazada/swgen/pull/24) ([vearutop](https://github.com/vearutop))
+
 ## [v0.3.2](https://github.com/lazada/swgen/tree/v0.3.2) (2017-07-19)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.3.1...v0.3.2)
 
