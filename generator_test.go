@@ -13,6 +13,7 @@ import (
 
 	"github.com/kr/pretty"
 	"github.com/lazada/swgen/sample"
+	"path"
 )
 
 type TestSampleStruct struct {
@@ -355,10 +356,8 @@ func TestREST(t *testing.T) {
 		t.Fatalf("Failed to generate Swagger JSON document: %s", err.Error())
 	}
 
-	fp, err := os.OpenFile("test_REST_last_run.json", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, os.ModePerm)
-	if err == nil {
-		defer fp.Close()
-		_, err = fp.Write(bytes)
+	if err := writeLastRun("test_REST_last_run.json", bytes); err != nil {
+		t.Fatalf("Failed write last run data to a file: %s", err.Error())
 	}
 
 	assertTrue(checkResult(bytes, "test_REST.json", t), t)
@@ -419,22 +418,28 @@ func TestJsonRpc(t *testing.T) {
 		t.Fatalf("can not generate document: %s", err.Error())
 	}
 
-	fp, err := os.OpenFile("test_JSON-RPC_last_run.json", os.O_TRUNC|os.O_WRONLY|os.O_CREATE, os.ModePerm)
-	if err == nil {
-		defer fp.Close()
-		_, err = fp.Write(bytes)
+	if err := writeLastRun("test_JSON-RPC_last_run.json", bytes); err != nil {
+		t.Fatalf("Failed write last run data to a file: %s", err.Error())
 	}
 
 	assertTrue(checkResult(bytes, "test_JSON-RPC.json", t), t)
 }
 
-func readTestFile(filename string) ([]byte, error) {
+func getTestDataDir(filename string) string {
 	pwd, err := os.Getwd()
 	if err != nil {
-		return []byte{}, err
+		return filename
 	}
 
-	bytes, readError := ioutil.ReadFile(pwd + "/" + filename)
+	return path.Join(pwd, "testdata", filename)
+}
+
+func writeLastRun(filename string, data []byte) error {
+	return ioutil.WriteFile(getTestDataDir(filename), data, os.ModePerm)
+}
+
+func readTestFile(filename string) ([]byte, error) {
+	bytes, readError := ioutil.ReadFile(getTestDataDir(filename))
 	if readError != nil {
 		return []byte{}, readError
 	}

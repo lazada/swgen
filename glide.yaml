@@ -1,0 +1,4 @@
+package: github.com/lazada/swgen
+import: []
+testImport:
+- package: github.com/kr/pretty
