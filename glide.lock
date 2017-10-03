@@ -1,0 +1,8 @@
+hash: 5e409c7f529b17ec65ea5791642bec10bad3864c2a295df68046c1f84dc6ee58
+updated: 2017-10-02T17:10:47.716692286+08:00
+imports: []
+testImports:
+- name: github.com/kr/pretty
+  version: cfb55aafdaf3ec08f0db22699ab822c50091b1c4
+- name: github.com/kr/text
+  version: bb797dc4fb8320488f47bf11de07a733d7233e1f
