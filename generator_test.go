@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"path"
 	"reflect"
 	"strings"
 	"testing"
@@ -13,7 +14,6 @@ import (
 
 	"github.com/kr/pretty"
 	"github.com/lazada/swgen/sample"
-	"path"
 )
 
 type TestSampleStruct struct {
