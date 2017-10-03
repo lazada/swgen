@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.4](https://github.com/lazada/swgen/tree/v0.3.4) (2017-10-03)
+[Full Changelog](https://github.com/lazada/swgen/compare/v0.3.3...v0.3.4)
+
+**Fixed bugs:**
+
+- Make generator threadsafe again [\#25](https://github.com/lazada/swgen/pull/25) ([THE108](https://github.com/THE108))
+
 ## [v0.3.3](https://github.com/lazada/swgen/tree/v0.3.3) (2017-09-12)
 [Full Changelog](https://github.com/lazada/swgen/compare/v0.3.2...v0.3.3)
 
