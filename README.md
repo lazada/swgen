@@ -79,6 +79,69 @@ func main() {
 }
 ```
 
+### Generate swagger docs for RPC service
+
+You even can use `swgen` to generate swagger document for a JSON-RPC service as below example
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/lazada/swgen"
+)
+
+const (
+	// XServiceType is a swagger vendor extension
+	XServiceType = `x-service-type`
+	// XAttachVersionToHead is a swagger vendor extension
+	XAttachVersionToHead = `x-attach-version-to-head`
+)
+
+// Pet contains information of a pet
+type Pet struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+	Tag  string `json:"tag"`
+}
+
+func main()  {
+	gen := swgen.NewGenerator()
+	gen.SetHost("petstore.swagger.io")
+	gen.SetBasePath("/rpc") // set JSON-RPC path
+	gen.SetInfo("Swagger Petstore (Simple)", "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification", "http://helloreverb.com/terms/", "2.0")
+	gen.SetLicense("MIT", "http://opensource.org/licenses/MIT")
+	gen.SetContact("Swagger API team", "http://swagger.io", "foo@example.com")
+
+	// set service type is JSON-RPC
+	gen.AddExtendedField(XServiceType, swgen.ServiceTypeJSONRPC)
+	gen.AddExtendedField(XAttachVersionToHead, false)
+
+	pathInf := swgen.PathItemInfo{
+		Path:        "addPet", // in JSON-RPC, use name of method for Path
+		Method:      "POST",   // JSON-RPC always use POST method
+		Title:       "Add new Pet",
+		Description: "Add a new pet to the store",
+		Tag:         "v1",
+		Deprecated:  false,
+	}
+
+	gen.SetPathItem(
+		pathInf,
+		nil,   // no param, all in body
+		Pet{}, // body data if any
+		Pet{}, // response object
+	)
+
+	docData, _ := gen.GenDocument()
+	fmt.Println(string(docData))
+
+	// output:
+	// {"swagger":"2.0","info":{"title":"Swagger Petstore (Simple)","description":"A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification","termsOfService":"http://helloreverb.com/terms/","contact":{"name":"Swagger API team","url":"http://swagger.io","email":"foo@example.com"},"license":{"name":"MIT","url":"http://opensource.org/licenses/MIT"},"version":"2.0"},"host":"petstore.swagger.io","basePath":"/rpc","schemes":["http","https"],"paths":{"addPet":{"post":{"tags":["v1"],"summary":"Add new Pet","description":"Add a new pet to the store","parameters":[{"name":"body","in":"body","schema":{"$ref":"#/definitions/Pet"},"required":true}],"responses":{"200":{"description":"request success","schema":{"$ref":"#/definitions/Pet"}}}}}},"definitions":{"Pet":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"tag":{"type":"string"}}}},"x-attach-version-to-head":false,"x-service-type":"json-rpc"}
+}
+```
+
 ## License
 
 Distributed under the Apache License, version 2.0.
