@@ -588,11 +588,11 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 		operationObj.Tags = []string{info.Tag}
 	}
 
-	operationObj.Security = make(map[string][]string)
+	operationObj.Security = make([]map[string][]string, 0)
 	if len(info.Security) > 0 {
 		for _, sec := range info.Security {
 			if _, ok := g.doc.SecurityDefinitions[sec]; ok {
-				operationObj.Security[sec] = []string{}
+				operationObj.Security = append(operationObj.Security, map[string][]string{sec: {}})
 			} else {
 				return errors.New("Undefined security definition: " + sec)
 			}
@@ -602,7 +602,7 @@ func (g *Generator) SetPathItem(info PathItemInfo, params interface{}, body inte
 	if len(info.SecurityOAuth2) > 0 {
 		for sec, scopes := range info.SecurityOAuth2 {
 			if _, ok := g.doc.SecurityDefinitions[sec]; ok {
-				operationObj.Security[sec] = scopes
+				operationObj.Security = append(operationObj.Security, map[string][]string{sec: scopes})
 			} else {
 				return errors.New("Undefined security definition: " + sec)
 			}
