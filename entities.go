@@ -21,8 +21,8 @@ type Document struct {
 	Version             string                 `json:"swagger"`                       // Specifies the Swagger Specification version being used
 	Info                InfoObj                `json:"info"`                          // Provides metadata about the API
 	Host                string                 `json:"host,omitempty"`                // The host (name or ip) serving the API
-	BasePath            string                 `json:"basePath"`                      // The base path on which the API is served, which is relative to the host
-	Schemes             []string               `json:"schemes"`                       // Values MUST be from the list: "http", "https", "ws", "wss"
+	BasePath            string                 `json:"basePath,omitempty"`            // The base path on which the API is served, which is relative to the host
+	Schemes             []string               `json:"schemes,omitempty"`             // Values MUST be from the list: "http", "https", "ws", "wss"
 	Paths               map[string]PathItem    `json:"paths"`                         // The available paths and operations for the API
 	Definitions         map[string]SchemaObj   `json:"definitions"`                   // An object to hold data types produced and consumed by operations
 	SecurityDefinitions map[string]SecurityDef `json:"securityDefinitions,omitempty"` // An object to hold available security mechanisms
@@ -50,7 +50,7 @@ type InfoObj struct {
 type ContactObj struct {
 	Name  string `json:"name"`
 	URL   string `json:"url,omitempty"`
-	Email string `json:"email"`
+	Email string `json:"email,omitempty"`
 }
 
 // LicenseObj license information for the exposed API
@@ -172,13 +172,13 @@ type enumer interface {
 // OperationObj describes a single API operation on a path
 // see http://swagger.io/specification/#operationObject
 type OperationObj struct {
-	Tags        []string            `json:"tags,omitempty"`
-	Summary     string              `json:"summary"`     // like a title, a short summary of what the operation does (120 chars)
-	Description string              `json:"description"` // A verbose explanation of the operation behavior
-	Parameters  []ParamObj          `json:"parameters,omitempty"`
-	Responses   Responses           `json:"responses"`
-	Security    map[string][]string `json:"security,omitempty"`
-	Deprecated  bool                `json:"deprecated,omitempty"`
+	Tags        []string              `json:"tags,omitempty"`
+	Summary     string                `json:"summary"`     // like a title, a short summary of what the operation does (120 chars)
+	Description string                `json:"description"` // A verbose explanation of the operation behavior
+	Parameters  []ParamObj            `json:"parameters,omitempty"`
+	Responses   Responses             `json:"responses"`
+	Security    []map[string][]string `json:"security,omitempty"`
+	Deprecated  bool                  `json:"deprecated,omitempty"`
 	additionalData
 }
 
